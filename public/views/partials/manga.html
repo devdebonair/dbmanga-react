@@ -1,0 +1,288 @@
+<div id="app">
+<!--=========================== Chapter Menu ================================-->
+    <nav id="chapterList">
+        <ul id="chapterPanel">
+            
+        </ul>
+    </nav>
+
+<!--============================== Start ====================================-->
+    <div id="main-container" class="bg-dark" style="margin-left: 0%;">
+        
+        <a href="#chapterList" style="position: fixed; z-index: 999; padding-left: 10px; padding-top: 10px"><i class="fa fa-bars fa-3x"></i></a>
+
+        <div class="padding-md">
+<!--============================ Navigation =================================-->
+            <%- include navigation.html %>
+<!--============================== Reader ===================================-->
+            <div id="reader" class="row">
+                <div class="row">
+                    <div class="col-sm-8 col-centered">
+                        <div id="reader-slider" class="slider single-items">
+                            
+                        </div>
+                        <div class="reader-controls text-center hidden-xs">
+                            <span id="reader-fast-backward" class="fake-link"><i class="fa fa-fast-backward fa-2x"></i></span>
+                            <span id="reader-backward" class="fake-link"><i class="fa fa-backward fa-2x"></i></span>
+                            <span id="reader-play-pause" class="fake-link"><i class="fa fa-play fa-2x"></i></span>
+                            <span id="reader-forward" class="fake-link"><i class="fa fa-forward fa-2x"></i></span>
+                            <span id="reader-fast-forward" class="fake-link"><i class="fa fa-fast-forward fa-2x"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!--======================= General Information =============================-->
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default panel-dark fadeInDownLarge">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <img v-attr="src: manga.coverUrl" height="350" width="265"></img>
+                                </div>
+                                
+                                <div class="col-xs-12 col-sm-6">
+                                    <h1>{{manga.title}}</h1>
+                                    <h5 style="font-style: italic">{{manga.author}}</h5>
+                                    <p>{{manga.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Description -->
+
+<!--========================= Series Review =================================-->
+                <div class="col-sm-12 col-md-6">
+                    <div class="panel panel-default panel-dark fadeInDownLarge">
+                        <div class="panel-body">
+                            <div class="embed-responsive embed-responsive-16by9">
+                              <iframe width="560" height="315" src="//www.youtube.com/embed/AqWt1cY_FX0" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Series Review -->
+            </div><!-- ./row -->
+
+<!--=========================== Comments ====================================-->  
+            <div class="row">
+                <div class="panel panel-default panel-dark fadeInDownLarge">
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            <h1 class="text-center" style="font-style: italic">Wow. Simply Amazing!!!</h1>
+                        </div>
+                    </div>
+                </div><!-- Comments -->
+            </div><!-- ./row -->
+            
+<!--=========================== Preview =====================================-->
+            <div class="row">
+                <div class="panel panel-default panel-dark fadeInDownLarge">
+                    <div class="panel-heading">
+                        <h4><div class="text-center">Preview</div></h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul style="list-style: none">
+                            <li v-repeat="preview">
+                                <div class="col-xs-6 col-sm-3">
+                                    <a class="thumbnail">
+                                        <img v-attr="src: image"></img>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+<!--============================ End ========================================-->
+        </div><!-- padding -->
+    </div><!-- Container -->
+</div><!-- app -->
+
+<!--========================= Javascript ====================================-->
+<script type="text/javascript" src="/lib/vue/dist/vue.min.js"></script>
+<script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
+<script type="text/javascript" src="/lib/hammer/hammer.min.js"></script>
+<script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
+<script type="text/javascript">
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            manga: {},
+            preview: [],
+            chapterList: null,
+            currentChapter: null
+        },
+        methods: {
+            
+        }
+    });
+    
+    var isPlaying = false;
+    
+    var readerOptions = {
+        dots: false,
+        infinite: false,
+        arrows: false,
+        speed: 700,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplaySpeed: 3000,
+        autoplay: false
+    };
+    
+    init();
+
+    
+    function init()
+    {
+        $('#reader').hide();
+        app.manga = <%-JSON.stringify(manga)%>;
+        var $menu = $("#chapterList").mmenu({
+            searchfield: true,
+            onClick: {
+              setSelcted: true  
+            },
+            dragOpen: true
+        });
+        
+        getChapter(1, function(err, data){
+            
+            app.preview = data.pages.slice(0,4);
+        });
+        
+        getChapter(null, function(err, data){
+            app.chapterList = data.sources[0].chapters;
+            for(var i = 0; i < app.chapterList.length; i++)
+            {
+                var list = '<li><a href="#" data-chapterNumber="'+ app.chapterList[i].number +'" onclick="getCurrentChapter(this)">'+ app.chapterList[i].title +'</a></li>';
+                $('#chapterPanel').append(list);
+            }
+            var _menu = $menu.data( "mmenu" );
+            _menu._init( $('#chapterPanel') );
+        });
+    }
+    
+    function getCurrentChapter(element)
+    {
+        var chapterNumber = element.getAttribute("data-chapterNumber");
+
+        if(app.currentChapter != null)
+        {
+            app.currentChapter = null;
+            removeReader($('#reader-slider'));
+        }
+        
+        
+        getChapter(chapterNumber, function(err, data){
+            app.currentChapter = data.pages;
+            initReader($('#reader-slider'));
+            $('#chapterList').trigger('close');
+            hidePanels();
+            setupReader();
+        });
+    }
+    
+    function removeReader(reader)
+    {
+        $('#reader').hide();
+        reader.empty();
+        reader.unslick();
+    }
+    
+    function initReader(reader)
+    {
+        $('#reader').show();
+        reader.slick(readerOptions);
+        $('#reader-fast-backward').click(function(){
+            if(isPlaying)
+            {
+                $('#reader-play-pause').click();
+            }
+            reader.slickPrev();
+        });
+        $('#reader-backward').click(function(){
+            var speed = reader.slickGetOption('autoplaySpeed') + 1000;
+            console.log('Setting speed to:\t' + speed);
+            reader.slickSetOption('autoplaySpeed', speed, true);
+            reader.slickPause();
+            reader.slickPlay();
+        });
+        $('#reader-play-pause').click(function(){
+            var playController = $(this).children(':first');
+            if(isPlaying)
+            {
+                playController.removeClass();
+                playController.addClass('fa fa-play fa-2x');
+                reader.slickPause();
+                isPlaying = false;
+                return;
+            }
+            playController.removeClass();
+            playController.addClass('fa fa-pause fa-2x');
+            reader.slickPlay();
+            isPlaying = true;
+        });
+        $('#reader-forward').click(function(){
+            var speed = reader.slickGetOption('autoplaySpeed') - 1000;
+            console.log('Setting speed to:\t' + speed);
+            reader.slickSetOption('autoplaySpeed', speed, true);
+            reader.slickPause();
+            reader.slickPlay();
+        });
+        $('#reader-fast-forward').click(function(){
+            if(isPlaying)
+            {
+                $('#reader-play-pause').click();
+            }
+            reader.slickNext();
+        });
+    }
+    
+    function hidePanels()
+    {
+        $('.panel').hide();
+    }
+    
+    function setupReader()
+    {
+        for(var i = 0; i < app.currentChapter.length; i++)
+        {
+            $('#reader-slider').slickAdd('<div><img src="'+ app.currentChapter[i].image +'"></img></div>');
+        }
+        var windowHeight = $(window).height();
+        var windowWidth = $(window).width();
+        
+        $('#reader-slider').css({ maxHeight: windowHeight, maxWidth: windowWidth });
+        $('#reader-slider img').height(windowHeight);
+        $('#reader-slider img').width(windowWidth);
+    }
+    
+    function getChapter(chapterNumber, callback)
+    {
+        var url = '/api/manga/' + app.manga._id + '/sources/KissManga/chapters';
+        if(chapterNumber !== null)
+        {
+            url += '/' + chapterNumber;
+        }
+       if(chapterNumber === null)
+       {
+           url += '?fields=title+number';
+       }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data)
+            {
+                callback(null, data);
+                return;
+            },
+            error: function(err)
+            {
+                callback(err, null);
+                return;
+            }
+        });
+    }
+</script>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Debonair Manga</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Debonair Manga the most advanced online manga reader for viewing Naruto, One Piece, Bleach and many other manga. Available for browser and mobile platforms">
+        <meta name="author" content="Debonair Manga">
+        
+        <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+        
+        <!-- Home View-->
+        <link href="/lib/endless/css/pace.css" rel="stylesheet">
+	    <link href="/lib/endless/css/jcarousel.responsive.css" rel="stylesheet">
+	    
+        <link rel="stylesheet" href="/lib/endless/css/endless.min.css" type="text/css" />
+        <link rel="stylesheet" href="/lib/endless/css/endless-skin.css" type="text/css" />
+        <link rel="stylesheet" href="/lib/fontawesome/css/font-awesome.min.css" type="text/css" />
+        
+        <!-- Manga View -->
+        <link rel="stylesheet" href="/lib/jQuery.mmenu/src/css/jquery.mmenu.all.css" type="text/css" />
+        <link rel="stylesheet" href="/lib/slick.js/slick/slick.css" type="text/css" />
+        <style>
+            .fake-link i{
+                opacity: 0.4;
+                -o-transition:.5s;
+                -ms-transition:.5s;
+                -moz-transition:.5s;
+                -webkit-transition:.5s;
+                transition:.5s;
+            }
+            
+            .fake-link i:hover{
+                opacity:1.0;
+                cursor: pointer;
+            }
+            
+            .col-centered{
+                float: none;
+                margin: 0 auto;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- Overlay -->
+        <div id="overlay" class="transparent"></div>
+        
+        <div id="wrapper" class="preload">
+<!--=========================== Main Container ==============================-->
+            <%-body%>
+            
+<!--============================== Footer ===============================-->
+    		<footer class="dark" style="margin-left: 0%;">
+    			<div class="row">
+    				<div class="col-sm-12 col-md-4 padding-md">
+    					<p class="block">About Our Company</p>
+    					<p><small>Debonair Manga is owned and copyrighted under DevDebonair. Our goal at Debonair Manga is to provide a professional platform to turn scanlations into something positive and support the manga community as a whole.</small></p>
+    				</div><!-- /.col -->
+    				
+    				<div class="col-xs-6 col-md-4 padding-md">
+    					<p class="block">Stay Connected</p>
+    					<a href="#" class="social-connect tooltip-test facebook-hover pull-left m-right-xs" data-toggle="tooltip" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+    					<a href="#" class="social-connect tooltip-test twitter-hover pull-left m-right-xs" data-toggle="tooltip" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+    					<a href="#" class="social-connect tooltip-test tumblr-hover pull-left m-right-xs" data-toggle="tooltip" data-original-title="Tumblr"><i class="fa fa-tumblr"></i></a>
+    					<a href="#" class="social-connect tooltip-test pinterest-hover pull-left" data-toggle="tooltip" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a>
+    				</div><!-- /.col -->
+    				
+    				<div class="col-xs-6 col-md-4 padding-md">
+    					<p class="block">Contact Us</p>
+    					<a class="btn btn-sm btn-info"><i class="fa fa-envelope"></i> Contact support</a>
+    				</div><!-- /.col -->
+    			</div><!-- /.row -->
+    		</footer>
+            
+        </div>
+        
+        <a href="" id="scroll-to-top" class="hidden-print bg-danger"><i class="fa fa-chevron-up"></i></a>
+<!--============================ Javascript =================================-->
+        <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src='/lib/modernizr/modernizr.js'></script>
+        <script src='/lib/endless/js/pace.min.js'></script>
+        <script src="/lib/endless/js/jquery.popupoverlay.min.js"></script>
+        <script src="/lib/endless/js/endless/endless.js"></script>
+
+        <%-script%>
+    </body>
+</html>

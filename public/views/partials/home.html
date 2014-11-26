@@ -1,0 +1,318 @@
+<div id="app">
+	<div id="main-container" class="bg-dark" style="margin-left: 0%;">
+		<div class="padding-md">
+
+<!--============================ Navigation =================================-->
+		<%- include navigation.html %>
+<!--============================= Content ===================================-->
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="panel panel-default panel-dark" id="featuredManga">
+						<div class="panel-heading">
+							Featured Manga
+						</div>
+						
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-12">
+									<a href="#"><img class="center-block" src="{{ featured.coverUrl }}" alt="Manga Image"></a>
+								</div><!-- /.col -->
+							</div><!-- /.row -->
+						</div>
+					</div><!-- /panel -->
+				</div><!-- /.col 3-->
+				
+				<div class="col-sm-9">
+					<div id="movieSlider" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						</ol>
+						
+						<div class="carousel-inner">
+							<div class="item active">
+								<img src="img/movie/preview1.jpg" alt="First slide">
+								<div class="row">
+									<div class="col-md-5 text-right">
+										<h4 class="m-top-lg m-right-md m-bottom-xs text-warning fadeInRightLarge animation-delay4">Debonair Manga</h4>
+										<h3 class="m-top-xs m-right-md text-white fadeInUpLarge animation-delay10">Manga reading done right.</h3>
+									</div><!-- /.col -->
+								</div><!-- /.row -->
+							</div>
+							
+							<div class="item">
+								<img src="img/movie/preview2.jpg" alt="Second slide">
+								<div class="text-center">
+										<h4 class="m-top-lg m-right-md m-bottom-xs text-white fadeInDownLarge animation-delay4">100% Manga</h4>
+										<h3 class="m-top-xs m-right-md text-white fadeInLeftLarge animation-delay6">All the time</h3>
+								</div>
+							</div>
+							
+							<div class="item">
+								<img src="img/movie/preview3.jpg" alt="Third slide">
+								<div class="m-top-lg text-center">
+									<h3>
+										<span class="block bounceIn text-white animation-delay4">Experience Debonair Manga</span>
+										<a href="#" class="btn btn-danger m-top-md bounceInDown animation-delay10">Become a Member</a>
+									</h3>
+								</div>
+							</div>
+						</div><!-- /carousel-inner -->
+						
+						<section id="corouselControls">
+							<a class="left carousel-control" href="#movieSlider" data-slide="prev">
+								<span class="fa fa-chevron-left"></span>
+							</a>
+							<a class="right carousel-control" href="#movieSlider" data-slide="next">
+								<span class="fa fa-chevron-right"></span>
+							</a>
+						</section><!-- Carousel Controls-->
+					</div><!-- /carousel -->
+				</div><!-- /.col 9-->
+			</div><!-- /.row -->
+			
+<!--========================== Other Content ================================-->
+			<div class="row">
+				<div class="col-md-3">
+					<div class="panel panel-default panel-dark">
+						<div class="panel-heading">
+							New Manga
+						</div><!-- panel header -->
+						
+						<div class="panel-body no-padding">
+							<ul class="movie-list">
+								<li class="clearfix">
+									<img src="img/movie/preview8.jpg" alt="Gallery 1">
+									<a href="#" class="h5 block primary-font m-bottom-xs">Naruto</a>
+									<small class="block ellipsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+								</li>
+								<li class="clearfix">
+									<img src="img/movie/preview9.jpg" alt="Gallery 2">
+									<a href="#" class="h5 block primary-font m-bottom-xs">Toriko</a>
+									<small class="block ellipsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+								</li>
+								<li class="clearfix">
+									<img src="img/movie/preview10.jpg" alt="Gallery 3">
+									<a href="#" class="h5 block primary-font m-bottom-xs">One Piece</a>
+									<small class="block ellipsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+								</li>
+								<li class="clearfix">
+									<img src="img/movie/preview11.jpg" alt="Gallery 4">
+									<a href="#" class="h5 block primary-font m-bottom-xs">Bleach</a>
+									<small class="block ellipsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+								</li>
+							</ul>
+						</div><!-- panel body -->
+					</div>
+					
+					<section id="advertisements">
+						<div class="m-bottom-md hidden-sm hidden-xs">
+							<h5 class="text-muted">Advertisement</h5>
+							<img data-src="holder.js/300x150" alt="Advertisement" src=".">
+						</div>
+						<div class="m-bottom-md hidden-sm hidden-xs">
+							<img data-src="holder.js/300x150" alt="Advertisement" src=".">
+						</div>
+						<div class="m-bottom-md hidden-sm hidden-xs">
+							<img data-src="holder.js/300x150" alt="Advertisement" src=".">
+						</div>
+					</section><!-- /dvertisements -->
+				</div><!-- /.col 3 -->
+
+<!--======================== Carousel =======================================-->
+				<div class="col-md-9">
+					<section id="popularMangaCarousel">
+						<h4 class="headline dark text-white">
+							Popular Manga
+							<span class="fake-link"><i id="popularNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
+							<span class="fake-link"><i id="popularPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
+							<span class="line"></span>
+						</h4>
+						
+						<div class="slider single-items" id="popularManga">
+				
+						</div>
+
+						<div class="text-right">
+							<a href="/manga" class="primary-font">See All</a>
+						</div>
+					</section>
+					
+					<section id="newMangaCarousel">
+						<h4 class="headline dark text-white">
+							New Manga
+							<span class="fake-link"><i id="newNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
+							<span class="fake-link"><i id="newPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
+							<span class="line"></span>
+						</h4>
+						
+						<div class="slider single-items" id="newManga">
+				
+						</div>
+
+						<div class="text-right">
+							<a href="/manga" class="primary-font">See All</a>
+						</div>
+					</section>
+					
+					<section id="newsCarousel">
+						<h4 class="headline dark text-white">
+							Manga News
+							<span class="line"></span>
+						</h4>
+						<ul class="movie-news">
+							<li class="clearfix">
+								<img src="img/movie/preview4.jpg" alt="news image">
+								<div class="news-wrapper">
+									<div class="news-header">Lorem ipsum dolor sit amet</div>
+									<div class="news-body">
+										<small class="block text-muted m-bottom-sm">By <a href="#"><strong> Vincent Moore</strong></a> |  Post on Jan 3, 2014  | 12 comments</small>
+										<p class="text-white">
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+											<a href="#" class="primary-font m-left-xs">Read more</a>
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="clearfix">
+								<img src="img/movie/preview5.jpg" alt="news image">
+								<div class="news-wrapper">
+									<div class="news-header">Lorem ipsum dolor sit amet</div>
+									<div class="news-body">
+										<small class="block text-muted m-bottom-sm">By <a href="#"><strong> Vincent</strong></a> |  Post on Jan 2, 2014  | 33 comments</small>
+										<p class="text-white">
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+											<a href="#" class="primary-font m-left-xs">Read more</a>
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="clearfix">
+								<img src="img/movie/preview6.jpg" alt="news image">
+								<div class="news-wrapper">
+									<div class="news-header">Lorem ipsum dolor sit amet</div>
+									<div class="news-body">
+										<small class="block text-muted m-bottom-sm">By <a href="#"><strong> Vincent</strong></a> |  Post on Jan 1, 2014  | 7 comments</small>
+										<p class="text-white">
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eros nibh, viverra a dui a, gravida varius velit. Nunc vel tempor nisi. Aenean id pellentesque mi, non placerat mi. Integer luctus accumsan tellus. Vivamus quis elit sit amet nibh lacinia suscipit eu quis purus. Vivamus tristique est non ipsum dapibus lacinia sed nec metus.
+											<a href="#" class="primary-font m-left-xs">Read more</a>
+										</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div><!-- /.col -->
+				</section>
+			</div><!-- ./row -->
+			
+<!--============================== End ======================================-->
+		</div><!-- /.padding-sm -->
+	</div><!-- /main-container -->
+</div><!-- /app -->
+<script type="text/javascript" src="/lib/vue/dist/vue.min.js"></script>
+<script src='/lib/endless/js/jquery.slimscroll.min.js'></script>
+<script src='/lib/endless/js/jquery.resize.min.js'></script>
+<script src='/lib/endless/js/uncompressed/holder.js'></script>
+<script src='/lib/endless/js/jquery.jcarousel.min.js'></script>
+
+<script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			popular: null,
+			news: null,
+			updated: null,
+			featured: null
+		},
+		methods: {
+			
+		}
+	});
+	
+	init();
+	
+	function init()
+	{
+		$.ajax({
+			type: 'GET',
+			url: '/api/manga/popular/15',
+			success: function(data)
+			{
+				app.popular = data;
+				app.updated = [];
+				for(var i = 0; i < 7; i++)
+				{
+					app.updated.push(data[i]);	
+				}
+				app.featured = data[6];
+				
+				setupCarousel($('#popularManga'), $('#popularNextArrow'), $('#popularPrevArrow'));
+				setupCarousel($('#newManga'), $('#newNextArrow'), $('#newPrevArrow'));
+
+				for(var i = 0; i < app.popular.length; i++)
+				{
+					$('#popularManga').slickAdd('<div>'+ 
+													'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
+														'<div class="quick-detail text-white panel-hover">' +
+															'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
+															'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) +'</p>' +
+														'</div></a></div>');
+				}
+				
+				for(var i = 0; i < app.updated.length; i++)
+				{
+					$('#newManga').slickAdd('<div>'+
+												'<a href="/manga/'+ app.updated[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.updated[i].coverUrl + '"></img>' + 
+													'<div class="quick-detail text-white">' +
+														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.updated[i].title +'</h5>' +
+														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.updated[i].description.substring(0,140) +'</p>' +
+													'</div></a></div>');
+				}
+			},
+			error: function(err)
+			{
+				console.log(err);
+			}
+		});
+	}
+	
+	function setupCarousel(slide, nextArrow, prevArrow)
+	{
+		slide.slick({
+			dots: false,
+			arrows: true,
+			infinite: true,
+			nextArrow: nextArrow,
+			prevArrow: prevArrow,
+			speed: 500,
+			slidesToShow: 5,
+			slidesToScroll: 1,
+			autoplay: true,
+			responsive: 
+			[{
+				breakpoint: 1170,
+				settings: {
+					slidesToShow: 4,
+					slidesToScroll: 4,
+				}
+			},
+			{
+				breakpoint: 970,
+				settings: {
+					slidesToShow: 4,
+					slidesToScroll: 4
+				}
+			},
+			{
+				breakpoint: 750,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}]
+		});
+	}
+</script>
