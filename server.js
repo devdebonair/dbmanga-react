@@ -49,33 +49,3 @@ console.log('Starting Server....');
 http.listen( config.env.port, function(){
     console.log('Listening to port:\t%s', config.env.port );
 });
-
-
-
-
-
-var Manga = require("./database/models/ModelManga");
-
-app.get('/', function(req, res){
-    res.render('partials/home', {layout: 'layout'});
-});
-
-app.get('/manga/:manga_name', function(req, res) {
-    var title = req.params.manga_name.replace(/-/g,' ');
-    Manga.findOne({ title: title }).select('-sources').exec(function(err, data){
-        if(err)
-        {
-            res.send(err);
-            return;
-        }
-        res.render('partials/manga', { layout: 'layout', manga: data });
-    });
-});
-
-app.get('/manga', function(req, res) {
-    res.render('partials/browse-manga', { layout: 'layout' });
-});
-
-app.get('/genre', function(req, res) {
-    res.render('partials/genres', { layout: 'layout' });
-});
