@@ -2,7 +2,6 @@ var express = require("express");
 var app = express();
 var http = require("http").Server(app);
 
-var morgan = require("morgan");
 var session = require("express-session");
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
@@ -20,10 +19,8 @@ app.set( 'views', __dirname + '/public/views/' );
 app.engine( 'html', require("ejs").__express );
 app.set( 'view engine', 'html' );
 
-app.use( expressLayouts ); //test
-app.set("layout extractScripts", true); //test
-
-app.use( morgan('dev') );
+app.use( expressLayouts );
+app.set("layout extractScripts", true);
 app.use( cookieParser() );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended: false } ) );
