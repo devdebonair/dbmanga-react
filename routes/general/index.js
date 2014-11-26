@@ -1,7 +1,7 @@
 var fs = require("fs");
 var router = require("express").Router();
-var manga = require("./database/models/ModelManga");
-var user = require("./database/models/ModelUser");
+var manga = require("../../database/models/ModelManga");
+var user = require("../../database/models/ModelUser");
 
 module.exports = function(app, passport)
 {
