@@ -252,6 +252,8 @@
     
     function init()
     {
+        $('#navManga').addClass('active');
+
         //Popular
         getRequest($('#popularManga'), '/api/manga/popular/25', function(data){
             app.popular = data;
