@@ -4,17 +4,6 @@ module.exports = function(router)
 {
     router.route('/manga')
         
-        .get(function(req, res){
-            Manga.find(function(err, manga){
-                if(err)
-                {
-                    res.send(err);
-                    return;
-                }
-                res.json(manga);
-            });
-        })
-        
         .post(function(req, res){
 
             var manga = new Manga();
@@ -50,8 +39,12 @@ module.exports = function(router)
     router.route('/manga/:manga_id')
         
         .get(function(req, res){
-            
-            Manga.findById( req.params.manga_id, function(err, manga){
+            var selectedFields = '';
+            if(req.query.select)
+            {
+                selectedFields = req.query.select;
+            }
+            Manga.findById( req.params.manga_id, selectedFields, function(err, manga){
                 if(err)
                 {
                     res.send(err);
