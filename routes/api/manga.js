@@ -5,7 +5,6 @@ module.exports = function(router)
     router.route('/manga')
         
         .get(function(req, res){
-            
             Manga.find(function(err, manga){
                 if(err)
                 {
@@ -32,6 +31,19 @@ module.exports = function(router)
                     return;
                 }
                 res.json(manga);
+            });
+        });
+    
+    router.route('/manga/directory')
+    
+        .get(function(req, res) {
+            Manga.find(null, 'title id', function(err, data){
+                if(err)
+                {
+                    req.send(err);
+                    return;
+                }
+                res.json(data);
             });
         });
         
@@ -128,32 +140,6 @@ module.exports = function(router)
                 }
                 res.json(manga);
             });
-            
-            // Manga.findById(req.params.manga_id).select(req.query.fields).exec(function(err, manga){
-            //     if(err)
-            //     {
-            //         res.send(err);
-            //         return;
-            //     }
-                
-            //     var chapters = null;
-                
-            //     for( var i = 0; i < manga.sources.length; i++ )
-            //     {
-            //         if(manga.sources[i].scanOrigin === req.params.source_name)
-            //         {
-            //             chapters = manga.sources[i].chapters;
-            //             break;
-            //         }
-            //     }
-                
-            //     if(chapters === null)
-            //     {
-            //         res.send({ error: 'Chapter not available.' });
-            //         return;
-            //     }
-            //     res.json(chapters);
-            // });
         })
         
         .post(function(req, res){
