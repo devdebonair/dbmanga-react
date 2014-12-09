@@ -224,7 +224,7 @@
 		data: {
 			popular: null,
 			news: null,
-			updated: null,
+			newManga: null,
 			featured: null
 		},
 		methods: {
@@ -236,52 +236,45 @@
 	
 	function init()
 	{
-		$.ajax({
-			type: 'GET',
-			url: '/api/manga/popular/15',
-			success: function(data)
+		getRequest($('#popularManga'), '/api/manga/popular/25', function(err, data){
+            if(err)
+            {
+                return;
+            }
+            app.popular = data;
+            initCarousel($('#popularManga'), $('#popularNextArrow'), $('#popularPrevArrow'));
+            for(var i = 0; i < app.popular.length; i++)
 			{
-				app.popular = data;
-				app.updated = [];
-				for(var i = 0; i < 7; i++)
-				{
-					app.updated.push(data[i]);	
-				}
-				app.featured = data[6];
-				
-				setupCarousel($('#popularManga'), $('#popularNextArrow'), $('#popularPrevArrow'));
-				setupCarousel($('#newManga'), $('#newNextArrow'), $('#newPrevArrow'));
-
-				for(var i = 0; i < app.popular.length; i++)
-				{
-					$('#popularManga').slickAdd('<div>'+ 
-													'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
-														'<div class="quick-detail text-white panel-hover">' +
-															'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
-															'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) +'...</p>' +
-														'</div></a></div>');
-				}
-				
-				for(var i = 0; i < app.updated.length; i++)
-				{
-					$('#newManga').slickAdd('<div>'+
-												'<a href="/manga/'+ app.updated[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.updated[i].coverUrl + '"></img>' + 
-													'<div class="quick-detail text-white">' +
-														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.updated[i].title +'</h5>' +
-														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.updated[i].description.substring(0,140) +'...</p>' +
+				$('#popularManga').slickAdd('<div>'+ 
+												'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
+													'<div class="quick-detail text-white panel-hover">' +
+														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
+														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
-				}
-			},
-			error: function(err)
-			{
-				console.log(err);
 			}
-		});
+        });
+        getRequest($('#newManga'), '/api/manga/updated/25', function(err, data){
+            if(err)
+            {
+                return;
+            }
+            app.newManga = data;
+            initCarousel($('#newManga'), $('#newNextArrow'), $('#newPrevArrow'));
+			for(var i = 0; i < app.newManga.length; i++)
+			{
+				$('#newManga').slickAdd('<div>'+ 
+												'<a href="/manga/'+ app.newManga[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.newManga[i].coverUrl + '"></img>' + 
+													'<div class="quick-detail text-white panel-hover">' +
+														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.newManga[i].title +'</h5>' +
+														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.newManga[i].description.substring(0,140) + '...' + '</p>' +
+													'</div></a></div>');
+			}
+        });
 	}
 	
-	function setupCarousel(slide, nextArrow, prevArrow)
-	{
-		slide.slick({
+	function initCarousel(slide, nextArrow, prevArrow)
+    {
+        slide.slick({
 			dots: false,
 			arrows: true,
 			infinite: true,
@@ -295,8 +288,8 @@
 			[{
 				breakpoint: 1170,
 				settings: {
-					slidesToShow: 4,
-					slidesToScroll: 4,
+					slidesToShow: 5,
+					slidesToScroll: 5,
 				}
 			},
 			{
@@ -314,5 +307,21 @@
 				}
 			}]
 		});
-	}
+    }
+    
+	function getRequest(slide, url, callback)
+    {
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data)
+            {
+                callback(null, data);
+            },
+            error: function(error)
+            {
+                console.log(error, null);
+            }
+        });
+    }
 </script>

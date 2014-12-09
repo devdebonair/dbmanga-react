@@ -254,34 +254,17 @@
     {
         $('#navManga').addClass('active');
 
-        //Popular
-        getRequest($('#popularManga'), '/api/manga/popular/25', function(data){
+        getRequest($('#popularManga'), '/api/manga/popular/25', function(err, data){
+            if(err)
+            {
+                return;
+            }
             app.popular = data;
             initCarousel($('#popularManga'), $('#popularNextArrow'), $('#popularPrevArrow'));
-            initCarousel($('#newManga'), $('#newNextArrow'), $('#newPrevArrow'));
-            initCarousel($('#trendingManga'), $('#trendingNextArrow'), $('#trendingPrevArrow'));
             initCarousel($('#recommendedManga'), $('#recommendedNextArrow'), $('#recommendedPrevArrow'));
-            for(var i = 0; i < app.popular.length-10; i++)
+            for(var i = 0; i < app.popular.length; i++)
 			{
 				$('#popularManga').slickAdd('<div>'+ 
-												'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
-													'<div class="quick-detail text-white panel-hover">' +
-														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
-														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) + '...' + '</p>' +
-													'</div></a></div>');
-			}
-			for(var i = 5; i < app.popular.length-12; i++)
-			{
-				$('#newManga').slickAdd('<div>'+ 
-												'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
-													'<div class="quick-detail text-white panel-hover">' +
-														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
-														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) + '...' + '</p>' +
-													'</div></a></div>');
-			}
-			for(var i = 15; i < app.popular.length; i++)
-			{
-				$('#trendingManga').slickAdd('<div>'+ 
 												'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
 													'<div class="quick-detail text-white panel-hover">' +
 														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
@@ -295,6 +278,40 @@
 													'<div class="quick-detail text-white panel-hover">' +
 														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
 														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) + '...' + '</p>' +
+													'</div></a></div>');
+			}
+        });
+        getRequest($('#trendingManga'), '/api/manga/trending/25', function(err, data){
+            if(err)
+            {
+                return;
+            }
+            app.trending = data;
+            initCarousel($('#trendingManga'), $('#trendingNextArrow'), $('#trendingPrevArrow'));
+			for(var i = 0; i < app.trending.length; i++)
+			{
+				$('#trendingManga').slickAdd('<div>'+ 
+												'<a href="/manga/'+ app.trending[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.trending[i].coverUrl + '"></img>' + 
+													'<div class="quick-detail text-white panel-hover">' +
+														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.trending[i].title +'</h5>' +
+														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.trending[i].description.substring(0,140) + '...' + '</p>' +
+													'</div></a></div>');
+			}
+        });
+        getRequest($('#newManga'), '/api/manga/updated/25', function(err, data){
+            if(err)
+            {
+                return;
+            }
+            app.newManga = data;
+            initCarousel($('#newManga'), $('#newNextArrow'), $('#newPrevArrow'));
+			for(var i = 0; i < app.newManga.length; i++)
+			{
+				$('#newManga').slickAdd('<div>'+ 
+												'<a href="/manga/'+ app.newManga[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.newManga[i].coverUrl + '"></img>' + 
+													'<div class="quick-detail text-white panel-hover">' +
+														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.newManga[i].title +'</h5>' +
+														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.newManga[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
         });
@@ -344,11 +361,11 @@
             url: url,
             success: function(data)
             {
-                callback(data);
+                callback(null, data);
             },
             error: function(error)
             {
-                console.log(error);
+                console.log(error, null);
             }
         });
     }

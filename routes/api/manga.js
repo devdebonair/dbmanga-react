@@ -272,7 +272,35 @@ module.exports = function(router)
     
         .get(function(req, res) {
             
-            Manga.find().limit(req.params.limit).select('-sources').exec(function(err, data){
+            Manga.findPopular(req.params.limit, function(err, data){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(data);
+            });
+        });
+        
+    router.route('/manga/trending/:limit')
+    
+        .get(function(req, res) {
+            
+            Manga.findTrending(req.params.limit, function(err, data){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(data);
+            });
+        });
+        
+    router.route('/manga/updated/:limit')
+    
+        .get(function(req, res) {
+            
+            Manga.findUpdated(req.params.limit, function(err, data){
                 if(err)
                 {
                     res.send(err);
