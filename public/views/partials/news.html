@@ -1,0 +1,75 @@
+<div id="main-container" style="margin-left:0%">
+    <img id="cover" src="<%= articleObject.coverUrl %>" class="full"></img>
+    <%= include navigation.html%>
+    <div id="article-page">
+        <div class="padding-md">
+            <div class="row">
+                <div class="col-sm-12 col-lg-9">
+                    <div id="article">
+                        <h2><%= articleObject.title.toUpperCase() %></h2>
+                        <h5>Author: <%= articleObject.author.toUpperCase() %> - <%= articleObject.published.toDateString() %></h5>
+                        <hr>
+                        <div style="border-right: solid 1px #EEEEEE; padding: 5px;">
+                            <div style="padding: 5px 25px 5px 5px">
+                                <%- article %>
+                                </br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="m-bottom-md hidden-sm hidden-xs">
+                        					<img data-src="/lib/endless/js/uncompressed/holder.js/300x150" alt="Advertisement" src=".">
+                        				</div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="m-bottom-md hidden-sm hidden-xs">
+                        					<img data-src="holder.js/300x150" alt="Advertisement" src=".">
+                        				</div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="m-bottom-md hidden-sm hidden-xs">
+                        					<img data-src="holder.js/300x150" alt="Advertisement" src=".">
+                        				</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-3">
+                    <h5 class="text-center">Related Articles</h5>
+                    <div class="panel">
+                        <div class="padding-sm">
+                            <img src="<%= articleObject.coverUrl %>"></img>
+                            <h5 style="line-height: 20px"><%= articleObject.title.toUpperCase() %></h5>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="padding-sm">
+                            <img src="<%= articleObject.coverUrl %>"></img>
+                            <h5 style="line-height: 20px"><%= articleObject.title.toUpperCase() %></h5>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="padding-sm">
+                            <img src="<%= articleObject.coverUrl %>"></img>
+                            <h5 style="line-height: 20px"><%= articleObject.title.toUpperCase() %></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/lib/endless/js/uncompressed/holder.js"></script>
+<script type="text/javascript">
+    $('#article').hide();
+    setTimeout(function(){
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        $('#cover').addClass('animated fadeOut');
+        $('#cover').one(animationEnd, function(){
+            $('#cover').remove();
+            $('#article-page').addClass('animated fadeIn');
+            $('#article').show();
+        });
+    }, 500);
+</script>
