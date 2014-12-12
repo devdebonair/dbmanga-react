@@ -23,7 +23,6 @@ app.use(function(req, res, next) {
     {
         next();
     }
-    
 }); 
 app.use( express.static(__dirname + '/public') );
 app.use( '/lib', express.static(__dirname + '/public/static') );
