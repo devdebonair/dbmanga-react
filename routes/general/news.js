@@ -6,7 +6,7 @@ module.exports = function(router)
     router.route('/news')
         
         .get(function(req, res){
-            res.redirect(301, '/');
+            res.render('partials/browse-news');
         });
         
     router.route('/news/:news_id')
