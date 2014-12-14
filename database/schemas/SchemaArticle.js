@@ -30,8 +30,27 @@ var Article = new Schema({
     }],
     sources: [{
         host: String,
-        link: String
+        url: String
     }]
 });
+
+Article.statics.findRelated = function(limit, keywords, callback)
+{
+    var dataLimit = limit || 25;
+    
+    if(dataLimit < 1 || dataLimit > 25)
+    {
+        dataLimit = 25;
+    }
+    
+    this.find({ keywords: { $in: keywords.split(' ')} }, null, { limit: dataLimit }, function(err, data){
+        if(err)
+        {
+            callback(err);
+            return;
+        }
+        callback(data);
+    });
+}
 
 module.exports = Article;
