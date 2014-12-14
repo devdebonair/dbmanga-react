@@ -20,6 +20,20 @@ module.exports = function(router)
                 res.json(data);
             });
         });
+        
+    router.route('/news/:limit')
+    
+        .get(function(req, res) {
+            
+            Article.find(null,null,{sort: { published: -1 }, limit: req.query.limit }, function(err, data){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(data);
+            });
+        });
     
     router.route('/news/:news_id')
         
@@ -31,6 +45,19 @@ module.exports = function(router)
                     return;
                 }
                 res.json(article);
+            });
+        });
+    
+    router.route('/news/related/:limit')
+    
+        .get(function(req, res){
+            Article.findRelated(req.params.limit, req.query.keywords, function(err, data){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(data);
             });
         });
 };
