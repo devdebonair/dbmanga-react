@@ -24,39 +24,22 @@
 				
 				<div class="col-sm-9">
 					<div id="movieSlider" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-						</ol>
 						
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="img/movie/preview1.jpg" alt="First slide">
+								<img src="images/dragon-ball.jpg" alt="First slide">
 								<div class="row">
-									<div class="col-md-5 text-right">
-										<h4 class="m-top-lg m-right-md m-bottom-xs text-warning fadeInRightLarge animation-delay4">Debonair Manga</h4>
-										<h3 class="m-top-xs m-right-md text-white fadeInUpLarge animation-delay10">Manga reading done right.</h3>
-									</div><!-- /.col -->
+
 								</div><!-- /.row -->
 							</div>
 							
 							<div class="item">
-								<img src="img/movie/preview2.jpg" alt="Second slide">
-								<div class="text-center">
-										<h4 class="m-top-lg m-right-md m-bottom-xs text-white fadeInDownLarge animation-delay4">100% Manga</h4>
-										<h3 class="m-top-xs m-right-md text-white fadeInLeftLarge animation-delay6">All the time</h3>
-								</div>
+								<img src="images/nagi-no-asukara.png" alt="Second slide">
+
 							</div>
 							
 							<div class="item">
-								<img src="img/movie/preview3.jpg" alt="Third slide">
-								<div class="m-top-lg text-center">
-									<h3>
-										<span class="block bounceIn text-white animation-delay4">Experience Debonair Manga</span>
-										<a href="#" class="btn btn-danger m-top-md bounceInDown animation-delay10">Become a Member</a>
-									</h3>
-								</div>
+								<img src="images/attack-on-titan.jpg" alt="Third slide">
 							</div>
 						</div><!-- /carousel-inner -->
 						
@@ -218,6 +201,8 @@
 
 <script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
 
+<script type="text/javascript" src="/lib/endless/js/uncompressed/holder.js"></script>
+
 <script type="text/javascript">
 	var app = new Vue({
 		el: '#app',
@@ -236,7 +221,18 @@
 	
 	function init()
 	{
-		getRequest($('#popularManga'), '/api/manga/popular/25', function(err, data){
+		// getRequest('/api/news/6', function(err, data) {
+		//     if(err)
+		//     {
+		//     	return;
+		//     }
+		//     for(var i = 0; i < data.length; i++)
+		//     {
+		//     		$('#movieSlider').append('<div class="item"><img src="'+ data[i].coverUrl +'"></img></div>');
+		//     }
+		// });
+		
+		getRequest('/api/manga/popular/25', function(err, data){
             if(err)
             {
                 return;
@@ -253,7 +249,7 @@
 													'</div></a></div>');
 			}
         });
-        getRequest($('#newManga'), '/api/manga/updated/25', function(err, data){
+        getRequest('/api/manga/updated/25', function(err, data){
             if(err)
             {
                 return;
@@ -309,7 +305,7 @@
 		});
     }
     
-	function getRequest(slide, url, callback)
+	function getRequest(url, callback)
     {
         $.ajax({
             type: 'GET',
