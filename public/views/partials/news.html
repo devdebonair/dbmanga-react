@@ -1,61 +1,61 @@
 <div id="main-container" style="margin-left:0%">
-    <img id="cover" src="<%= articleObject.coverUrl %>" class="full"></img>
+    <img id="cover" src="<%= articleObject.coverUrl %>" height="1920" width="1080" class="full"></img>
     <%= include navigation.html%>
     <div id="article-page">
-        <div class="padding-md">
+        <div class="padding-lg">
             <div class="row">
-                <div class="col-sm-12 col-lg-9">
+                <div class="col-sm-12 col-md-9 col-lg-9">
                     <div id="article">
                         <h2><%= articleObject.title.toUpperCase() %></h2>
                         <h5>Author: <%= articleObject.author.toUpperCase() %> - <%= articleObject.published.toDateString() %></h5>
+                        <div id="share-group" class="pull-right" style="padding-left: 15px">
+                            <i class="fake-link"><small id="share-text">SHARE +</small></i>
+                        </div>
                         <hr>
                         <div style="border-right: solid 1px #EEEEEE; padding: 5px;">
                             <div style="padding: 5px 25px 5px 5px">
+                                <div id="social-buttons" class="pull-right" style="display: none;">
+                                    <span class="fake-link"><i class="fa fa-facebook fa-2x"></i></span>
+                                    <span class="fake-link"><i class="fa fa-twitter fa-2x"></i></span>
+                                    <span class="fake-link"><i class="fa fa-pinterest fa-2x"></i></span>
+                                    <span class="fake-link"><i class="fa fa-tumblr fa-2x"></i></span>
+                                </div>
+                                <img src="<%= articleObject.coverUrl %>" class="half thumbnail center-block"></img>
                                 <%- article %>
                                 </br>
                                 <div class="row">
+                                    <hr>
+                                    <h5 class="text-center">Classifieds</h5>
+                                    <hr>
                                     <div class="col-lg-4">
                                         <div class="m-bottom-md hidden-sm hidden-xs">
-                        					<img data-src="/lib/endless/js/uncompressed/holder.js/300x150" alt="Advertisement" src=".">
+                        					<img data-src="holder.js/250x150" alt="Advertisement" src=".">
                         				</div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="m-bottom-md hidden-sm hidden-xs">
-                        					<img data-src="holder.js/300x150" alt="Advertisement" src=".">
+                        					<img data-src="holder.js/250x150" alt="Advertisement" src=".">
                         				</div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="m-bottom-md hidden-sm hidden-xs">
-                        					<img data-src="holder.js/300x150" alt="Advertisement" src=".">
+                        					<img data-src="holder.js/250x150" alt="Advertisement" src=".">
                         				</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-lg-3">
-                    <h5 class="text-center">Related Articles</h5>
-                    <div class="panel">
-                        <div class="padding-sm">
-                            <img src="<%= articleObject.coverUrl %>"></img>
-                            <h5 style="line-height: 20px"><%= articleObject.title.toUpperCase() %></h5>
-                        </div>
+                </div><!-- article -->
+                
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div id="related">
+                        <h5 class="text-center">Related Articles</h5>
+                        
                     </div>
-                    <div class="panel">
-                        <div class="padding-sm">
-                            <img src="<%= articleObject.coverUrl %>"></img>
-                            <h5 style="line-height: 20px"><%= articleObject.title.toUpperCase() %></h5>
-                        </div>
-                    </div>
-                    <div class="panel">
-                        <div class="padding-sm">
-                            <img src="<%= articleObject.coverUrl %>"></img>
-                            <h5 style="line-height: 20px"><%= articleObject.title.toUpperCase() %></h5>
-                        </div>
-                    </div>
-                </div>
+                </div><!-- sidebar -->
             </div>
+            
         </div>
     </div>
 </div>
@@ -63,13 +63,43 @@
 <script type="text/javascript" src="/lib/endless/js/uncompressed/holder.js"></script>
 <script type="text/javascript">
     $('#article').hide();
+    $('#related').hide();
     setTimeout(function(){
         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
         $('#cover').addClass('animated fadeOut');
         $('#cover').one(animationEnd, function(){
             $('#cover').remove();
             $('#article-page').addClass('animated fadeIn');
+            $('#related').addClass('animated fadeIn');
             $('#article').show();
+            $('#related').show();
+            $('#share-group').hide();
+            setTimeout(function(){
+                $('#share-group').addClass('animated fadeIn');
+                $('#share-group').show();
+            }, 800);
         });
-    }, 500);
+    }, 300);
+    
+    $.ajax({
+        type: 'GET',
+        url: '/api/news/related/5?keywords=<%= articleObject.keywords.toString().replace(/,/g, "+") %>',
+        success: function(data)
+        {
+            for(var i = 0; i < data.length; i++)
+            {
+                $('#related').append('<a href="/news/'+ data[i]._id +'"><div class="panel"><div class="padding-sm"><img src="'+ data[i].coverUrl +'"></img><h5 style="line-height: 20px" class="text-center">'+ data[i].title.toUpperCase() +'</h5></div></div></a>');
+            }
+        },
+        error: function(err)
+        {
+            console.log(err);
+        }
+    });
+    
+    $('#share-text').click(function(){
+        $(this).text('X');
+        $('#social-buttons').addClass('animated fadeIn');
+        $('#social-buttons').css('display', 'inline');
+    });
 </script>
