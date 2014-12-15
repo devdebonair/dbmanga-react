@@ -15,7 +15,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-sm-12">
-									<a href="#"><img class="center-block" src="{{ featured.coverUrl }}" alt="Manga Image"></a>
+									<a href="/manga/{{ featured.title }}"><img class="center-block" src="{{ featured.coverUrl }}" alt="Manga Image"></a>
 								</div><!-- /.col -->
 							</div><!-- /.row -->
 						</div>
@@ -243,6 +243,7 @@
 			}
         });
         getRequest('/api/manga/updated/25', function(err, data){
+        	app.featured = data[12];
             if(err)
             {
                 return;
