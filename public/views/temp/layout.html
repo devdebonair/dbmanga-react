@@ -1,29 +1,48 @@
-<header class="navbar navbar-fixed-top bg-white">
-			<div class="container">
-				<div class="navbar-header">
-					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a href="#" class="navbar-brand"><span class="text-danger">Debonair</span> Manga</a>
-				</div>
-				<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<a href="#landing-content" class="top-link">Home</a>
-						</li>
-						<li>
-							<a href="#feature" class="top-link">Features</a>
-						</li>
-						<li>
-							<a href="#portfolio" class="top-link">Screenshots</a>
-						</li>
-						<li>
-							<a href="#contact" class="top-link">Contact us</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</header>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    	
+    	<!-- Font Awesome -->
+    	<link href="/lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+
+    	
+    	<!-- Endless -->
+    	<link href="/lib/endless/css/endless.min.css" rel="stylesheet">
+    	
+    	<link rel="stylesheet" href="/lib/slick.js/slick/slick.css" type="text/css" />
+    	
+    	<link rel="stylesheet" href="/lib/animate.css/animate.min.css" type="text/css" />
+
+    	<style type="text/css">
+    	    .navbar.transparent {
+                opacity: 0.9;
+            }
+            
+            .hide-no-space {
+                display: none;
+            }
+            .full {
+                max-width: 100%;
+                max-height: 100%;
+                width: 100%;
+                height: 100%;
+            }
+    	</style>
+    </head>
+    <body>
+        
+        <% include partials/navigation.html %>
+        
+        <%- body %>
+    
+        <% inclide partials/footer.html%>
+    
+        <script src="/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src='/lib/endless/js/jquery.popupoverlay.min.js'></script>
+        <script src="/lib/endless/js/uncompressed/holder.js"></script>
+        
+        <%- script %>
+    </body>
+</html>
