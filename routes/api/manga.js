@@ -109,9 +109,9 @@ module.exports = function(router)
         
         .get(function(req, res){
             var selectedFields = "";
-            if(req.query.fields)
+            if(req.query.select)
             {
-                var requestedFields = req.query.fields.split(' ');
+                var requestedFields = req.query.select.split(' ');
                 for(var i = 0; i < requestedFields.length; i++)
                 {
                     var rawField = requestedFields[i];
@@ -124,14 +124,14 @@ module.exports = function(router)
                     selectedFields += finalField + ' ';
                 }
             }
-            
             Manga.findById(req.params.manga_id, selectedFields, function(err, manga){
                 if(err)
                 {
                     res.send(err);
                     return;
                 }
-                res.json(manga);
+                
+                res.json(manga.sources[0].chapters);
             });
         })
         
