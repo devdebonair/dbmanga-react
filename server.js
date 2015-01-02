@@ -44,15 +44,15 @@ app.use( passport.initialize() );
 app.use( passport.session() );
 app.use( methodOverride() );
 
-//Initialize Passport
+// Initialize Passport
 console.log('Checking Passport...');
 require("./passport")(passport);
 
-//Initialize Routes
+// Initialize Routes
 console.log('Establishing Routes....');
 require("./routes")(app, passport);
 
-//Initialize database
+// Initialize database
 console.log('Connecting to Database....');
 require("./database/db");
 
