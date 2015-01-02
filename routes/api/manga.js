@@ -182,7 +182,7 @@ module.exports = function(router)
                 
                 for( var i = 0; i < manga.sources.length; i++ )
                 {
-                    if(manga.sources[i].scanOrigin === req.params.source_name)
+                    if(manga.sources[i].scanOrigin.toLowerCase() === req.params.source_name.toLowerCase())
                     {
                         chapters = manga.sources[i].chapters;
                         break;
@@ -212,7 +212,7 @@ module.exports = function(router)
                     return;
                 }
 
-                res.json(chapterToReturn);
+                res.json(chapterToReturn.pages);
             });    
         })
         
