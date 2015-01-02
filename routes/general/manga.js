@@ -9,14 +9,14 @@ module.exports = function(router, passport, manga, user)
     router.route('/manga/:manga_name')
     
         .get(function(req, res) {
-            var title = req.params.manga_name.replace(/-/g,' ');
-            manga.findOne({ title: title }).select('-sources').exec(function(err, data){
+            var name = req.params.manga_name.replace(/_/gi, ' ');
+            manga.find({ title: name }, '-sources', null, function(err, data){
                 if(err)
                 {
-                    res.send(err);
+                    req.redirect(301,'/');
                     return;
                 }
-                res.render('partials/manga', { layout: 'layout', manga: data });
+                res.render('temp/partials/manga', { layout: 'temp/layout', manga: data[0] });
             });
         });
         
