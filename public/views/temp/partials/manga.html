@@ -1,0 +1,219 @@
+<a id="menu-control" href="#chapterMenu" class="fixed pos-front"><i class="fa fa-bars fa-2x"></i></a>
+
+<nav id="chapterMenu">
+    <ul id="chapterPanel">
+        
+    </ul>
+</nav>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1><%= manga.title.toUpperCase() %></h1>
+        <h4><i><%= manga.author.toUpperCase() %></i></h4>
+    </div>
+</div><!-- ./title -->
+
+<hr>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-3">
+        <div class="row">
+            <img src="<%= manga.coverUrl %>" class="full"></img>
+            <hr>
+        </div>
+        
+        <div class="row">
+            <div class="panel panel-default panel-stat2 bg-warning">
+                <div class="panel-body">
+                    <span class="stat-icon">
+                        <i class="fa fa-book"></i>
+                    </span>
+                    <div class="pull-right text-right">
+                        <div class="value"><%= manga.numOfChapters %></div>
+                        <div class="title">Chapters</div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+            <hr>
+        </div>
+        
+        <div class="row">
+            <div class="panel panel-default panel-stat2 bg-info">
+                <div class="panel-body">
+                    <span class="stat-icon">
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                    </span>
+                    <div class="pull-right text-right">
+                        <div class="value"><%= manga.status %></div>
+                        <div class="title">Status</div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+        </div>
+        
+        <div class="row">
+            <div class="panel panel-default panel-stat2 bg-danger">
+                <div class="panel-body">
+                    <span class="stat-icon">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    <div class="pull-right text-right">
+                        <div class="value"><%= manga.views.total %></div>
+                        <div class="title">Views</div>
+                    </div>
+                </div>
+            </div><!-- /panel -->
+        </div>
+ 
+    </div>
+    
+    <div class="col-xs-12 col-sm-8 col-md-9">
+    
+        <div class="row">
+            <div class="padding-md">
+                <% for(var i = 0; i < manga.genres.length; i++){ %>
+                    <div class="badge bg-success">
+                        <a href="#" class="text-white"><%= manga.genres[i] %></a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+			<div class="panel-tab clearfix">
+				<ul class="tab-bar">
+					<li class="active"><a href="#synopsis" data-toggle="tab"><i class="fa fa-home"></i> Synopsis</a></li>
+					<li class=""><a href="#preview" data-toggle="tab"><i class="fa fa-pencil"></i> Preview</a></li>
+					<li class=""><a href="#latest" data-toggle="tab"><i class="fa fa-envelope"></i> Latest</a></li>
+				</ul>
+			</div>
+			<div class="panel-body">
+				<div class="tab-content">
+					<div class="tab-pane fade active in" id="synopsis">
+						<p><%= manga.description %></p>
+					</div>
+					<div class="tab-pane fade" id="preview">
+					    <div class="row">
+					        
+					    </div>
+					</div>
+					<div class="tab-pane fade" id="latest">
+						<div class="row">
+						    
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+        <!-- ./more-content -->
+        <div class="row">
+            <div class="padding-md">
+                <h1 class="text-center">Series Reviews</h1>
+                <hr>
+            </div>
+
+            <div class="col-xs-12 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/AqWt1cY_FX0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/7f68N_ATpNA"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/-VvLTd6vAbM"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/lib/hammer/hammer.min.js"></script>
+<script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            type: 'GET',
+            url: '/api/manga/<%= manga._id %>/sources/kissmanga/chapters?select=title+number',
+            success: function(data)
+            {
+                for(var i = 0; i < data.length; i++)
+                {
+                    var list = '<li><a href="http://www.dbmanga.com">'+ data[i].title +'</a></li>';
+                    $('#chapterPanel').append(list);
+                }
+                $("#chapterMenu").mmenu({
+                    searchfield: true,
+                    dragOpen: true,
+                    classes: "mm-white",
+                    header: {
+                        title: "Chapter List",
+                        add: true,
+                        update: true
+                    }
+                });
+                
+                $('#menu-control').addClass('animated bounce');
+            },
+            error: function(err)
+            {
+                console.log(err);
+            }
+        });
+        
+        
+        $.ajax({
+            type: 'GET',
+            url: '/api/manga/<%= manga._id %>/sources/kissmanga/chapters/1',
+            success: function(data)
+            {
+                console.log(data);
+                for(var i = 0; i < 4; i++)
+                {
+                    var image = '<div class="col-xs-12 col-sm-3"><img src="'+ data[i].image +'" class="full"></img></div>';
+                    $('#preview .row').append(image);
+                }
+            },
+            error: function(err)
+            {
+                console.log(err);
+            }
+        });
+        
+        $.ajax({
+            type: 'GET',
+            url: '/api/manga/<%= manga._id %>/sources/kissmanga/chapters/<%= manga.numOfChapters %>',
+            success: function(data)
+            {
+                console.log(data);
+                for(var i = 0; i < 4; i++)
+                {
+                    var image = '<div class="col-xs-12 col-sm-3"><img src="'+ data[i].image +'" class="full"></img></div>';
+                    $('#latest .row').append(image);
+                }
+            },
+            error: function(err)
+            {
+                console.log(err);
+            }
+        });
+    });
+</script>
