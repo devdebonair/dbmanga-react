@@ -1,13 +1,17 @@
 <div class="row">
+
     <div class="col-sm-12">
         <div id="reader" class="full">
             
         </div>
     </div>
+
 </div>
 
 <script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
 <script>
+    $('#navigation').removeClass('navbar-fixed-top');
+    $('#navigation').addClass('navbar-static-top');
     $.ajax({
         type: 'GET',
         url: '/api/manga/<%= id %>/sources/kissmanga/chapters/<%= chapterNumber %>',
@@ -16,13 +20,15 @@
             console.log(data);
             for(var i = 0; i < data.length; i++)
             {
-                $('#reader').append('<div><img style="width:auto; height: 20%;" class="center-block" src="'+ data[i].image +'"></img></div>');    
+                $('#reader').append('<div><img class="center-block" src="'+ data[i].image +'"></img></div>');    
             }
             var nextChapter = parseInt(<%= chapterNumber %>)+1;
             $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
             $('#reader').slick({
                 infinite: false
             });
+            
+            $('#reader img').height($(window).height());
         },
         error: function(err)
         {
