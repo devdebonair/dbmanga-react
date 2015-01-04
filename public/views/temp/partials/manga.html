@@ -49,6 +49,7 @@
                     </div>
                 </div>
             </div><!-- /panel -->
+            <hr>
         </div>
         
         <div class="row">
@@ -157,7 +158,7 @@
             {
                 for(var i = 0; i < data.length; i++)
                 {
-                    var list = '<li><a href="http://www.dbmanga.com">'+ data[i].title +'</a></li>';
+                    var list = '<li><a href="/manga/<%= manga.title %>/'+ data[i].number +'">'+ data[i].title +'</a></li>';
                     $('#chapterPanel').append(list);
                 }
                 $("#chapterMenu").mmenu({
