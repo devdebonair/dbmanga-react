@@ -20,5 +20,17 @@ module.exports = function(router, passport, manga, user)
             });
         });
         
-    
+    router.route('/manga/:manga_name/:chapterNumber')
+        
+        .get(function(req, res){
+            var name = req.params.manga_name.replace(/_/gi, ' ');
+            manga.find({ title: name }, 'id title', null, function(err, data) {
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.render('temp/partials/reader', { layout: 'temp/layout', title: data[0].title, id: data[0].id, chapterNumber: req.params.chapterNumber });
+            });
+        });
 };
