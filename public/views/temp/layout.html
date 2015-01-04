@@ -49,12 +49,24 @@
             .hide-no-space {
                 display: none;
             }
+            
             .full {
                 max-width: 100%;
                 max-height: 100%;
                 width: 100%;
                 height: 100%;
             }
+            
+            .full-height {
+                max-height: 100%;
+                height: 100%;
+            }
+            
+            .full-width {
+                max-width: 100%;
+                width: 100%;
+            }
+            
             .half {
                 max-width: 50%;
                 max-height: 50%;
@@ -106,6 +118,14 @@
             #news-reel img {
                 overflow: hidden;
             }
+            
+            .reel-manga-item {
+                padding: 10px 15px;
+                padding-top: 0px;
+                padding-right: 25px;
+                padding-bottom: 0px;
+                padding-left: 0px;
+            }
     	</style>
     </head>
     <body>
@@ -113,7 +133,7 @@
         <div>
             <% include partials/navigation.html %>
             
-            <div class="padding-md" style="margin-top: 5%">
+            <div style="margin-top: 5%; margin-left: 3%; margin-right: 3%;">
                 <%- body %>
             </div>
         
