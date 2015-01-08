@@ -1,18 +1,20 @@
-<header id="navigation" class="navbar transparent navbar-fixed-top bg-white">
+<nav id="navigation" class="navbar transparent navbar-fixed-top bg-white">
 	<div class="container">
+		
 		<div class="navbar-header">
-			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#drop-nav">
 				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+				<i class="fa fa-bars fa-2x text-danger"></i>
 			</button>
+			
 			<a href="/" class="navbar-brand"><span class="text-danger">Debonair</span> Manga</a>
+			
 		</div><!-- navbar toggle -->
 		
-		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+		
+		<div id="drop-nav" class="collapse navbar-collapse" role="navigation">
 			<ul class="nav navbar-nav navbar-right">
-			    
+
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Links<b class="caret"></b></a>
 					<ul class="dropdown-menu flipInV" role="menu">
@@ -39,6 +41,19 @@
 				<li id="navReviews" class=""><a href="/reviews">Reviews</a></li>
 				<li><a id="navSignIn" href=""><i class="fa fa-power-off fa-1x text-danger"></i></a></li>
 			</ul>
-		</nav>
+			
+			<form class="hidden-xs navbar-form">
+				<div class="form-group" style="display:inline;">
+					<div class="input-group" style="display:table;">
+						<input class="form-control" name="search" placeholder="Search Here" autocomplete="off" type="text">
+						<span class="input-group-addon bg-danger" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-</header>
+</nav>
+
+<script type="text/javascript">
+			
+</script>
