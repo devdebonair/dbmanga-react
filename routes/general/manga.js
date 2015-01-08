@@ -3,7 +3,7 @@ module.exports = function(router, passport, manga, user)
     router.route('/manga')
     
         .get(function(req, res) {
-            res.render('temp/partials/browse-manga', { layout: 'layout' });
+            res.render('temp/partials/browse-manga', { layout: 'temp/layout' });
         });
     
     router.route('/manga/:manga_name')
