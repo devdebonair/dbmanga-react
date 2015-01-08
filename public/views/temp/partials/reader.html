@@ -1,3 +1,30 @@
+<nav id="chapterMenu">
+    <ul id="chapterPanel">
+        
+    </ul>
+</nav>
+
+<a id="menu-control" href="#chapterMenu" class="fixed pos-front"><i class="fa fa-bars fa-2x"></i></a>
+
+
+<div class="hidden-xs full-width fixed pos-front" style="margin-top: 10%;">
+    <div>
+        <span class="fake-link"><i id="view-toggle-control" class="fa fa-file fa-2x"></i></span>
+    </div>
+    <div>
+        <span class="fake-link"><i id="comment-control" class="fa fa-wechat fa-2x"></i></span>
+    </div>
+    <div>
+        <span class="fake-link"><i  id="zoom-in-control" class="fa fa-search-plus fa-2x"></i></span>
+    </div>
+    <div>
+        <span class="fake-link"><i id="zoom-out-control" class="fa fa-search-minus fa-2x"></i></span>
+    </div>
+    <div>
+        <span class="fake-link"><i id="full-screen-control" class="fa fa-expand fa-2x"></i></span>
+    </div>
+</div>
+
 <div class="row">
 
     <div class="col-sm-12">
@@ -8,8 +35,45 @@
 
 </div>
 
+<script type="text/javascript" src="/lib/hammer/hammer.min.js"></script>
+<script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
 <script>
+
+    var isDual = false;
+    var isZoom = false;
+    var pages = [];
+    
+    $.ajax({
+        type: 'GET',
+        url: '/api/manga/<%= id %>/sources/kissmanga/chapters?select=title+number',
+        success: function(data)
+        {
+            
+            for(var i = 0; i < data.length; i++)
+            {
+                var list = '<li><a href="/manga/<%= title %>/'+ data[i].number +'">'+ data[i].title +'</a></li>';
+                $('#chapterPanel').append(list);
+            }
+            $("#chapterMenu").mmenu({
+                searchfield: true,
+                dragOpen: true,
+                classes: "mm-white",
+                header: {
+                    title: "Chapter List",
+                    add: true,
+                    update: true
+                }
+            });
+            
+            $('#menu-control').addClass('animated bounce');
+        },
+        error: function(err)
+        {
+            console.log(err);
+        }
+    });
+        
     $('#navigation').removeClass('navbar-fixed-top');
     $('#navigation').addClass('navbar-static-top');
     $.ajax({
@@ -17,22 +81,88 @@
         url: '/api/manga/<%= id %>/sources/kissmanga/chapters/<%= chapterNumber %>',
         success: function(data)
         {
-            console.log(data);
             for(var i = 0; i < data.length; i++)
             {
+                pages.push(data[i].image);
                 $('#reader').append('<div><img class="center-block" src="'+ data[i].image +'"></img></div>');    
             }
             var nextChapter = parseInt(<%= chapterNumber %>)+1;
             $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
+    
+            $('#reader img').height($(window).height());
+    
             $('#reader').slick({
                 infinite: false
             });
             
-            $('#reader img').height($(window).height());
         },
         error: function(err)
         {
             console.log(err);
         }
+    });
+    
+    $('#view-toggle-control').click(function(){
+        var nextChapter = parseInt(<%= chapterNumber %>)+1;
+        var currentSlide = $('#reader').slickCurrentSlide();
+            
+        $('#reader').empty();
+        $('#reader').unslick();
+        
+        if(!isDual)
+        {
+            currentSlide /= 2;
+            $(this).removeClass('fa-file');
+            $(this).addClass('fa-files-o');
+            
+            
+            for(var i = 0; i < pages.length; i++)
+            {
+                $('#reader').append('<div>' + '<img style="display: inline" src="'+ pages[i] +'"></img>' + '<img style="display: inline" src="'+ pages[i+1] +'"></img>' + '</div>'); 
+                i++;
+            }
+            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
+            
+            isDual = true;
+        }
+        else
+        {
+            currentSlide *= 2;
+            $(this).removeClass('fa-files-o');
+            $(this).addClass('fa-file');
+            
+            for(var i = 0; i < pages.length; i++)
+            {
+                $('#reader').append('<div><img class="center-block" src="'+ pages[i] +'"></img></div>');    
+            }
+
+            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
+            isDual = false;
+        }
+        
+        $('#reader img').height($(window).height());
+        $('#reader').slick({
+            infinite: false
+        });
+        $('#reader').slickGoTo(Math.ceil(currentSlide));
+        
+        
+    });
+    
+    $('#zoom-in-control').click(function(){
+        if(!isZoom)
+        {
+            $('#reader img').addClass('full');
+        }
+        isZoom = true;
+    });
+    
+    $('#zoom-out-control').click(function(){
+        if(isZoom)
+        {
+            $('#reader img').removeClass('full');
+            $('#reader img').height($(window).height());
+        }
+        isZoom = false;
     });
 </script>
