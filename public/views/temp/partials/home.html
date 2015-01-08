@@ -197,7 +197,7 @@
 				$('#popularManga').append('<div>'+ 
 												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
 													'<div>' +
-														'<h5 class="reel-manga-item">'+ data[i].title +'</h5>' +
+														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
 														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
@@ -214,7 +214,7 @@
 				$('#newManga').append('<div>'+ 
 												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
 													'<div>' +
-														'<h5 class="reel-manga-item">'+ data[i].title +'</h5>' +
+														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
 														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
@@ -230,7 +230,7 @@
     			nextArrow: nextArrow,
     			prevArrow: prevArrow,
     			autoplaySpeed: 5000,
-    			speed: 950,
+    			speed: 850,
     			slidesToShow: 5,
     			slidesToScroll: 5,
     			autoplay: true,
