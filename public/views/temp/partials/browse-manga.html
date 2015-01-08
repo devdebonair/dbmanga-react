@@ -1,63 +1,79 @@
 <!--=========================== Popular ==================================-->
 <div class="row">
     <div class="col-xs-12">
-        <h4 class="headline dark text-white">
-			Popular Manga
-			<span class="fake-link"><i id="popularNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
-			<span class="fake-link"><i id="popularPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
-			<span class="line"></span>
-		</h4>
-		<div class="slider single-items" id="popularManga">
-		
-		</div>
+    	<div class="panel panel-default">
+    		<div class="panel-body">
+		        <h4 class="headline dark text-black">
+					Popular Manga
+					<span class="fake-link"><i id="popularNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
+					<span class="fake-link"><i id="popularPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
+					<span class="line"></span>
+				</h4>
+				<div class="slider single-items" id="popularManga">
+				
+				</div>
+    		</div>
+    	</div>
     </div>
 </div>
 <!--=========================== New Manga ==================================-->
 <div class="row">
     <div class="col-xs-12">
-        <h4 class="headline dark text-white">
-			New Manga
-			<span class="fake-link"><i id="newNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
-			<span class="fake-link"><i id="newPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
-			<span class="line"></span>
-		</h4>
-		<div class="slider single-items" id="newManga">
-		
-		</div>
+    	<div class="panel panel-default">
+    		<div class="panel-body">
+		        <h4 class="headline dark text-black">
+					New Manga
+					<span class="fake-link"><i id="newNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
+					<span class="fake-link"><i id="newPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
+					<span class="line"></span>
+				</h4>
+				<div class="slider single-items" id="newManga">
+				
+				</div>
+    		</div>
+    	</div>
     </div>
 </div>
 <!--=========================== Trending ==================================-->
 <div class="row">
     <div class="col-xs-12">
-        <h4 class="headline dark text-white">
-			Trending Manga
-			<span class="fake-link"><i id="trendingNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
-			<span class="fake-link"><i id="trendingPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
-			<span class="line"></span>
-		</h4>
-		<div class="slider single-items" id="trendingManga">
-		
-		</div>
+    	<div class="panel panel-default">
+    		<div class="panel-body">
+		        <h4 class="headline dark text-black">
+					Trending Manga
+					<span class="fake-link"><i id="trendingNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
+					<span class="fake-link"><i id="trendingPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
+					<span class="line"></span>
+				</h4>
+				<div class="slider single-items" id="trendingManga">
+				
+				</div>
+    		</div>
+    	</div>
     </div>
 </div>
 <!--=========================== Recommended ================================-->
 <div class="row">
     <div class="col-xs-12">
-        <h4 class="headline dark text-white">
-			Recommended Manga
-			<span class="fake-link"><i id="recommendedNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
-			<span class="fake-link"><i id="recommendedPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
-			<span class="line"></span>
-		</h4>
-		<div class="slider single-items" id="recommendedManga">
-		
-		</div>
+    	<div class="panel panel-default">
+    		<div class="panel-body">
+		        <h4 class="headline dark text-black">
+					Recommended Manga
+					<span class="fake-link"><i id="recommendedNextArrow" style="padding-left: 10px" class="fa fa-chevron-right fa-md pull-right"></i></span>
+					<span class="fake-link"><i id="recommendedPrevArrow" style="padding-left: 10px" class="fa fa-chevron-left fa-md pull-right"></i></span>
+					<span class="line"></span>
+				</h4>
+				<div class="slider single-items" id="recommendedManga">
+				
+				</div>
+    		</div>
+    	</div>
     </div>
 </div>
 <!--=========================== Genres ==================================-->
 <div class="row">
     <div class="col-xs-12">
-        <h4 class="headline dark text-white text-center">
+        <h4 class="headline dark text-black text-center">
 			Genres
 			<span class="line center-block"></span>
 		</h4>
@@ -219,90 +235,74 @@
     </div>
 </div>
 
-
-<script type="text/javascript" src="/lib/vue/dist/vue.min.js"></script>
 <script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
 
 <script type="text/javascript">
-
-    var app = new Vue({
-        el: '#app',
-        data: {
-            popular: null,
-            trending: null,
-            newManga: null,
-            recommended: null,
-            genres: null
-        },
-        methods: {
-            
-        }
-    });
-    
     init();
     
     function init()
     {
         $('#navManga').addClass('active');
 
-        getRequest($('#popularManga'), '/api/manga/popular/25', function(err, data){
+        getRequest('/api/manga/popular/25', function(err, data)
+        {
             if(err)
             {
                 return;
             }
-            app.popular = data;
             initCarousel($('#popularManga'), $('#popularNextArrow'), $('#popularPrevArrow'));
             initCarousel($('#recommendedManga'), $('#recommendedNextArrow'), $('#recommendedPrevArrow'));
-            for(var i = 0; i < app.popular.length; i++)
+            for(var i = 0; i < data.length; i++)
 			{
 				$('#popularManga').slickAdd('<div>'+ 
-												'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
-													'<div class="quick-detail text-white panel-hover">' +
-														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
-														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) + '...' + '</p>' +
+												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
+													'<div>' +
+														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
+														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
-			for(var i = 18; i < app.popular.length; i++)
+			for(var i = 18; i < data.length; i++)
 			{
 				$('#recommendedManga').slickAdd('<div>'+ 
-												'<a href="/manga/'+ app.popular[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.popular[i].coverUrl + '"></img>' + 
-													'<div class="quick-detail text-white panel-hover">' +
-														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].title +'</h5>' +
-														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.popular[i].description.substring(0,140) + '...' + '</p>' +
+												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
+													'<div>' +
+														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
+														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
         });
-        getRequest($('#trendingManga'), '/api/manga/trending/25', function(err, data){
+        
+        getRequest('/api/manga/trending/25', function(err, data)
+        {
             if(err)
             {
                 return;
             }
-            app.trending = data;
             initCarousel($('#trendingManga'), $('#trendingNextArrow'), $('#trendingPrevArrow'));
-			for(var i = 0; i < app.trending.length; i++)
+			for(var i = 0; i < data.length; i++)
 			{
 				$('#trendingManga').slickAdd('<div>'+ 
-												'<a href="/manga/'+ app.trending[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.trending[i].coverUrl + '"></img>' + 
-													'<div class="quick-detail text-white panel-hover">' +
-														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.trending[i].title +'</h5>' +
-														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.trending[i].description.substring(0,140) + '...' + '</p>' +
+												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
+													'<div>' +
+														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
+														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
         });
-        getRequest($('#newManga'), '/api/manga/updated/25', function(err, data){
+        getRequest('/api/manga/updated/25', function(err, data)
+        {
             if(err)
             {
                 return;
             }
-            app.newManga = data;
             initCarousel($('#newManga'), $('#newNextArrow'), $('#newPrevArrow'));
-			for(var i = 0; i < app.newManga.length; i++)
+			for(var i = 0; i < data.length; i++)
 			{
 				$('#newManga').slickAdd('<div>'+ 
-												'<a href="/manga/'+ app.newManga[i].title.replace(/\s/g,"-") +'" class="panel-hover"><img width="168px" height="221px" src="' + app.newManga[i].coverUrl + '"></img>' + 
-													'<div class="quick-detail text-white panel-hover">' +
-														'<h5 style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.newManga[i].title +'</h5>' +
-														'<p style="padding: 10px 15px;padding-top: 0px;padding-right: 25px;padding-bottom: 0px;padding-left: 0px;">'+ app.newManga[i].description.substring(0,140) + '...' + '</p>' +
+												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
+													'<div>' +
+														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
+														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
         });
@@ -318,7 +318,7 @@
 			prevArrow: prevArrow,
 			speed: 500,
 			slidesToShow: 6,
-			slidesToScroll: 1,
+			slidesToScroll: 6,
 			autoplay: true,
 			responsive: 
 			[{
@@ -345,7 +345,7 @@
 		});
     }
     
-    function getRequest(slide, url, callback)
+    function getRequest(url, callback)
     {
         $.ajax({
             type: 'GET',
