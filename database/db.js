@@ -10,7 +10,7 @@ db.once('open', function(){
     return;
 });
 
-db.on('err', function( err ){
+db.on('error', function( err ){
     console.log( err );
     return;
 });
