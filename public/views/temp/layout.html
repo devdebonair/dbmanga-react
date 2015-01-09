@@ -19,6 +19,24 @@
         <link rel="stylesheet" href="/lib/jQuery.mmenu/src/css/jquery.mmenu.all.css" type="text/css" />
 
     	<style type="text/css">
+            .overlay {
+                position: absolute;
+                opacity: 0;
+                background-color: black;
+                -o-transition:.1s;
+                -ms-transition:.1s;
+                -moz-transition:.1s;
+                -webkit-transition:.1s;
+                transition:.1s;
+                display:inline-block;
+                color:white;
+                text-align: center;
+            }
+    	    
+    	    .overlay:hover {
+    	        opacity: 0.4;
+    	    }
+    	    
     	    .fake-link i{
                 opacity: 0.4;
                 -o-transition:.5s;
@@ -126,6 +144,15 @@
                 padding-right: 25px;
                 padding-bottom: 0px;
                 padding-left: 0px;
+            }
+            
+            /* Search */
+            .lift {
+                border-style: solid;
+                border-right-width: 5px;
+                border-right-color: #544a4a;
+                border-bottom-width: 5px;
+                border-bottom-color: #544a4a;
             }
     	</style>
     </head>
