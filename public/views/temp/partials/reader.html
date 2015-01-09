@@ -4,43 +4,37 @@
     </ul>
 </nav>
 
-<a id="menu-control" href="#chapterMenu" class="fixed pos-front"><i class="fa fa-bars fa-2x"></i></a>
+<a id="menu-control" href="#chapterMenu" class="pos-front fixed fake-link"><i class="fa fa-bars fa-2x"></i></a>
 
-
-<div class="hidden-xs full-width fixed pos-front" style="margin-top: 10%;">
-    <div>
-        <span class="fake-link"><i id="view-toggle-control" class="fa fa-file fa-2x"></i></span>
-    </div>
-    <div>
-        <span class="fake-link"><i id="comment-control" class="fa fa-wechat fa-2x"></i></span>
-    </div>
-    <div>
-        <span class="fake-link"><i  id="zoom-in-control" class="fa fa-search-plus fa-2x"></i></span>
-    </div>
-    <div>
-        <span class="fake-link"><i id="zoom-out-control" class="fa fa-search-minus fa-2x"></i></span>
-    </div>
-    <div>
-        <span class="fake-link"><i id="full-screen-control" class="fa fa-expand fa-2x"></i></span>
-    </div>
-</div>
-
-<div class="row">
-
-    <div class="col-sm-12">
-        <div id="reader" class="full">
-            
+<div id="reader-with-controls">
+    <div id="reader-controls" class="hidden-xs fixed pos-front" style="margin-top: 10%;">
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="view-toggle-control" class="fa fa-file fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="comment-control" class="fa fa-wechat fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i  id="zoom-in-control" class="fa fa-search-plus fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="zoom-out-control" class="fa fa-search-minus fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="full-screen-control" class="fa fa-expand fa-2x"></i></span>
         </div>
     </div>
-
+    
+    <div id="reader" class="full">
+        
+    </div>
 </div>
 
 <script type="text/javascript" src="/lib/hammer/hammer.min.js"></script>
 <script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
 <script>
-
-    var isDual = false;
+    var $isDual = false;
     var isZoom = false;
     var pages = [];
     
@@ -84,7 +78,7 @@
             for(var i = 0; i < data.length; i++)
             {
                 pages.push(data[i].image);
-                $('#reader').append('<div><img class="center-block" src="'+ data[i].image +'"></img></div>');    
+                $('#reader').append('<div class="text-center"><img style="display: inline-block" src="'+ data[i].image +'"></img></div>');    
             }
             var nextChapter = parseInt(<%= chapterNumber %>)+1;
             $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
@@ -102,7 +96,8 @@
         }
     });
     
-    $('#view-toggle-control').click(function(){
+    function buildReader(imageHeight, isDual)
+    {
         var nextChapter = parseInt(<%= chapterNumber %>)+1;
         var currentSlide = $('#reader').slickCurrentSlide();
             
@@ -112,41 +107,60 @@
         if(!isDual)
         {
             currentSlide /= 2;
-            $(this).removeClass('fa-file');
-            $(this).addClass('fa-files-o');
-            
             
             for(var i = 0; i < pages.length; i++)
             {
-                $('#reader').append('<div>' + '<img style="display: inline" src="'+ pages[i] +'"></img>' + '<img style="display: inline" src="'+ pages[i+1] +'"></img>' + '</div>'); 
-                i++;
+                var image1 = new Image();
+                image1.src = pages[i];
+                var image2 = new Image();
+                image2.src = pages[i+1];
+                
+                var htmlToAppend = '<div class="text-center"><img style="display: inline-block" src="'+ pages[i] +'"></img>';
+
+                if(((image1.width/image1.height) < 0.8) && ((image2.width/image2.height) < 0.8) && (i+1 < pages.length))
+                {
+                    htmlToAppend += '<img style="display: inline-block" src="'+ pages[i+1] +'"></img>';
+                    i++;
+                }
+                htmlToAppend += '</div>';
+                $('#reader').append(htmlToAppend);
             }
             $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
             
-            isDual = true;
         }
         else
         {
             currentSlide *= 2;
-            $(this).removeClass('fa-files-o');
-            $(this).addClass('fa-file');
             
             for(var i = 0; i < pages.length; i++)
             {
-                $('#reader').append('<div><img class="center-block" src="'+ pages[i] +'"></img></div>');    
+                $('#reader').append('<div class="text-center"><img style="display: inline-block" src="'+ pages[i] +'"></img></div>');    
             }
 
             $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
-            isDual = false;
         }
         
-        $('#reader img').height($(window).height());
+        $('#reader img').height(imageHeight);
         $('#reader').slick({
             infinite: false
         });
         $('#reader').slickGoTo(Math.ceil(currentSlide));
-        
-        
+    }
+    
+    $('#view-toggle-control').click(function(){
+        if($isDual)
+        {
+            $(this).removeClass('fa-files-o');
+            $(this).addClass('fa-file');
+            $isDual = true;
+        }
+        else
+        {
+            $(this).removeClass('fa-file');
+            $(this).addClass('fa-files-o');   
+            $isDual = false;
+        }
+        buildReader($(window).height(), $isDual);
     });
     
     $('#zoom-in-control').click(function(){
@@ -164,5 +178,26 @@
             $('#reader img').height($(window).height());
         }
         isZoom = false;
+    });
+    
+    $('#full-screen-control').click(function(){
+        var slide = document.getElementById('reader');
+        
+        if(document.fullscreen)
+        {
+            document.exitFullScreen();
+            return;
+        }
+        
+        if(slide.mozRequestFullScreen)
+        {
+            slide.mozRequestFullScreen(); 
+        }
+        else if(slide.webkitRequestFullScreen)
+        {
+            slide.webkitRequestFullScreen();
+        }
+        buildReader(screen.availHeight, $isDual);
+        $isDual = !$isDual;
     });
 </script>
