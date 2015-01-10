@@ -3,13 +3,19 @@ var app = express();
 var http = require("http").Server(app);
 
 var session = require("express-session");
+var mongoose = require("mongoose");
+var MongoStore = require("connect-mongo")(session);
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var methodOverride = require("method-override");
-var expressLayouts = require("express-ejs-layouts"); //test
+var expressLayouts = require("express-ejs-layouts");
 
 var config = require("./config");
 var passport = require("passport");
+
+// Initialize database
+console.log('Connecting to Database....');
+require("./database/db")(mongoose);
 
 //Configure Express
 console.log('Configuring Express....');
@@ -37,8 +43,11 @@ app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( session({
     secret: config.session.secret,
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection
+    }),
     saveUninitialized: true,
-    resave: true
+    resave: false
 }));
 app.use( passport.initialize() );
 app.use( passport.session() );
@@ -51,10 +60,6 @@ require("./passport")(passport);
 // Initialize Routes
 console.log('Establishing Routes....');
 require("./routes")(app, passport);
-
-// Initialize database
-console.log('Connecting to Database....');
-require("./database/db");
 
 console.log('Starting Server....');
 http.listen( config.env.port, function(){
