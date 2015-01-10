@@ -1,6 +1,6 @@
 module.exports = function(router)
 {
-    router.get('/dashboard', isLoggedIn, function( req, res ){
+    router.get('/dashboard', isLoggedIn, function(req, res){
         res.render('admin/dashboard', { layout: false, admin: JSON.stringify(req.user) });
     });
 };
