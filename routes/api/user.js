@@ -4,16 +4,16 @@ module.exports = function(router)
 {
     router.route('/users')
         
-        .get(function( req, res ){
+        .get(function(req, res){
             
-            User.find( function( err, users ){
+            User.find(function(err, users){
                 
                 if(err)
                 {
                     res.send(err);
                     return;
                 }
-                res.json( users );
+                res.json(users);
             });
         })
         
@@ -21,11 +21,7 @@ module.exports = function(router)
             
             console.log(req.body);
             
-            var user = new User();
-            user.username = req.body.username;
-            user.email = req.body.email;
-            user.password = req.body.password;
-            user.avatar = req.body.avatar;
+            var user = new User(req.body);
             
             user.save( function(err){
                 if(err)
