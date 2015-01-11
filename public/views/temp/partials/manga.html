@@ -7,140 +7,125 @@
 <a id="menu-control" href="#chapterMenu" class="fixed pos-front"><i class="fa fa-bars fa-2x"></i></a>
 
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-sm-6">
         <h1><%= manga.title.toUpperCase() %></h1>
         <h4><i><%= manga.author.toUpperCase() %></i></h4>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div style="position: relative; margin: 10%">
+            <% if(user){ %>
+                <% for(var i = 0; i < user.library.length; i++){ %>
+                    <% if(user.library[i].book_id === manga._id.toString()){ %>
+                        <button id="add-library" class="btn btn-muted pull-right" disabled>Saved</button>
+                        <% break %>
+                    <% } else if(i === user.library.length-1){ %>
+                        <button id="add-library" class="btn btn-danger pull-right"><i class="fa fa-plus"></i> Add to Library</button>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <a href="/signup"><button id="sign-up" class="btn btn-danger pull-right">Sign Up</button></a>
+                <a href="/login"><button id="log-in" class="btn btn-danger pull-right">Log In</button></a>
+            <% } %>
+        </div>
     </div>
 </div><!-- ./title -->
 
 <hr>
 
-<div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-3">
-        <div class="row">
-            <img src="<%= manga.coverUrl %>" class="full"></img>
-            <hr>
-        </div>
-        
-        <div class="row">
-            <div class="panel panel-default panel-stat2 bg-warning">
-                <div class="panel-body">
-                    <span class="stat-icon">
-                        <i class="fa fa-book"></i>
-                    </span>
-                    <div class="pull-right text-right">
-                        <div class="value"><%= manga.numOfChapters %></div>
-                        <div class="title">Chapters</div>
-                    </div>
-                </div>
-            </div><!-- /panel -->
-            <hr>
-        </div>
-        
-        <div class="row">
-            <div class="panel panel-default panel-stat2 bg-info">
-                <div class="panel-body">
-                    <span class="stat-icon">
-                        <i class="fa fa-circle-o-notch fa-spin"></i>
-                    </span>
-                    <div class="pull-right text-right">
-                        <div class="value"><%= manga.status %></div>
-                        <div class="title">Status</div>
-                    </div>
-                </div>
-            </div><!-- /panel -->
-            <hr>
-        </div>
-        
-        <div class="row">
-            <div class="panel panel-default panel-stat2 bg-danger">
-                <div class="panel-body">
-                    <span class="stat-icon">
-                        <i class="fa fa-eye"></i>
-                    </span>
-                    <div class="pull-right text-right">
-                        <div class="value"><%= manga.views.total %></div>
-                        <div class="title">Views</div>
-                    </div>
-                </div>
-            </div><!-- /panel -->
-        </div>
- 
-    </div>
-    
-    <div class="col-xs-12 col-sm-8 col-md-9">
-    
-        <div class="row">
-            <div class="padding-md">
-                <% for(var i = 0; i < manga.genres.length; i++){ %>
-                    <div class="badge bg-success">
-                        <a href="#" class="text-white"><%= manga.genres[i] %></a>
-                    </div>
-                <% } %>
-            </div>
-        </div>
-        
-        <div class="panel panel-default">
-			<div class="panel-tab clearfix">
-				<ul class="tab-bar">
-					<li class="active"><a href="#synopsis" data-toggle="tab"><i class="fa fa-home"></i> Synopsis</a></li>
-					<li class=""><a href="#preview" data-toggle="tab"><i class="fa fa-pencil"></i> Preview</a></li>
-					<li class=""><a href="#latest" data-toggle="tab"><i class="fa fa-envelope"></i> Latest</a></li>
-				</ul>
-			</div>
-			<div class="panel-body">
-				<div class="tab-content">
-					<div class="tab-pane fade active in" id="synopsis">
-						<p><%= manga.description %></p>
-					</div>
-					<div class="tab-pane fade" id="preview">
-					    <div class="row">
-					        
-					    </div>
-					</div>
-					<div class="tab-pane fade" id="latest">
-						<div class="row">
-						    
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-        <!-- ./more-content -->
-        <div class="row">
-            <div class="padding-md">
-                <h1 class="text-center">Series Reviews</h1>
+<div class="padding-md">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3">
+            <div class="row">
+                <img src="<%= manga.coverUrl %>" class="full"></img>
                 <hr>
             </div>
-
-            <div class="col-xs-12 col-md-4">
-                <div class="panel panel-default">
+            
+            <div class="row">
+                <div class="panel panel-default panel-stat2 bg-warning">
                     <div class="panel-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/AqWt1cY_FX0"></iframe>
+                        <span class="stat-icon">
+                            <i class="fa fa-book"></i>
+                        </span>
+                        <div class="pull-right text-right">
+                            <div class="value"><%= manga.numOfChapters %></div>
+                            <div class="title">Chapters</div>
                         </div>
                     </div>
-                </div>
+                </div><!-- /panel -->
+                <hr>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="panel panel-default">
+            
+            <div class="row">
+                <div class="panel panel-default panel-stat2 bg-info">
                     <div class="panel-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/7f68N_ATpNA"></iframe>
+                        <span class="stat-icon">
+                            <i class="fa fa-circle-o-notch fa-spin"></i>
+                        </span>
+                        <div class="pull-right text-right">
+                            <div class="value"><%= manga.status %></div>
+                            <div class="title">Status</div>
                         </div>
                     </div>
-                </div>
+                </div><!-- /panel -->
+                <hr>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="panel panel-default">
+            
+            <div class="row">
+                <div class="panel panel-default panel-stat2 bg-danger">
                     <div class="panel-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/-VvLTd6vAbM"></iframe>
+                        <span class="stat-icon">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                        <div class="pull-right text-right">
+                            <div class="value"><%= manga.views.total %></div>
+                            <div class="title">Views</div>
                         </div>
                     </div>
+                </div><!-- /panel -->
+            </div>
+     
+        </div>
+        
+        <div class="col-xs-12 col-sm-8 col-md-9">
+        
+            <div class="row">
+                <div class="padding-md">
+                    <% for(var i = 0; i < manga.genres.length; i++){ %>
+                        <div class="badge bg-success">
+                            <a href="#" class="text-white"><%= manga.genres[i] %></a>
+                        </div>
+                    <% } %>
                 </div>
             </div>
+            
+            <div class="panel panel-default">
+    			<div class="panel-tab clearfix">
+    				<ul class="tab-bar">
+    					<li class="active"><a href="#synopsis" data-toggle="tab"><i class="fa fa-home"></i> Synopsis</a></li>
+    					<li class=""><a href="#preview" data-toggle="tab"><i class="fa fa-pencil"></i> Preview</a></li>
+    					<li class=""><a href="#latest" data-toggle="tab"><i class="fa fa-envelope"></i> Latest</a></li>
+    				</ul>
+    			</div>
+    			<div class="panel-body">
+    				<div class="tab-content">
+    					<div class="tab-pane fade active in" id="synopsis">
+    						<p><%= manga.description %></p>
+    					</div>
+    					<div class="tab-pane fade" id="preview">
+    					    <div class="row">
+    					        
+    					    </div>
+    					</div>
+    					<div class="tab-pane fade" id="latest">
+    						<div class="row">
+    						    
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    		
+            <!-- ./more-content -->
             
         </div>
     </div>
@@ -151,6 +136,34 @@
 <script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript">
     $(function(){
+        <% if(user) { %>
+            $('#add-library').click(function(){
+                $('#add-library').text('');
+                $('#add-library').append('<i class="fa fa-spin fa-circle-o-notch"></i>');
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/users/<%= user._id %>/library',
+                    dataType: "jsonp",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        book_id: "<%= manga._id %>"
+                    }),
+                    success: function()
+                    {
+                        $('#add-library').empty();
+                        $('#add-library').text('Saved');
+                        $('#add-library').removeClass('btn-danger');
+                        $('#add-library').addClass('btn-muted');
+                    },
+                    error: function()
+                    {
+                        $('#add-library').append('<i class="fa fa-refresh"></i>');
+                        $('#add-library').text('Retry');
+                    }
+                });
+            <% } %>
+        });
+        
         $.ajax({
             type: 'GET',
             url: '/api/manga/<%= manga._id %>/sources/kissmanga/chapters?select=title+number',
@@ -186,7 +199,6 @@
             url: '/api/manga/<%= manga._id %>/sources/kissmanga/chapters/1',
             success: function(data)
             {
-                console.log(data);
                 for(var i = 0; i < 4; i++)
                 {
                     var image = '<div class="col-xs-12 col-sm-3"><img src="'+ data[i].image +'" class="full"></img></div>';
@@ -204,7 +216,6 @@
             url: '/api/manga/<%= manga._id %>/sources/kissmanga/chapters/<%= manga.numOfChapters %>',
             success: function(data)
             {
-                console.log(data);
                 for(var i = 0; i < 4; i++)
                 {
                     var image = '<div class="col-xs-12 col-sm-3"><img src="'+ data[i].image +'" class="full"></img></div>';
