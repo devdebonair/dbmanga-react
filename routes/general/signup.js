@@ -21,7 +21,6 @@ module.exports = function(router, passport, Manga, User)
         .post(function(req, res){
             
             var user = new User(req.body);
-            console.log(user);
             user.save(function(err, user){
                 if(err)
                 {
