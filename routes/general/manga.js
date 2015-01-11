@@ -5,10 +5,11 @@ module.exports = function(router, passport, manga, user)
         .get(function(req, res) {
             res.render('temp/partials/browse-manga', { 
                 layout: 'temp/layout',
+                user: req.user,
                 meta:{ 
-                        title: 'Debonair Manga - Read Naruto, One Piece, and Attack on Titan Online for Free', 
-                        description: 'Read Naruto, One Piece, Attack on Titan and many more manga on the best manga reading platform for free.',
-                        keywords: 'manga, reader, free, naruto, debonair, one, piece, bleach, titan, responsive, online'
+                    title: 'Debonair Manga - Read Naruto, One Piece, and Attack on Titan Online for Free', 
+                    description: 'Read Naruto, One Piece, Attack on Titan and many more manga on the best manga reading platform for free.',
+                    keywords: 'manga, reader, free, naruto, debonair, one, piece, bleach, titan, responsive, online'
                 } 
             });
         });
@@ -17,19 +18,22 @@ module.exports = function(router, passport, manga, user)
     
         .get(function(req, res) {
             var name = req.params.manga_name.replace(/_/gi, ' ');
-            manga.find({ title: name }, '-sources', null, function(err, data){
+
+            manga.findOne({ title: name }, '-sources', null, function(err, data){
                 if(err)
                 {
                     req.redirect(301,'/');
                     return;
                 }
+                
                 res.render('temp/partials/manga', { 
-                    layout: 'temp/layout', 
-                    manga: data[0],
+                    layout: 'temp/layout',
+                    user: req.user,
+                    manga: data,
                     meta:{ 
-                        title: 'Debonair Manga - Read ' + data[0].title + 'Online for Free', 
+                        title: 'Debonair Manga - Read ' + data.title + ' Online for Free', 
                         description: 'Read Naruto, One Piece, Attack on Titan and many more manga on the best manga reading platform for free.',
-                        keywords: data[0].title + data[0].author + ', manga, reader, free, naruto, debonair, one, piece, bleach, titan, responsive, online'
+                        keywords: data.title + data.author + ', manga, reader, free, naruto, debonair, one, piece, bleach, titan, responsive, online'
                     } 
                 });
             });
@@ -39,21 +43,23 @@ module.exports = function(router, passport, manga, user)
         
         .get(function(req, res){
             var name = req.params.manga_name.replace(/_/gi, ' ');
-            manga.find({ title: name }, 'id title', null, function(err, data) {
+            manga.findOne({ title: name }, 'id title', null, function(err, data) {
                 if(err)
                 {
                     res.send(err);
                     return;
                 }
+
                 res.render('temp/partials/reader', { 
-                    layout: 'temp/layout', 
-                    title: data[0].title, 
-                    id: data[0].id, 
+                    layout: 'temp/layout',
+                    user: req.user,
+                    title: data.title, 
+                    id: data.id, 
                     chapterNumber: req.params.chapterNumber,
                     meta:{ 
-                        title: 'Debonair Manga - Read ' + data[0].title + 'Online for Free', 
+                        title: 'Debonair Manga - Read ' + data.title + ' Online for Free', 
                         description: 'Read Naruto, One Piece, Attack on Titan and many more manga on the best manga reading platform for free.',
-                        keywords: data[0].title + ', manga, reader, free, naruto, debonair, one, piece, bleach, titan, responsive, online'
+                        keywords: data.title + ', manga, reader, free, naruto, debonair, one, piece, bleach, titan, responsive, online'
                     } 
                 });
             });
