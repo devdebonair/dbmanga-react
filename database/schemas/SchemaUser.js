@@ -2,23 +2,19 @@ var Schema = require("mongoose").Schema;
 var bcrypt = require("bcrypt");
 
 var User = new Schema({
-    username: { type: String, lowercase: true },
-    password: String,
+    username: { type: String, unique: true },
+    password: { type: String, required: true, match: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/ },
     email: { type: String, lowercase: true },
     avatar: String,
-    dob: { type: Date, required: true },
-    isPremium: { type: Boolean, default: false },
-    isPublic: Boolean,
+    isPremium: { type: Boolean, default: false, required: true },
+    isPublic: { type: Boolean, default: true, required: true },
     library: [{
         id: String,
         bookmark: {
             chapter: Number,
             page: Number
         }
-    }],
-    preferences: {
-        isDual: { type: Boolean, default: false }
-    }
+    }]
 });
 
 User.pre('save', function(next){
@@ -30,15 +26,18 @@ User.pre('save', function(next){
         return;
     }
     
-    bcrypt.hash(user.password, 10, function(err, hash){
-        if(err)
-        {
-            next(err);
-            return;
-        }
-        user.password = hash;
-        next();
-    });
+    if(user.password.length >= 8)
+    {
+        bcrypt.hash(user.password, 10, function(err, hash){
+            if(err)
+            {
+                next(err);
+                return;
+            }
+            user.password = hash;
+            next();
+        });
+    }
 });
 
 User.methods.validatePassword = function(password, callback)
