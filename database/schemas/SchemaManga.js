@@ -32,7 +32,7 @@ Manga.statics.findUpdated = function(limit, callback)
     {
         dataLimit = 25;
     }
-    this.find(null, '-sources', { limit: dataLimit, sort: { updated_at: -1 } }, function(err, data){
+    this.find({}, '-sources', { limit: dataLimit, sort: { updated_at: -1 } }, function(err, data){
         if(err)
         {
             callback(err, null);
