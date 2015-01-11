@@ -5,7 +5,7 @@ module.exports = function(router, passport)
         .get(function( req, res ){
             if(req.isAuthenticated())
             {
-                res.redirect('/admin/dashboard');
+                res.redirect(301, '/admin/dashboard');
                 return;
             }
             res.render('admin/login', { layout: false });
