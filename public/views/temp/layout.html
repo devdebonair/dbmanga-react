@@ -109,6 +109,20 @@
                 height: 1020;
             }
             
+            .circle {
+                display: block;
+                width: 150px;
+                height: 150px;
+                margin: 1em auto;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                -webkit-border-radius: 99em;
+                -moz-border-radius: 99em;
+                border-radius: 99em;
+                border: 5px solid #eee;
+                box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);  
+            }
             footer {
               margin-left: 0;
               background: #504f63;
@@ -166,7 +180,7 @@
         <div id="wrapper" class="preload">
             <% include partials/navigation.html %>
             
-            <div style="margin-top: 5%; margin-left: 3%; margin-right: 3%;">
+            <div style="margin-top: 5%; margin-left: 3%; margin-right: 3%; padding-bottom: 165px">
                 <%- body %>
             </div>
         
@@ -175,7 +189,6 @@
     
         <script src="/lib/jquery/dist/jquery.min.js"></script>
         <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src='/lib/endless/js/jquery.popupoverlay.min.js'></script>
         <script src="/lib/endless/js/uncompressed/holder.js"></script>
         
         <%- script %>
