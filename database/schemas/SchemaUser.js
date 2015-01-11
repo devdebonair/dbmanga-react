@@ -9,10 +9,10 @@ var User = new Schema({
     isPremium: { type: Boolean, default: false, required: true },
     isPublic: { type: Boolean, default: true, required: true },
     library: [{
-        id: String,
+        book_id: { type: String, required: true },
         bookmark: {
-            chapter: Number,
-            page: Number
+            chapter: { type: Number, default: 0 },
+            page: { type: Number, default: 0 }
         }
     }]
 });
