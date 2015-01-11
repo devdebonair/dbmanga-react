@@ -11,7 +11,8 @@ module.exports = function(router, passport, manga)
                     return;
                 }
                 res.render('temp/partials/search.html', { 
-                    layout: 'temp/layout', 
+                    layout: 'temp/layout',
+                    user: req.user,
                     results: data,
                     meta:{ 
                         title: 'Debonair Manga - Read Manga Online for Free', 
