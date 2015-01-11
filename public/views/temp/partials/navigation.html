@@ -1,59 +1,70 @@
-<nav id="navigation" class="navbar transparent navbar-fixed-top bg-white">
-	<div class="container">
-		
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#drop-nav">
-				<span class="sr-only">Toggle navigation</span>
-				<i class="fa fa-bars fa-2x text-danger"></i>
-			</button>
-			
-			<a href="/" class="navbar-brand"><span class="text-danger">Debonair</span> Manga</a>
-			
-		</div><!-- navbar toggle -->
-		
-		
-		<div id="drop-nav" class="collapse navbar-collapse" role="navigation">
-			<ul class="nav navbar-nav navbar-right">
-
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Links<b class="caret"></b></a>
-					<ul class="dropdown-menu flipInV" role="menu">
-						<li role="presentation" class="dropdown-header bg-danger">Debonair Favorites</li>
-						<li><a href="/manga/Naruto">Naruto</a></li>
-						<li><a href="/manga/One_Piece">One Piece</a></li>
-						<li><a href="/manga/Bleach">Bleach</a></li>
-						<li role="presentation" class="dropdown-header bg-danger">Debonair Genres</li>
-						<li><a href="/genres/shounen">Shounen</a></li>
-						<li><a href="/genres/shoujo">Shoujo</a></li>
-						<li><a href="/genres/slice-of-life">Slice of Life</a></li>
-						<li><a href="/genres/adventure">Adventure</a></li>
-						<li><a href="/genres/seinen">Seinen</a></li>
-						<li><a href="/genres/romance">Romance</a></li>
-						<li><a href="/genres/ecchi">Ecchi</a></li>
-						<li><a href="/genres/mature">Mature</a></li>
-						<li><a href="/genres/harem">Harem</a></li>
-					</ul>
-				</li>
-				
-				<li id="navManga" class=""><a href="/manga">Manga</a></li>
-				<li id="navGenre" class=""><a href="/genres">Genre</a></li>
-				<li id="navNews" class=""><a href="/news">News</a></li>
-				<li id="navReviews" class=""><a href="/reviews">Reviews</a></li>
-				<li><a id="navSignIn" href=""><i class="fa fa-power-off fa-1x text-danger"></i></a></li>
-			</ul>
-			
-			<form action="/search" class="hidden-xs navbar-form">
-				<div class="form-group" style="display:inline;">
-					<div class="input-group" style="display:table;">
-						<input id="search" class="form-control" name="q" method="GET" placeholder="Search Here" autocomplete="off" type="text">
-						<span class="input-group-addon bg-danger" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
-					</div>
+<div id="top-nav" class="bg-white fixed" style="top: 0">
+	<div class="brand" style="background-color: white">
+		<a href="/">
+			<span>Endless</span>
+			<span class="text-danger"> Admin</span>
+		</a>
+	</div><!-- /brand -->
+	<div class="col-sm-7">
+		<form action="/search" class="hidden-xs navbar-form">
+			<div class="form-group" style="display:inline;">
+				<div class="input-group" style="display:table;">
+					<input id="search" class="form-control" name="q" method="GET" placeholder="Search Here" autocomplete="off" type="text">
+					<span class="input-group-addon bg-danger" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</div>
-</nav>
-
-<script type="text/javascript">
 	
-</script>
+	<ul class="nav-notification clearfix">
+		
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Links<b class="caret"></b></a>
+			<ul class="dropdown-menu flipInV" role="menu">
+				<li role="presentation" class="dropdown-header bg-danger">Debonair Favorites</li>
+				<li><a href="/manga/Naruto">Naruto</a></li>
+				<li><a href="/manga/One_Piece">One Piece</a></li>
+				<li><a href="/manga/Bleach">Bleach</a></li>
+				<li role="presentation" class="dropdown-header bg-danger">Debonair Genres</li>
+				<li><a href="/genres/shounen">Shounen</a></li>
+				<li><a href="/genres/shoujo">Shoujo</a></li>
+				<li><a href="/genres/slice-of-life">Slice of Life</a></li>
+				<li><a href="/genres/adventure">Adventure</a></li>
+				<li><a href="/genres/seinen">Seinen</a></li>
+				<li><a href="/genres/romance">Romance</a></li>
+				<li><a href="/genres/ecchi">Ecchi</a></li>
+				<li><a href="/genres/mature">Mature</a></li>
+				<li><a href="/genres/harem">Harem</a></li>
+			</ul>
+		</li>
+		
+		<li id="navManga" class=""><a href="/manga">Manga</a></li>
+		
+		<% if(user) { %>
+			<li class="profile dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<strong><%= user.username %></strong>
+					<span><i class="fa fa-chevron-down"></i></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="clearfix" href="#">
+							<img src="http://www.anime-planet.com/images/characters/koro_sensei_50224.jpg" alt="User Avatar">
+							<div class="detail">
+								<strong><%= user.username %></strong>
+								<p class="grey"><%= user.email %></p> 
+							</div>
+						</a>
+					</li>
+					<li><a tabindex="-1" href="profile.html" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
+					<li><a tabindex="-1" href="gallery.html" class="main-link"><i class="fa fa-book fa-lg"></i> Library</a></li>
+					<li><a tabindex="-1" href="#" class="theme-setting"><i class="fa fa-cog fa-lg"></i> Setting</a></li>
+					<li class="divider"></li>
+					<li><a tabindex="-1" href="/logout" data-popup-ordinal="0" id="logout"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
+				</ul>
+			</li>
+		<% } else { %>
+			<li id="navSignUp" class=""><a href="/signup">Sign Up</a></li>
+		<% } %>
+	</ul>
+</div>
