@@ -2,12 +2,18 @@ var LocalStrategy = require("passport-local").Strategy;
 var User = require("../../database/models/ModelUser");
 var Admin = require("../../database/models/ModelAdmin");
 
-exports.loginUser = new LocalStrategy(function(req, username, password, callback){
+exports.loginUser = new LocalStrategy(function(username, password, callback){
         
     User.findOne({ username: username }, function(err, user){
         if(err)
         {
             callback(err, null);
+            return;
+        }
+        
+        if(!user)
+        {
+            callback(null, null);
             return;
         }
         
@@ -26,7 +32,6 @@ exports.loginUser = new LocalStrategy(function(req, username, password, callback
             
             callback(null, user);
         });
-        
     });    
 });
 
@@ -36,6 +41,12 @@ exports.loginAdmin = new LocalStrategy(function(username, password, callback){
         if(err)
         {
             callback(err, null);
+            return;
+        }
+        
+        if(!admin)
+        {
+            callback(null,null);
             return;
         }
         
