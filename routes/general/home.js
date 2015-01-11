@@ -3,8 +3,7 @@ module.exports = function(router, passport, manga, user)
     router.route('/')
     
         .get(function(req, res){
-            console.log(req.user);
-            
+
             res.render('temp/partials/home', {
                 user: req.user,
                 layout: 'temp/layout', 
