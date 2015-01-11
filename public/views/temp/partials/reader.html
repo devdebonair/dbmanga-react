@@ -34,6 +34,9 @@
 <script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
 <script>
+    $('#top-nav').removeClass('fixed');
+    $('#navigation').addClass('navbar-static-top');
+    
     var $isDual = false;
     var isZoom = false;
     var pages = [];
@@ -68,8 +71,6 @@
         }
     });
         
-    $('#navigation').removeClass('navbar-fixed-top');
-    $('#navigation').addClass('navbar-static-top');
     $.ajax({
         type: 'GET',
         url: '/api/manga/<%= id %>/sources/kissmanga/chapters/<%= chapterNumber %>',
