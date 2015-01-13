@@ -256,18 +256,18 @@
 			{
 				$('#popularManga').slickAdd('<div>'+ 
 												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="border: solid thin black" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
-													'<div>' +
-														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
-														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
+													'<div><hr>' +
+														'<h5 class="reel-manga-item text-center">'+ data[i].title.toUpperCase() +'</h5>' +
+														'<p class="reel-manga-item text-center">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
 			for(var i = 18; i < data.length; i++)
 			{
 				$('#recommendedManga').slickAdd('<div>'+ 
 												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="border: solid thin black" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
-													'<div>' +
-														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
-														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
+													'<div><hr>' +
+														'<h5 class="reel-manga-item text-center">'+ data[i].title.toUpperCase() +'</h5>' +
+														'<p class="reel-manga-item text-center">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
         });
@@ -283,9 +283,9 @@
 			{
 				$('#trendingManga').slickAdd('<div>'+ 
 												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="border: solid thin black" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
-													'<div>' +
-														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
-														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
+													'<div><hr>' +
+														'<h5 class="reel-manga-item text-center">'+ data[i].title.toUpperCase() +'</h5>' +
+														'<p class="reel-manga-item text-center">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
         });
@@ -300,8 +300,8 @@
 			{
 				$('#newManga').slickAdd('<div>'+ 
 												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="border: solid thin black" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
-													'<div>' +
-														'<h4 class="reel-manga-item">'+ data[i].title.toUpperCase() +'</h4>' +
+													'<div><hr>' +
+														'<h5 class="reel-manga-item text-center">'+ data[i].title.toUpperCase() +'</h5>' +
 														'<p class="reel-manga-item">'+ data[i].description.substring(0,140) + '...' + '</p>' +
 													'</div></a></div>');
 			}
