@@ -8,14 +8,14 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-body">
-                <% for(var i = 0; i < results.length; i++) {%>
-            <div style="margin-bottom: 2%" class="col-xs-12 col-sm-3 col-md-2">
-                <a class="popup" href="/manga/<%= results[i].title.replace('/\s/g','_') %>" data-toggle="popover" data-title="<%= results[i].title.replace(/\s/g,' ').toUpperCase() %>" data-content="<%= results[i].description %>" data-trigger="hover">
-                    <div style="width: 85%" class="pos-front full-height overlay"><i style="margin-top: 50%" class="fa fa-book fa-5x"></i></div>
-                    <img class="lift" height="250px" width="190px" src="<%= results[i].coverUrl %>"></img>
-                </a>
-            </div>
-        <% } %>
+                <% for(var i = 0; i < results.length; i++){ %>
+                    <div style="margin-bottom: 2%" class="col-xs-12 col-sm-3 col-md-2">
+                        <a class="popup" href="/manga/<%= results[i].title.replace('/\s/g','_') %>" data-toggle="popover" data-title="<%= results[i].title.replace(/\s/g,' ').toUpperCase() %>" data-content="<%= results[i].description %>" data-trigger="hover">
+                            <span style="width: 190px" class="pos-front full-height overlay"><i style="margin-top: 50%" class="fa fa-book fa-5x"></i></span>
+                            <img style="border: solid thin black" class="shadow" height="250px" width="190px" src="<%= results[i].coverUrl %>"></img>
+                        </a>
+                    </div>
+                <% } %>
             </div>
         </div>
         
@@ -32,6 +32,7 @@
 </div>
 
 <script type="text/javascript">
+
     $('.popup').popover({
         placement: 'right',
         container: 'body',

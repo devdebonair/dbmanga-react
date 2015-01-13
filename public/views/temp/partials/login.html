@@ -7,6 +7,10 @@
         <link href="/lib/endless/css/endless.min.css" rel="stylesheet">
         
         <style type="text/css">
+            .shadow {
+    	        box-shadow: 2px 2px 5px #888888;
+    	    }
+    	    
             input[type='text'],
             input[type='password'],
             textarea {
@@ -93,7 +97,7 @@
             <a href="/">Continue as Guest.</a>
         </div>
         <div class="login-wrapper" style="margin-top: 10%">
-            <div class="login-widget panel panel-default">
+            <div class="login-widget panel panel-default shadow" style="border: solid thin black">
                 <div class="panel-body">
                     <h2 class="text-center"><span class="text-danger">Debonair</span> Manga</h2>
                     <form class="form-signin" action="/login" method="POST">
