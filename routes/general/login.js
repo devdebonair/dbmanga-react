@@ -1,4 +1,4 @@
-module.exports = function(router, passport, User)
+module.exports = function(router, passport)
 {
     router.route('/login')
         
