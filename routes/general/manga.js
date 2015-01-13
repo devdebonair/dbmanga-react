@@ -43,7 +43,7 @@ module.exports = function(router, passport, manga, user)
         
         .get(function(req, res){
             var name = req.params.manga_name.replace(/_/gi, ' ');
-            manga.findOne({ title: name }, 'id title', null, function(err, data) {
+            manga.findOne({ title: name }, 'id title author', null, function(err, data) {
                 if(err)
                 {
                     res.send(err);
@@ -53,7 +53,8 @@ module.exports = function(router, passport, manga, user)
                 res.render('temp/partials/reader', { 
                     layout: 'temp/layout',
                     user: req.user,
-                    title: data.title, 
+                    title: data.title,
+                    author: data.author,
                     id: data.id, 
                     chapterNumber: req.params.chapterNumber,
                     meta:{ 
