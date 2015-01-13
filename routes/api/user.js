@@ -19,8 +19,6 @@ module.exports = function(router)
         
         .post(function(req, res){
             
-            console.log(req.body);
-            
             var user = new User(req.body);
             
             user.save( function(err){
@@ -75,7 +73,7 @@ module.exports = function(router)
     
         .get(function(req, res){
             
-            User.findById(req.params.user_id, function(err, user) {
+            User.findById(req.params.user_id, req.query, function(err, user) {
                 if(err)
                 {
                     res.send(err);
@@ -86,7 +84,7 @@ module.exports = function(router)
         })
         
         .post(function(req, res){
-            console.log(req.body);
+
             User.findByIdAndUpdate(req.params.user_id, { $push: { library: req.body } },
                 function(err, user){
                     if(err)
