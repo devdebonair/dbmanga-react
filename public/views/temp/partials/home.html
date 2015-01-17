@@ -22,7 +22,7 @@
     </div>
     
     <div class="hidden-xs col-sm-12 col-md-9">
-        <div id="news-reel" class="shadow" style="border: solid thin black">
+        <div id="news-reel" class="shadow" style="border: solid thin #888888">
             
         </div>
     </div><!-- ./carousel -->
@@ -195,7 +195,7 @@
             for(var i = 0; i < data.length; i++)
 			{
 				$('#popularManga').append('<div>'+ 
-												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="border: solid thin black" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
+												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="margin: 0 auto; border: solid thin black" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
 													'<hr><div>' +
 														'<h5 class="reel-manga-item text-center">'+ data[i].title.toUpperCase() +'</h5>' +
 														'<p class="reel-manga-item text-center">'+ data[i].description.substring(0,140) + '...' + '</p>' +
@@ -212,7 +212,7 @@
             for(var i = 0; i < data.length; i++)
 			{
 				$('#newManga').append('<div>'+ 
-												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="border: solid thin black;" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
+												'<a href="/manga/'+ data[i].title.replace(/\s/g,"_") +'"><img class="shadow" style="margin: 0 auto; border: solid thin black;" width="168px" height="221px" src="' + data[i].coverUrl + '"></img>' + 
 													'<div><hr>' +
 														'<h5 class="reel-manga-item text-center">'+ data[i].title.toUpperCase() +'</h5>' +
 														'<p class="reel-manga-item text-center">'+ data[i].description.substring(0,140) + '...' + '</p>' +
