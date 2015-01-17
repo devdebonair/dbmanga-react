@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= meta.title %></title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Debonair Manga">
+        <meta name="keywords" content="<%= meta.keywords %>">
+        <meta name="description" content="<%= meta.description %>">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/lib/animate.css/animate.min.css" type="text/css" />
+        <link href="/lib/endless/css/endless.min.css" rel="stylesheet">
+        
+        <style type="text/css">
+            body {
+              height:100%;
+              width:100%;
+              margin:0px;
+              background-color:#f2f2f2;
+            }
+
+            .header {
+              width:100%;
+              height:400px;
+              background: linear-gradient(5deg, #FDA699, #e07b6d);
+              margin:0px;
+              position:fixed;
+              top:45px;
+              left:0px;
+              z-index:-1;
+              padding-top:20px;
+            }
+            .header-image {
+              position:absolute;
+              top:0px;
+              left:0px;
+              width:100%;
+              height:100%;
+              opacity:0.1;
+            }
+            
+            .header p {
+              max-width:500px;
+              margin:0 auto;
+              font-size:16px;
+            }
+            
+            .text {
+              padding:50px 00px;
+            }
+            
+            .container {
+              width:100%;
+              max-width:700px;
+              margin:0 auto;
+              opacity: 0.9;
+            }
+            
+            .square img {
+                border-radius:5px;
+                border:3px solid #fff;
+                width:20%;
+                height:20%;
+            }
+            
+            .content {
+              background-color:#f2f2f2;
+              margin-top:400px;
+              box-shadow:0px 0px 20px #1a1a1a;
+              padding:20px;
+              min-height:100vh;
+            }
+            
+            footer {
+                margin-left: 0;
+                background: #504f63;
+                color: #d5d4dd;
+            }
+            footer p {
+              display: block;
+            }
+            footer .useful-link li a {
+              color: #d5d4dd;
+              transition: all 0.2s ease;
+              -webkit-transition: all 0.2s ease;
+              -moz-transition: all 0.2s ease;
+              -ms-transition: all 0.2s ease;
+              -o-transition: all 0.2s ease;
+            }
+            footer .useful-link li a:hover {
+              color: #fff;
+              transition: all 0.2s ease;
+              -webkit-transition: all 0.2s ease;
+              -moz-transition: all 0.2s ease;
+              -ms-transition: all 0.2s ease;
+              -o-transition: all 0.2s ease;
+            }
+            #title:first-letter {
+                text-transform: uppercase;
+            }
+            .shadow {
+    	        box-shadow: 2px 2px 5px #888888;
+    	    }
+            
+</style>     
+    </head>
+    <body>
+        <% include navigation.html %>
+        
+        <div class="header">
+            <div class="header-image" style="background:url(<%= genreImageUrl %>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;"></div>
+            
+            <div class="container text">
+                <div class="table header-info">
+                    <div class="row">
+                        <div class="item">
+                            <div class="square">
+                                <a href="http://particletheme.tumblr.com/"><img class="center-block" src="<%= genreImageUrl %>"/></a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <h1 id="title" class="text-center text-white"><%= genreName %></h1>
+                            <p class="text-center text-white">
+                                <%= genreDescription %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="content">
+            <h1>Trending Manga</h1>
+            <hr>
+            <% if(results){ %>
+                <div class="row">
+                    <% for(var i = 0; i < results.length; i++){ %>
+                        <div class="col-xs-12 col-sm-4 col-md-2" style="padding-bottom: 25px">
+                            <div class="shadow">
+                                <a href="/manga/<%= results[i].title.replace(/' '/g,'_')%>">
+                                    <img src="<%= results[i].coverUrl %>" style="border: solid thin black" height="250px" width="190px"></img>
+                                </a>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            <% } %>
+        </div> 
+    </body>
+</html>
