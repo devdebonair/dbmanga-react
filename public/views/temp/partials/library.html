@@ -1,66 +1,76 @@
 <link rel="stylesheet" href="/lib/AnimatedBooks/css/book.css" type="text/css" />
+
 <div class="row">
-<h2 class="text-center">Under Development.</h2>
+    <div class="hidden-xs">
+        <h2 class="text-center">Under Development.</h2>
+        
+        <div id="book-shelf" class="col-md-12" style="margin-top: 10%; overflow-x:scroll; overflow-y:hidden; height: 300px; white-space:nowrap;">
+    	    <% for(var i = 0; i < library.length; i++){ %>
+    	        
+                 <div style="display:inline-block; padding-right: 5%">
+                     <p class="text-danger text-center" style="padding-bottom: 5px"><%= library[i].title.replace(/\s/g,' ') %></p>
+                     <a href="/manga/<%= library[i].title.replace(/\s/g,' ') %>">
+                     <figure class="book">
+             			<ul class="hardcover_front">
+             				<li>
+             			        <img src="<%= library[i].coverUrl %>" width="100%" height="100%"></img>
+             				</li>
+             				<li style="background-color: black">
+        				    
+             				</li>
+             			</ul>
+        
+             			<ul class="page">
+             				<li>
+             				    <% if(library[i].bookmark.page+2 <= library[i].bookmark.chapter.pages.length){ %>
+             	                    <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page+2].image %>"></img>
+             				    <% } %>
+             				</li>
+             				<li>
+             				    <% if(library[i].bookmark.page+1 <= library[i].bookmark.chapter.pages.length){ %>
+             				        <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page+1].image %>"></img>
+             				    <% } %>
+             				</li>
+             				<li>
+             				    <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page].image %>"></img>
+             				</li>
+             				<li>
+             				    <% if(library[i].bookmark.page-1 > -1){ %>
+             				        <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page-1].image %>"></img>	
+             				    <% } %>
+             				</li>
+             				<li>
+             				    <% if(library[i].bookmark.page-2 > -1){ %>
+             				        <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page-2].image %>"></img>
+             				    <% } %>
+             				</li>
+             			</ul>
+        
+             			<ul class="hardcover_back">
+             				<li style="background-color: black"></li>
+             				<li style="background-color: black"></li>
+             			</ul>
+             			<ul class="book_spine">
+             				<li></li>
+             				<li></li>
+             			</ul>
+             		</figure>
+             		</a>
+                 </div>
+    	    <% } %>
+        </div>
+    </div>
     
-    <div id="book-shelf" class="col-md-12" style="margin-top: 10%; overflow-x:scroll; overflow-y:hidden; height: 300px; white-space:nowrap;">
-	    <% for(var i = 0; i < library.length; i++){ %>
-	        
-             <div style="display:inline-block; padding-right: 5%">
-                 <p class="text-danger text-center" style="padding-bottom: 5px"><%= library[i].title.replace(/\s/g,' ') %></p>
-                 <a href="/manga/<%= library[i].title.replace(/\s/g,' ') %>">
-                 <figure class="book">
-         			<ul class="hardcover_front">
-         				<li>
-         			        <img src="<%= library[i].coverUrl %>" width="100%" height="100%"></img>
-         				</li>
-         				<li style="background-color: black">
-    				    
-         				</li>
-         			</ul>
-    
-         			<ul class="page">
-         				<li>
-         				    <% if(library[i].bookmark.page+2 <= library[i].bookmark.chapter.pages.length){ %>
-         	                    <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page+2].image %>"></img>
-         				    <% } %>
-         				</li>
-         				<li>
-         				    <% if(library[i].bookmark.page+1 <= library[i].bookmark.chapter.pages.length){ %>
-         				        <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page+1].image %>"></img>
-         				    <% } %>
-         				</li>
-         				<li>
-         				    <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page].image %>"></img>
-         				</li>
-         				<li>
-         				    <% if(library[i].bookmark.page-1 > -1){ %>
-         				        <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page-1].image %>"></img>	
-         				    <% } %>
-         				</li>
-         				<li>
-         				    <% if(library[i].bookmark.page-2 > -1){ %>
-         				        <img width="100%" height="100%" src="<%= library[i].bookmark.chapter.pages[library[i].bookmark.page-2].image %>"></img>
-         				    <% } %>
-         				</li>
-         			</ul>
-    
-         			<ul class="hardcover_back">
-         				<li style="background-color: black"></li>
-         				<li style="background-color: black"></li>
-         			</ul>
-         			<ul class="book_spine">
-         				<li></li>
-         				<li></li>
-         			</ul>
-         		</figure>
-         		</a>
-             </div>
-	    <% } %>
+    <div class="visible-xs">
+        <% if(library){ %>
+            <% for(var i = 0; i < library.length; i++){ %>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="/manga/<%= library[i].title.replace(/\s/g,' ') %>"><h3><%= library[i].title %></h3></a>
+                        <a href="/manga/<%= library[i].title.replace(/\s/g,' ') %>/<%= library[i].bookmark.chapter.number %>"><button class="btn btn-danger">Continue</button></a>
+                    </div>
+                </div>
+            <% } %>
+        <% } %>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function(){
-        
-    });
-</script>
