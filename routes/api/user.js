@@ -110,4 +110,45 @@ module.exports = function(router)
                     res.json({ message: 'Successful', user: user });
                 });
         });
+        
+    router.route('/users/:user_id/recommendations')
+    
+        .get(function(req, res){
+            
+            User.findById(req.params.user_id, 'recommendations', function(err, user){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(user);
+            });
+        })
+        
+        .post(function(req, res){
+
+            User.findByIdAndUpdate(req.params.user_id, { $push: { recommendations: req.body }}, function(err, user){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(user);
+            });
+        });
+        
+    router.route('/users/:user_id/recommendations/:manga_id')
+    
+        .delete(function(req, res) {
+            
+            User.findByIdAndUpdate(req.params.user_id, { $pull: { recommendations: { manga_id: req.params.manga_id }}}, 
+                function(err, user){
+                    if(err)
+                    {
+                        res.send(err);
+                        return;
+                    }
+                    res.json(user);
+                });
+        });
 };
