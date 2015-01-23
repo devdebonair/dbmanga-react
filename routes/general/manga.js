@@ -17,9 +17,9 @@ module.exports = function(router, passport, manga, user)
     router.route('/manga/:manga_name')
     
         .get(function(req, res) {
-            var name = req.params.manga_name.replace(/_/gi, ' ');
-
-            manga.findOne({ title: name }, '-sources', null, function(err, data){
+            var name = req.params.manga_name.replace(/_/gi, ' ').toLowerCase();
+            manga.findOne({ title: name }, '-chapters', null, function(err, data){
+                
                 if(err)
                 {
                     req.redirect(301,'/');
@@ -43,7 +43,7 @@ module.exports = function(router, passport, manga, user)
         
         .get(function(req, res){
             var name = req.params.manga_name.replace(/_/gi, ' ');
-            manga.findOne({ title: name }, 'id title author', null, function(err, data) {
+            manga.findOne({ title: name }, 'id title author coverUrl', null, function(err, data) {
                 if(err)
                 {
                     res.send(err);
@@ -56,6 +56,7 @@ module.exports = function(router, passport, manga, user)
                     title: data.title,
                     author: data.author,
                     id: data.id, 
+                    coverUrl: data.coverUrl,
                     chapterNumber: req.params.chapterNumber,
                     meta:{ 
                         title: 'Debonair Manga - Read ' + data.title + ' Online for Free', 
