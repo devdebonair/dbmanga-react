@@ -1,3 +1,12 @@
+<div class="hidden-xs fixed pos-front" style="bottom: 0; right: 0; padding-right: 10px; width: 200px">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <img src="http://www.anime-planet.com/images/characters/koro_sensei_50224.jpg" class="circular" style="padding-right: 5px"></img>
+            <span id="comment"></span>
+        </div>
+    </div>
+</div>
+
 <nav id="chapterMenu">
     <ul id="chapterPanel">
         
@@ -6,7 +15,7 @@
 
 <a id="menu-control" href="#chapterMenu" class="pos-front fixed fake-link"><i class="fa fa-bars fa-2x"></i></a>
 
-<div id="reader-with-controls">
+<div id="reader-with-controls" class="row">
     <div id="reader-controls" class="hidden-xs fixed pos-front" style="margin-top: 10%;">
         <div style="padding-bottom: 20px">
             <span class="fake-link"><i id="view-toggle-control" class="fa fa-file fa-2x"></i></span>
@@ -25,15 +34,80 @@
         </div>
     </div>
     
-    <div class="row">
+    <div class="row padding-md">
         <div class="col-xs-12 col-sm-6">
             <a href="/manga/<%= title.replace(/\s/g,'_') %>"><h1><%= title.toUpperCase() %></h1></a>
             <h4><i><%= author.toUpperCase() %></i></h4>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div style="position: relative; margin: 10%">
+                <% if(user){ %>
+                
+                    <% if(user.library.length === 0){ %>
+                        <span id="add-library" class="fake-link"><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                    <% } %>
+                    
+                    <% if(user.recommendations.length === 0){ %>
+                        <span id="recommend" class="fake-link"><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                    <% } %>    
+                    
+                    <% for(var i = 0; i < user.library.length; i++){ %>
+                        <% if(user.library[i].book_id === id.toString()){ %>
+                            <span><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                            <% break %>
+                        <% } else if(i === user.library.length-1){ %>
+                            <span id="add-library" class="fake-link"><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                        <% } %>
+                    <% } %>
+                    
+                    <% for(var i = 0; i < user.recommendations.length; i++){ %>
+                        <% if(user.recommendations[i].manga_id === id.toString()){ %>
+                            <span><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                            <% break %>
+                        <% } else if(i === user.recommendations.length-1) { %>
+                            <span id="recommend" class="fake-link"><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                        <% } %>
+                    <% } %>
+                    
+                <% } else { %>
+                    <a href="/signup"><button id="sign-up" class="btn btn-danger pull-right">Sign Up</button></a>
+                    <a href="/login"><button id="log-in" class="btn btn-danger pull-right">Log In</button></a>
+                <% } %>
+                
+            </div>
         </div>
     </div><!-- ./title -->
     <hr>
     <div id="reader" class="full">
         
+    </div>
+</div>
+
+
+<div id="modal-comment-form" class="modal fade" tabindex="-1" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <%= title.toUpperCase() %>
+                <img src="http://www.anime-planet.com/images/characters/koro_sensei_50224.jpg" class="circular pull-right"></img>
+            </div>
+            <div class="modal-body">
+                <form id="form-comment" action="/" method="POST">
+                    <div>
+                        Page: 
+                        <select id="select-page"></select>
+                        <span class="pull-right">140</span>
+                    </div>
+                    <div class="seperator"></div>
+                    <textarea class="form-control" rows="4" columns="6" maxlength="140" placeholder="Comment" form="#form-comment" required></textarea>
+                    <div class="seperator"></div>
+            </div>
+            <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger pull-right" value="Submit"/>
+                </form>
+                
+            </div>
+        </div>
     </div>
 </div>
 
@@ -47,10 +121,99 @@
     var $isDual = false;
     var isZoom = false;
     var pages = [];
+    var comments = ['WOW!!!', 'This is Crazy.', 'WOAH!', 'Meh.', ':)', 'turn up'];
     
+    <% if(user) { %>
+        $('#add-library').click(function(){
+            $('#add-library').empty();
+            $('#add-library').append('<i class="fa fa-circle-o-notch fa-spin fa-3x text-danger"></i>');
+            $.ajax({
+                type: 'GET',
+                url: '/api/manga/<%= id %>/chapters/1',
+                success: function(data)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/users/<%= user._id %>/library',
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            book_id: "<%= id %>",
+                            title: "<%= title %>",
+                            coverUrl: "<%= coverUrl %>",
+                            bookmark: {
+                                chapter: {
+                                    number: 1,
+                                    pages: data
+                                },
+                                page: 1
+                            }
+                        }),
+                        success: function()
+                        {
+                            $('#add-library').empty();
+                            $('#add-library').removeClass('fake-link');
+                            $('#add-library').append('<i class="fa fa-plus fa-3x text-danger pull-right"></i>');
+                        },
+                        error: function()
+                        {
+                            $('#add-library').empty();
+                            $('#add-library').append('<i class="fa fa-spin fa-refresh fa-3x pull-right"></i>');
+                        }
+                    });
+                },
+                error: function()
+                {
+                    $('#add-library').append('<i class="fa fa-spin fa-refresh fa-3x pull-right"></i>');
+                }
+            })
+        });
+        
+        $('#recommend').click(function(){
+            $('#recommend').empty();
+            $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+            
+            $.ajax({
+                type: 'POST',
+                url:'/api/users/<%= user._id %>/recommendations',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    manga_id: "<%= id %>",
+                    title: "<%= title %>"
+                }),
+                success: function()
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/manga/<%= id %>/likes',
+                        success: function()
+                        {
+                            $('#recommend').empty();
+                            $('#recommend').append('<i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i>');
+                            $('#recommend').removeClass('fake-link');
+                            $('#recommend').removeAttr('id');
+                        },
+                        error: function()
+                        {
+                            $('#recommend').empty();
+                            $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+                        }
+                    });
+                }, 
+                error: function()
+                {
+                    $('#recommend').empty();
+                    $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+                }
+            });        
+        });
+        
+    <% } %>
+        
     $.ajax({
         type: 'GET',
-        url: '/api/manga/<%= id %>/sources/kissmanga/chapters?select=title+number',
+        url: '/api/manga/<%= id %>/chapters?select=title+number',
         success: function(data)
         {
             
@@ -80,7 +243,7 @@
         
     $.ajax({
         type: 'GET',
-        url: '/api/manga/<%= id %>/sources/kissmanga/chapters/<%= chapterNumber %>',
+        url: '/api/manga/<%= id %>/chapters/<%= chapterNumber %>',
         success: function(data)
         {
             for(var i = 0; i < data.length; i++)
@@ -103,6 +266,14 @@
             console.log(err);
         }
     });
+    
+    setComment();
+    
+    function setComment()
+    {
+        $('#comment').text(comments[Math.floor( Math.random() * (comments.length + 0) )]);
+        setTimeout(setComment, 8000);
+    }
     
     function buildReader(imageHeight, isDual)
     {
@@ -216,5 +387,25 @@
         
         buildReader(screen.availHeight, $isDual);
         $isDual = !$isDual;
+    });
+    
+    $('#comment-control').click(function(){
+        $('#select-page').empty();
+        var currentSlide = $('#reader').slickCurrentSlide()+1;
+        if($isDual)
+        {
+            currentSlide *= 2;
+        }
+        for(var i = 1; i <= pages.length; i++)
+        {
+            if(i === currentSlide)
+            {
+                $('#select-page').append('<option value="'+ i +'" selected>'+ i +'</option>');
+                console.log();
+                continue;
+            }
+            $('#select-page').append('<option value="'+ i +'">'+ i +'</option>');
+        }
+        $('#modal-comment-form').modal();
     });
 </script>
