@@ -39,12 +39,8 @@ module.exports = function(router)
     router.route('/manga/:manga_id')
         
         .get(function(req, res){
-            var selectedFields = '';
-            if(req.query.select)
-            {
-                selectedFields = req.query.select;
-            }
-            Manga.findById( req.params.manga_id, selectedFields, function(err, manga){
+            console.log(req.query.select);
+            Manga.findById( req.params.manga_id, req.query.select, function(err, manga){
                 if(err)
                 {
                     res.send(err);
@@ -78,96 +74,93 @@ module.exports = function(router)
             });
         });
         
-    router.route('/manga/:manga_id/sources')
-        
-        .get(function(req, res) {
-            
-            Manga.findById( req.params.manga_id, function(err, manga){
+    router.route('/manga/:manga_id/likes')
+    
+        .put(function(req, res){
+            Manga.findByIdAndUpdate(req.params.manga_id, { $inc: { likes: 1 }}, function(err, data){
                 if(err)
                 {
                     res.send(err);
                     return;
                 }
-                res.json(manga.sources);
+                res.json(data.likes);
+            })
+        })
+        
+        .delete(function(req, res){
+            Manga.findByIdAndUpdate(req.params.manga_id, { $inc: { likes: -1 }}, function(err, data){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(data.likes);
+            })
+        });
+        
+    router.route('/manga/:manga_id/dislikes')
+    
+        .put(function(req, res){
+            Manga.findByIdAndUpdate(req.params.manga_id, { $inc: { dislikes: 1 }}, function(err, data){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(data.likes);
+            });
+        })
+        
+        .delete(function(req, res){
+            Manga.findByIdAndUpdate(req.params.manga_id, { $inc: { dislikes: -1 }}, function(err, data){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(data.likes);
+            });
+        });
+        
+        
+    router.route('/manga/:manga_id/chapters')
+        
+        .get(function(req, res){
+            var fields = req.query.select.split(' ');
+            var select = '';
+            for(var i = 0; i < fields.length; i++)
+            {
+                if(fields[i].charAt(0) === '-')
+                {
+                    select += '-';
+                }
+                select += 'chapters.' + fields[i] + ' ';
+            }
+            
+            Manga.findById(req.params.manga_id, select, function(err, manga){
+                if(err)
+                {
+                    res.send(err);
+                    return;
+                }
+                res.json(manga.chapters);
             });
         })
         
         .post(function(req, res){
             
-            Manga.findByIdAndUpdate( req.params.manga_id, { $push: { source: req.body } },
+            Manga.findByIdAndUpdate( req.params.manga_id, { $push: { chapters: req.body } },
                 function(err, manga){
                     if(err)
                     {
                         res.send(err);
                         return;
                     }
-                    res.json(manga.sources);
+                    res.json(manga);
                 });
         });
         
-    router.route('/manga/:manga_id/sources/:source_name/chapters')
-        
-        .get(function(req, res){
-            var selectedFields = "";
-            if(req.query.select)
-            {
-                var requestedFields = req.query.select.split(' ');
-                for(var i = 0; i < requestedFields.length; i++)
-                {
-                    var rawField = requestedFields[i];
-                    var finalField = 'sources.' + 'chapters.' + rawField;
-                    
-                    if(rawField.indexOf('-') === 0)
-                    {
-                        finalField = '-sources.' + req.params.source_name + '.' + rawField.replace('-','');
-                    }
-                    selectedFields += finalField + ' ';
-                }
-            }
-            Manga.findById(req.params.manga_id, selectedFields, function(err, manga){
-                if(err)
-                {
-                    res.send(err);
-                    return;
-                }
-                
-                res.json(manga.sources[0].chapters);
-            });
-        })
-        
-        .post(function(req, res){
-            
-            Manga.findById( req.params.manga_id, function(err, manga){
-                if(err)
-                {
-                    res.send(err);
-                    return;
-                }
-                
-                var scanOrigin = null;
-                
-                for( var i = 0; i < manga.sources.length; i++ )
-                {
-                    if(manga.sources[i].scanOrigin === req.params.source_name)
-                    {
-                        scanOrigin = manga.sources[i].chapters;
-                        break;
-                    }
-                }
-                scanOrigin.chapters.push(req.body);
-                
-                manga.save(function(err, manga){
-                    if(err)
-                    {
-                        res.send(err);
-                        return;
-                    }
-                    res.json(scanOrigin);
-                });
-            });
-        });
-        
-    router.route('/manga/:manga_id/sources/:source_name/chapters/:chapter_number')
+    router.route('/manga/:manga_id/chapters/:chapter_number')
         
         .get(function(req, res) {
             
@@ -178,34 +171,17 @@ module.exports = function(router)
                     return;
                 }
                 
-                var chapters = null;
-                
-                for( var i = 0; i < manga.sources.length; i++ )
-                {
-                    if(manga.sources[i].scanOrigin.toLowerCase() === req.params.source_name.toLowerCase())
-                    {
-                        chapters = manga.sources[i].chapters;
-                        break;
-                    }
-                }
-                
-                if(chapters === null)
-                {
-                    res.send({ error: 'Must specify scan origin.'});
-                    return;
-                }
-                
                 var chapterToReturn = null;
                 
-                for( var i = 0; i < chapters.length; i++ )
+                for( var i = 0; i < manga.chapters.length; i++ )
                 {
-                    if(chapters[i].number === parseInt(req.params.chapter_number) )
+                    if(manga.chapters[i].number === parseInt(req.params.chapter_number) )
                     {
-                        chapterToReturn = chapters[i];
+                        chapterToReturn = manga.chapters[i];
                     }
                 }
                 
-                if(chapterToReturn === null)
+                if(!chapterToReturn)
                 {
                     res.send({ error: "Chapter " + req.params.chapter_number +
                                         ' is not available.'});
@@ -218,54 +194,15 @@ module.exports = function(router)
         
         .delete(function(req, res) {
             
-            Manga.findById(req.params.manga_id, function(err, manga) {
-                if(err)
-                {
-                    res.send(err);
-                    return;
-                }
-                
-                var chapters = null;
-                
-                for( var i = 0; i < manga.sources.length; i++ )
-                {
-                    if(manga.sources[i].scanOrigin === req.params.source_name)
-                    {
-                        chapters = manga.sources[i].chapters;
-                        break;
-                    }
-                }
-                
-                var isDeleted = false;
-                for( var i = 0; i < chapters.length; i++ )
-                {
-                    if(chapters[i].number === parseInt(req.params.chapter_number))
-                    {
-                        var itemRemoved = chapters.splice(i,1);
-                        
-                        if(itemRemoved.length === 1)
-                        {
-                           isDeleted = true; 
-                        }
-                        break;
-                    }
-                }
-                
-                if(!isDeleted)
-                {
-                    res.send({ error: 'Could not delete chapter.' });
-                    return;
-                }
-                
-                manga.save(function(err, manga){
+            Manga.findByIdAndUpdate(req.params.manga_id, { $pull: { chapters: { number: req.params.chapter_number }} },
+                function(err, manga) {
                     if(err)
                     {
-                        res.send({ error: 'Could not delete chapter' });
+                        res.send(err);
                         return;
                     }
-                    res.json({ message: 'Success.'});
+                    res.json(manga);
                 });
-            });
         });
     
     router.route('/manga/popular/:limit')
@@ -309,4 +246,5 @@ module.exports = function(router)
                 res.json(data);
             });
         });
+        
 };
