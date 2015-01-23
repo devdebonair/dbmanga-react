@@ -22,6 +22,10 @@ var User = new Schema({
             },
             page: { type: Number, default: 1 }
         }
+    }],
+    recommendations: [{
+        title: String,
+        manga_id: String
     }]
 });
 
