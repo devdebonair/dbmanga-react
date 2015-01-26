@@ -32,6 +32,9 @@
         <div style="padding-bottom: 20px">
             <span class="fake-link"><i id="full-screen-control" class="fa fa-expand fa-2x"></i></span>
         </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="direction-control" class="fa fa-angle-double-right fa-2x"></i></span>
+        </div>
     </div>
     
     <div class="row padding-md">
@@ -119,6 +122,7 @@
     $('#navigation').addClass('navbar-static-top');
     
     var $isDual = false;
+    var $isRtl = false;
     var isZoom = false;
     var pages = [];
     var comments = ['WOW!!!', 'This is Crazy.', 'WOAH!', 'Meh.', ':)', 'turn up'];
@@ -275,36 +279,45 @@
         setTimeout(setComment, 8000);
     }
     
-    function buildReader(imageHeight, isDual)
+    function buildReader(imageHeight, isDual, slideNumber, pageList)
     {
         var nextChapter = parseInt(<%= chapterNumber %>)+1;
         var currentSlide = $('#reader').slickCurrentSlide();
         var htmlToAppend = '';
-            
+        var images = pageList || pages;
         $('#reader').empty();
         $('#reader').unslick();
         
-        for(var i = 0; i < pages.length; i++)
+        if($isRtl)
         {
-            htmlToAppend += '<div class="text-center"><img style="display: inline-block" src="'+ pages[i] +'"></img>';
+            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');    
+        }
+        
+        for(var i = 0; i < images.length; i++)
+        {
+            htmlToAppend += '<div class="text-center"><img style="display: inline-block" src="'+ images[i] +'"></img>';
             
             if(isDual)
             {
                 var image1 = new Image();
                 var image2 = new Image();
-                image1.src = pages[i];
-                image2.src = pages[i+1];
+                image1.src = images[i];
+                image2.src = images[i+1];
                 
-                if(((image1.width/image1.height) < 0.8) && ((image2.width/image2.height) < 0.8) && (i+1 < pages.length))
+                if(((image1.width/image1.height) < 0.8) && ((image2.width/image2.height) < 0.8) && (i+1 < images.length))
                 {
-                    htmlToAppend += '<img style="display: inline-block" src="'+ pages[i+1] +'"></img>';
+                    htmlToAppend += '<img style="display: inline-block" src="'+ images[i+1] +'"></img>';
                     i++;
                 }
             }
             htmlToAppend += '</div>';
         }
         
-        if(isDual)
+        if(slideNumber)
+        {
+            currentSlide = slideNumber;
+        }
+        else if(isDual)
         {
             currentSlide /= 2;
         }
@@ -314,7 +327,11 @@
         }
         
         $('#reader').append(htmlToAppend);
-        $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
+        if(!$isRtl)
+        {
+            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');    
+        }
+        
         
         $('#reader img').height(imageHeight);
         $('#reader').slick({
@@ -394,5 +411,34 @@
             $('#select-page').append('<option value="'+ i +'">'+ i +'</option>');
         }
         $('#modal-comment-form').modal();
+    });
+    
+    $('#direction-control').click(function(){
+        if($(this).hasClass('fa-angle-double-right'))
+        {
+            $(this).removeClass('fa-angle-double-right');
+            $(this).addClass('fa-angle-double-left');
+        }
+        else
+        {
+            $(this).removeClass('fa-angle-double-left');
+            $(this).addClass('fa-angle-double-right');
+        }
+        $isRtl = !$isRtl;
+        pages.reverse();
+        var slideNumber = $('#reader').slickCurrentSlide();
+        var numOfSlides = $('#reader .slick-track div').length+1;
+        console.log("NumOfSlides:\t" + numOfSlides);
+        console.log("SlideNum Before:\t" + slideNumber);
+        if($isDual)
+        {
+            slideNumber = (numOfSlides-2) - slideNumber;
+        }
+        else
+        {
+            slideNumber = pages.length-1 - slideNumber;
+        }
+        console.log("SlideNum After:\t" + slideNumber);
+        buildReader($(window).height(), $isDual, slideNumber);
     });
 </script>
