@@ -279,53 +279,42 @@
     {
         var nextChapter = parseInt(<%= chapterNumber %>)+1;
         var currentSlide = $('#reader').slickCurrentSlide();
+        var htmlToAppend = '';
             
         $('#reader').empty();
         $('#reader').unslick();
         
-        if(isDual)
+        for(var i = 0; i < pages.length; i++)
         {
-            currentSlide /= 2;
+            htmlToAppend += '<div class="text-center"><img style="display: inline-block" src="'+ pages[i] +'"></img>';
             
-            for(var i = 0; i < pages.length; i++)
+            if(isDual)
             {
-                //Create images
                 var image1 = new Image();
-                image1.src = pages[i];
                 var image2 = new Image();
+                image1.src = pages[i];
                 image2.src = pages[i+1];
                 
-                //Add first image to string html
-                var htmlToAppend = '<div class="text-center"><img style="display: inline-block" src="'+ pages[i] +'"></img>';
-
-                //Add second image if it will fit
                 if(((image1.width/image1.height) < 0.8) && ((image2.width/image2.height) < 0.8) && (i+1 < pages.length))
                 {
                     htmlToAppend += '<img style="display: inline-block" src="'+ pages[i+1] +'"></img>';
                     i++;
                 }
-                
-                //Close of div tag
-                htmlToAppend += '</div>';
-                
-                $('#reader').append(htmlToAppend);
             }
-            
-            //Add button
-            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
-            
+            htmlToAppend += '</div>';
+        }
+        
+        if(isDual)
+        {
+            currentSlide /= 2;
         }
         else
         {
             currentSlide *= 2;
-            
-            for(var i = 0; i < pages.length; i++)
-            {
-                $('#reader').append('<div class="text-center"><img style="display: inline-block" src="'+ pages[i] +'"></img></div>');    
-            }
-
-            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
         }
+        
+        $('#reader').append(htmlToAppend);
+        $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
         
         $('#reader img').height(imageHeight);
         $('#reader').slick({
@@ -339,14 +328,13 @@
         {
             $(this).removeClass('fa-files-o');
             $(this).addClass('fa-file');
-            $isDual = !$isDual;
         }
         else
         {
             $(this).removeClass('fa-file');
             $(this).addClass('fa-files-o');   
-            $isDual = !$isDual;
         }
+        $isDual = !$isDual;
         buildReader($(window).height(), $isDual);
     });
     
@@ -385,8 +373,7 @@
             slide.webkitRequestFullScreen();
         }
         
-        buildReader(screen.availHeight, $isDual);
-        $isDual = !$isDual;
+        $('#reader img').height(screen.availHeight);
     });
     
     $('#comment-control').click(function(){
