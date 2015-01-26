@@ -71,7 +71,7 @@ Manga.statics.findTrending = function(limit, callback)
     {
         dataLimit = 25;
     }
-    this.find(null, '-sources', { limit: dataLimit, sort: { 'views.currentWeek': -1 } }, function(err, data){
+    this.find(null, '-chapters', { limit: dataLimit, sort: { 'views.currentWeek': -1 } }, function(err, data){
         if(err)
         {
             callback(err, null);
