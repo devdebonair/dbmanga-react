@@ -1,7 +1,7 @@
 var config = require("../config");
 var fs = require("fs");
 
-module.exports = function(mongoose)
+module.exports = function(mongoose, callback)
 {
     var db = mongoose.connection;
     
@@ -9,12 +9,12 @@ module.exports = function(mongoose)
     
     db.once('open', function(){
         console.log('Connected to database.');
-        return;
+        callback(null);;
     });
     
     db.on('error', function( err ){
         console.log( err );
-        return;
+        callback(err);;
     });
     
     fs.readdir(__dirname + '/models', function(err, files){
