@@ -8,6 +8,7 @@ var Article = new Schema({
     summary: String,
     markup: String,
     published: { type: Date, default: Date.now() },
+    views: { type: Number, default: 0 },
     media: {
         images: [{
             url: String,
