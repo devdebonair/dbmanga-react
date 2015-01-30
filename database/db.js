@@ -9,12 +9,18 @@ module.exports = function(mongoose, callback)
     
     db.once('open', function(){
         console.log('Connected to database.');
-        callback(null);;
+        if(callback)
+        {
+            callback(null);;
+        }
     });
     
     db.on('error', function( err ){
         console.log( err );
-        callback(err);;
+        if(callback)
+        {
+            callback(err);
+        }
     });
     
     fs.readdir(__dirname + '/models', function(err, files){
