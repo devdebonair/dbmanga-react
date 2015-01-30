@@ -1,288 +1,311 @@
-<div id="app">
-<!--=========================== Chapter Menu ================================-->
-    <nav id="chapterList">
-        <ul id="chapterPanel">
-            
-        </ul>
-    </nav>
-
-<!--============================== Start ====================================-->
-    <div id="main-container" class="bg-dark" style="margin-left: 0%;">
+<nav id="chapterMenu">
+    <ul id="chapterPanel">
         
-        <a href="#chapterList" style="position: fixed; z-index: 999; padding-left: 10px; padding-top: 10px"><i class="fa fa-bars fa-3x"></i></a>
+    </ul>
+</nav>
 
-        <div class="padding-md">
-<!--============================ Navigation =================================-->
-            <%- include navigation.html %>
-<!--============================== Reader ===================================-->
-            <div id="reader" class="row">
-                <div class="row">
-                    <div class="col-sm-8 col-centered">
-                        <div id="reader-slider" class="slider single-items">
-                            
-                        </div>
-                        <div class="reader-controls text-center hidden-xs">
-                            <span id="reader-fast-backward" class="fake-link"><i class="fa fa-fast-backward fa-2x"></i></span>
-                            <span id="reader-backward" class="fake-link"><i class="fa fa-backward fa-2x"></i></span>
-                            <span id="reader-play-pause" class="fake-link"><i class="fa fa-play fa-2x"></i></span>
-                            <span id="reader-forward" class="fake-link"><i class="fa fa-forward fa-2x"></i></span>
-                            <span id="reader-fast-forward" class="fake-link"><i class="fa fa-fast-forward fa-2x"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<a id="menu-control" href="#chapterMenu" class="fixed pos-front"><i class="fa fa-bars fa-2x"></i></a>
 
-<!--======================= General Information =============================-->
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="panel panel-default panel-dark fadeInDownLarge">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6">
-                                    <img v-attr="src: manga.coverUrl" height="350" width="265"></img>
-                                </div>
-                                
-                                <div class="col-xs-12 col-sm-6">
-                                    <h1>{{manga.title}}</h1>
-                                    <h5 style="font-style: italic">{{manga.author}}</h5>
-                                    <p>{{manga.description}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Description -->
-
-<!--========================= Series Review =================================-->
-                <div class="col-sm-12 col-md-6">
-                    <div class="panel panel-default panel-dark fadeInDownLarge">
-                        <div class="panel-body">
-                            <div class="embed-responsive embed-responsive-16by9">
-                              <iframe width="560" height="315" src="//www.youtube.com/embed/AqWt1cY_FX0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Series Review -->
-            </div><!-- ./row -->
-
-<!--=========================== Comments ====================================-->  
-            <div class="row">
-                <div class="panel panel-default panel-dark fadeInDownLarge">
-                    <div class="panel-body">
-                        <div class="col-sm-12">
-                            <h1 class="text-center" style="font-style: italic">Wow. Simply Amazing!!!</h1>
-                        </div>
-                    </div>
-                </div><!-- Comments -->
-            </div><!-- ./row -->
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <h1><%= manga.title.toUpperCase() %></h1>
+        <h4><i><%= manga.author.toUpperCase() %></i></h4>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div style="position: relative; margin: 10%">
+            <% if(user){ %>
             
-<!--=========================== Preview =====================================-->
+                <% if(user.library.length === 0){ %>
+                    <span id="add-library" class="fake-link"><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                <% } %>
+                
+                <% if(user.recommendations.length === 0){ %>
+                    <span id="recommend" class="fake-link"><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                <% } %>    
+                
+                <% for(var i = 0; i < user.library.length; i++){ %>
+                    <% if(user.library[i].book_id === manga._id.toString()){ %>
+                        <span><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                        <% break %>
+                    <% } else if(i === user.library.length-1){ %>
+                        <span id="add-library" class="fake-link"><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                    <% } %>
+                <% } %>
+                
+                <% for(var i = 0; i < user.recommendations.length; i++){ %>
+                    <% if(user.recommendations[i].manga_id === manga._id.toString()){ %>
+                        <span><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                        <% break %>
+                    <% } else if(i === user.recommendations.length-1) { %>
+                        <span id="recommend" class="fake-link"><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                    <% } %>
+                <% } %>
+                
+            <% } else { %>
+                <a href="/signup"><button id="sign-up" class="btn btn-danger pull-right">Sign Up</button></a>
+                <a href="/login"><button id="log-in" class="btn btn-danger pull-right">Log In</button></a>
+            <% } %>
+            
+        </div>
+    </div>
+</div><!-- ./title -->
+
+<hr>
+
+<div class="padding-md">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3">
             <div class="row">
-                <div class="panel panel-default panel-dark fadeInDownLarge">
-                    <div class="panel-heading">
-                        <h4><div class="text-center">Preview</div></h4>
-                    </div>
+                <img src="<%= manga.coverUrl %>" class="full shadow" style="border: solid thin black"></img>
+                <hr>
+            </div>
+            
+            <div class="row">
+                <div class="panel panel-default panel-stat2 bg-warning">
                     <div class="panel-body">
-                        <ul style="list-style: none">
-                            <li v-repeat="preview">
-                                <div class="col-xs-12 col-sm-3">
-                                    <a class="thumbnail">
-                                        <img v-attr="src: image"></img>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                        <span class="stat-icon">
+                            <i class="fa fa-book"></i>
+                        </span>
+                        <div class="pull-right text-right">
+                            <div class="value"><%= manga.numOfChapters %></div>
+                            <div class="title">Chapters</div>
+                        </div>
                     </div>
+                </div><!-- /panel -->
+                <hr>
+            </div>
+            
+            <div class="row">
+                <div class="panel panel-default panel-stat2 bg-info">
+                    <div class="panel-body">
+                        <span class="stat-icon">
+                            <i class="fa fa-circle-o-notch fa-spin"></i>
+                        </span>
+                        <div class="pull-right text-right">
+                            <div class="value"><%= manga.status %></div>
+                            <div class="title">Status</div>
+                        </div>
+                    </div>
+                </div><!-- /panel -->
+                <hr>
+            </div>
+            
+            <div class="row">
+                <div class="panel panel-default panel-stat2 bg-danger">
+                    <div class="panel-body">
+                        <span class="stat-icon">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                        <div class="pull-right text-right">
+                            <div class="value"><%= manga.views.total %></div>
+                            <div class="title">Views</div>
+                        </div>
+                    </div>
+                </div><!-- /panel -->
+            </div>
+     
+        </div>
+        
+        <div class="col-xs-12 col-sm-8 col-md-9">
+        
+            <div class="row">
+                <div class="padding-md">
+                    <% for(var i = 0; i < manga.genres.length; i++){ %>
+                        <div class="badge bg-success shadow">
+                            <a href="/genres/<%= manga.genres[i] %>" class="text-white"><%= manga.genres[i] %></a>
+                        </div>
+                    <% } %>
                 </div>
             </div>
-<!--============================ End ========================================-->
-        </div><!-- padding -->
-    </div><!-- Container -->
-</div><!-- app -->
+            
+            <div class="panel panel-default">
+    			<div class="panel-tab clearfix">
+    				<ul class="tab-bar">
+    					<li class="active"><a href="#synopsis" data-toggle="tab"><i class="fa fa-home"></i> Synopsis</a></li>
+    					<li class=""><a href="#preview" data-toggle="tab"><i class="fa fa-pencil"></i> Preview</a></li>
+    					<li class=""><a href="#latest" data-toggle="tab"><i class="fa fa-envelope"></i> Latest</a></li>
+    				</ul>
+    			</div>
+    			<div class="panel-body">
+    				<div class="tab-content">
+    					<div class="tab-pane fade active in" id="synopsis">
+    						<p><%= manga.description %></p>
+    					</div>
+    					<div class="tab-pane fade" id="preview">
+    					    <div class="row">
+    					        
+    					    </div>
+    					</div>
+    					<div class="tab-pane fade" id="latest">
+    						<div class="row">
+    						    
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    		
+            <!-- ./more-content -->
+            
+        </div>
+    </div>
+</div>
 
-<!--========================= Javascript ====================================-->
-<script type="text/javascript" src="/lib/vue/dist/vue.min.js"></script>
-<script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
+
 <script type="text/javascript" src="/lib/hammer/hammer.min.js"></script>
-<script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
+<script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript">
-
-    var app = new Vue({
-        el: '#app',
-        data: {
-            manga: {},
-            preview: [],
-            chapterList: null,
-            currentChapter: null
-        },
-        methods: {
+    $(function(){
+        <% if(user) { %>
+            $('#add-library').click(function(){
+                $('#add-library').empty();
+                $('#add-library').append('<i class="fa fa-circle-o-notch fa-spin fa-3x text-danger"></i>');
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/manga/<%= manga._id %>/chapters/1',
+                    success: function(data)
+                    {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/api/users/<%= user._id %>/library',
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                book_id: "<%= manga._id %>",
+                                title: "<%= manga.title %>",
+                                coverUrl: "<%= manga.coverUrl %>",
+                                bookmark: {
+                                    chapter: {
+                                        number: 1,
+                                        pages: data
+                                    },
+                                    page: 1
+                                }
+                            }),
+                            success: function()
+                            {
+                                $('#add-library').empty();
+                                $('#add-library').removeClass('fake-link');
+                                $('#add-library').append('<i class="fa fa-plus fa-3x text-danger pull-right"></i>');
+                            },
+                            error: function()
+                            {
+                                $('#add-library').empty();
+                                $('#add-library').append('<i class="fa fa-spin fa-refresh fa-3x pull-right"></i>');
+                            }
+                        });
+                    },
+                    error: function()
+                    {
+                        $('#add-library').append('<i class="fa fa-spin fa-refresh fa-3x pull-right"></i>');
+                    }
+                })
+            });
             
-        }
-    });
-    
-    var isPlaying = false;
-    
-    var readerOptions = {
-        dots: false,
-        infinite: false,
-        arrows: false,
-        speed: 700,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplaySpeed: 10000,
-        autoplay: false
-    };
-    
-    init();
-
-    
-    function init()
-    {
-        $('#reader').hide();
-        app.manga = <%-JSON.stringify(manga)%>;
-        var $menu = $("#chapterList").mmenu({
-            searchfield: true,
-            onClick: {
-              setSelcted: true  
-            },
-            dragOpen: true
-        });
-        
-        getChapter(1, function(err, data){
+            $('#recommend').click(function(){
+                $('#recommend').empty();
+                $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+                
+                $.ajax({
+                    type: 'POST',
+                    url:'/api/users/<%= user._id %>/recommendations',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        manga_id: "<%= manga._id %>",
+                        title: "<%= manga.title %>"
+                    }),
+                    success: function()
+                    {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/api/manga/<%= manga._id %>/likes',
+                            success: function()
+                            {
+                                $('#recommend').empty();
+                                $('#recommend').append('<i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i>');
+                                $('#recommend').removeClass('fake-link');
+                                $('#recommend').removeAttr('id');
+                            },
+                            error: function()
+                            {
+                                $('#recommend').empty();
+                                $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+                            }
+                        });
+                    }, 
+                    error: function()
+                    {
+                        $('#recommend').empty();
+                        $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+                    }
+                });        
+            });
             
-            app.preview = data.pages.slice(0,4);
-        });
+        <% } %>
         
-        getChapter(null, function(err, data){
-            app.chapterList = data.sources[0].chapters;
-            for(var i = 0; i < app.chapterList.length; i++)
-            {
-                var list = '<li><a href="#" data-chapterNumber="'+ app.chapterList[i].number +'" onclick="getCurrentChapter(this)">'+ app.chapterList[i].title +'</a></li>';
-                $('#chapterPanel').append(list);
-            }
-            var _menu = $menu.data( "mmenu" );
-            _menu._init( $('#chapterPanel') );
-        });
-    }
-    
-    function getCurrentChapter(element)
-    {
-        var chapterNumber = element.getAttribute("data-chapterNumber");
-
-        if(app.currentChapter != null)
-        {
-            app.currentChapter = null;
-            removeReader($('#reader-slider'));
-        }
-        
-        
-        getChapter(chapterNumber, function(err, data){
-            app.currentChapter = data.pages;
-            initReader($('#reader-slider'));
-            $('#chapterList').trigger('close');
-            hidePanels();
-            setupReader();
-        });
-    }
-    
-    function removeReader(reader)
-    {
-        $('#reader').hide();
-        reader.empty();
-        reader.unslick();
-    }
-    
-    function initReader(reader)
-    {
-        $('#reader').show();
-        reader.slick(readerOptions);
-        $('#reader-fast-backward').click(function(){
-            if(isPlaying)
-            {
-                $('#reader-play-pause').click();
-            }
-            reader.slickPrev();
-        });
-        $('#reader-backward').click(function(){
-            var speed = reader.slickGetOption('autoplaySpeed') + 1000;
-            console.log('Setting speed to:\t' + speed);
-            reader.slickSetOption('autoplaySpeed', speed, true);
-            reader.slickPause();
-            reader.slickPlay();
-        });
-        $('#reader-play-pause').click(function(){
-            var playController = $(this).children(':first');
-            if(isPlaying)
-            {
-                playController.removeClass();
-                playController.addClass('fa fa-play fa-2x');
-                reader.slickPause();
-                isPlaying = false;
-                return;
-            }
-            playController.removeClass();
-            playController.addClass('fa fa-pause fa-2x');
-            reader.slickPlay();
-            isPlaying = true;
-        });
-        $('#reader-forward').click(function(){
-            var speed = reader.slickGetOption('autoplaySpeed') - 1000;
-            console.log('Setting speed to:\t' + speed);
-            reader.slickSetOption('autoplaySpeed', speed, true);
-            reader.slickPause();
-            reader.slickPlay();
-        });
-        $('#reader-fast-forward').click(function(){
-            if(isPlaying)
-            {
-                $('#reader-play-pause').click();
-            }
-            reader.slickNext();
-        });
-    }
-    
-    function hidePanels()
-    {
-        $('.panel').hide();
-    }
-    
-    function setupReader()
-    {
-        for(var i = 0; i < app.currentChapter.length; i++)
-        {
-            $('#reader-slider').slickAdd('<div><img src="'+ app.currentChapter[i].image +'"></img></div>');
-        }
-        var windowHeight = $(window).height();
-        var windowWidth = $(window).width();
-        
-        $('#reader-slider').css({ maxHeight: windowHeight, maxWidth: windowWidth });
-        $('#reader-slider img').height(windowHeight);
-        $('#reader-slider img').width(windowWidth);
-    }
-    
-    function getChapter(chapterNumber, callback)
-    {
-        var url = '/api/manga/' + app.manga._id + '/sources/KissManga/chapters';
-        if(chapterNumber !== null)
-        {
-            url += '/' + chapterNumber;
-        }
-       if(chapterNumber === null)
-       {
-           url += '?fields=title+number';
-       }
         $.ajax({
             type: 'GET',
-            url: url,
+            url: '/api/manga/<%= manga._id %>/chapters?select=title+number',
             success: function(data)
             {
-                callback(null, data);
-                return;
+                for(var i = 0; i < data.length; i++)
+                {
+                    var list = '<li><a href="/manga/<%= manga.title %>/'+ data[i].number +'">'+ data[i].title +'</a></li>';
+                    $('#chapterPanel').append(list);
+                }
+                $("#chapterMenu").mmenu({
+                    searchfield: true,
+                    dragOpen: true,
+                    classes: "mm-white",
+                    header: {
+                        title: "Chapter List",
+                        add: true,
+                        update: true
+                    }
+                });
+                
+                $('#menu-control').addClass('animated bounce');
             },
             error: function(err)
             {
-                callback(err, null);
-                return;
+                console.log(err);
             }
         });
-    }
+        
+        
+        $.ajax({
+            type: 'GET',
+            url: '/api/manga/<%= manga._id %>/chapters/1',
+            success: function(data)
+            {
+                for(var i = 0; i < 4; i++)
+                {
+                    var image = '<div class="col-xs-12 col-sm-3"><img src="'+ data[i].image +'" class="full"></img></div>';
+                    $('#preview .row').append(image);
+                }
+            },
+            error: function(err)
+            {
+                console.log(err);
+            }
+        });
+        
+        $.ajax({
+            type: 'GET',
+            url: '/api/manga/<%= manga._id %>/chapters/<%= manga.numOfChapters %>',
+            success: function(data)
+            {
+                for(var i = 0; i < 4; i++)
+                {
+                    var image = '<div class="col-xs-12 col-sm-3"><img src="'+ data[i].image +'" class="full"></img></div>';
+                    $('#latest .row').append(image);
+                }
+            },
+            error: function(err)
+            {
+                console.log(err);
+            }
+        });
+    });
 </script>

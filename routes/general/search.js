@@ -10,8 +10,8 @@ module.exports = function(router, passport, manga)
                     res.send(err);
                     return;
                 }
-                res.render('temp/partials/search.html', { 
-                    layout: 'temp/layout',
+                res.render('partials/search.html', { 
+                    layout: 'layout',
                     user: req.user,
                     results: data,
                     meta:{ 

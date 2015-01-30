@@ -3,8 +3,8 @@ module.exports = function(router, passport, manga, user)
     router.route('/manga')
     
         .get(function(req, res) {
-            res.render('temp/partials/browse-manga', { 
-                layout: 'temp/layout',
+            res.render('partials/browse-manga', { 
+                layout: 'layout',
                 user: req.user,
                 meta:{ 
                     title: 'Debonair Manga - Read Naruto, One Piece, and Attack on Titan Online for Free', 
@@ -26,8 +26,8 @@ module.exports = function(router, passport, manga, user)
                     return;
                 }
                 
-                res.render('temp/partials/manga', { 
-                    layout: 'temp/layout',
+                res.render('partials/manga', { 
+                    layout: 'layout',
                     user: req.user,
                     manga: data,
                     meta:{ 
@@ -50,8 +50,8 @@ module.exports = function(router, passport, manga, user)
                     return;
                 }
 
-                res.render('temp/partials/reader', { 
-                    layout: 'temp/layout',
+                res.render('partials/reader', { 
+                    layout: 'layout',
                     user: req.user,
                     title: data.title,
                     author: data.author,

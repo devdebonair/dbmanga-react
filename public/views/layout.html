@@ -1,48 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <title>Debonair Manga</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Debonair Manga the most advanced online manga reader for viewing Naruto, One Piece, Bleach and many other manga. Available for browser and mobile platforms">
+        <title><%= meta.title %></title>
+        <meta charset="UTF-8">
         <meta name="author" content="Debonair Manga">
+        <meta name="keywords" content="<%= meta.keywords %>">
+        <meta name="description" content="<%= meta.description %>">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="/lib/fontawesome/css/font-awesome.min.css" type="text/css" />
-        <link rel="stylesheet" href="/lib/slick.js/slick/slick.css" type="text/css" />
-        <link rel="stylesheet" href="/lib/endless/css/endless.min.css" type="text/css" />
-        <link href="/lib/endless/css/pace.css" rel="stylesheet">
-        
-        
-        <!-- Home View-->
-	    <link href="/lib/endless/css/jcarousel.responsive.css" rel="stylesheet">
-	    
-        <!-- Manga View -->
+        <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    	
+    	<!-- Font Awesome -->
+    	<link href="/lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+
+    	<!-- Endless -->
+    	<link href="/lib/endless/css/endless.min.css" rel="stylesheet">
+
+    	<link rel="stylesheet" href="/lib/slick.js/slick/slick.css" type="text/css" />
+    	
         <link rel="stylesheet" href="/lib/jQuery.mmenu/src/css/jquery.mmenu.all.css" type="text/css" />
-        
-        <!-- News View -->
-        <link rel="stylesheet" href="/lib/animate.css/animate.min.css" type="text/css" />
-        
-        <style>
-            .navbar.transparent.navbar-inverse {
-                background: rgba(0,0,0,0.9);
+
+    	<style type="text/css">
+    	    .circular {
+                width: 40px;
+                height: 40px;
+                border-radius: 150px;
+                -webkit-border-radius: 50em;
+                -moz-border-radius: 50em;
+                background: url(http://link-to-your/image.jpg) no-repeat;
             }
+    	    .shadow {
+    	        box-shadow: 2px 2px 5px #888888;
+    	    }
+    	    .panel {
+    	        box-shadow: 2px 2px 5px #888888;
+    	    }
             .overlay {
                 position: absolute;
-                max-width: 100%;
-                width: 100%;
-                height: 20%;
+                opacity: 0;
                 background-color: black;
-                bottom: 0px;
-                right: 0px;
-                opacity: 0.8;
+                -o-transition:.1s;
+                -ms-transition:.1s;
+                -moz-transition:.1s;
+                -webkit-transition:.1s;
+                transition:.1s;
+                display:inline-block;
+                color:white;
+                text-align: center;
             }
-            
-            #movieSlider h3 {
-                color: white;
-            }
-            
-            .fake-link i{
+    	    
+    	    .overlay:hover {
+    	        opacity: 0.4;
+    	    }
+    	    
+    	    .fake-link i{
                 opacity: 0.4;
                 -o-transition:.5s;
                 -ms-transition:.5s;
@@ -56,95 +67,118 @@
                 cursor: pointer;
             }
             
-            .center {
-                margin-left: auto;
-                margin-right: auto;
+    	    .pos-front {
+    	        z-index: 99;
+    	    }
+    	    .no-overflow {
+    	        overflow: hidden;    
+    	    }
+    	    
+    	    .fixed {
+    	        position: fixed;
+    	    }
+    	    .navbar .transparent {
+                opacity: 0.9;
             }
             
-            #article #social-buttons{
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            #article .fake-link small{
-                -o-transition:.5s;
-                -ms-transition:.5s;
-                -moz-transition:.5s;
-                -webkit-transition:.5s;
-                transition:.5s;
-            }
-            
-            #article .fake-link small:hover{
-                cursor: pointer;
-            }
-            
-            .col-centered{
-                float: none;
-                margin: 0 auto;
-            }
-            
-            #article p{
-                font-size: 16px;
-                line-height: 27px;
-                color: black;
+            .hide-no-space {
+                display: none;
             }
             
             .full {
-                max-height: 100%;
                 max-width: 100%;
+                max-height: 100%;
+                width: 100%;
                 height: 100%;
+            }
+            
+            .full-height {
+                max-height: 100%;
+                height: 100%;
+            }
+            
+            .full-width {
+                max-width: 100%;
                 width: 100%;
             }
             
             .half {
-                max-height: 50%;
                 max-width: 50%;
+                max-height: 50%;
+                width: 100%;
+                height: 100%;
             }
-        </style>
-        
+            .quarter {
+                max-width: 25%;
+                max-height: 25%;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .widescreen{
+                width: 1980;
+                height: 1020;
+            }
+            
+            footer {
+                margin-left: 0;
+                background: #504f63;
+                color: #d5d4dd;
+            }
+            footer p {
+                display: block;
+            }
+            footer .useful-link li a {
+                color: #d5d4dd;
+                transition: all 0.2s ease;
+                -webkit-transition: all 0.2s ease;
+                -moz-transition: all 0.2s ease;
+                -ms-transition: all 0.2s ease;
+                -o-transition: all 0.2s ease;
+            }
+            footer .useful-link li a:hover {
+                color: #fff;
+                transition: all 0.2s ease;
+                -webkit-transition: all 0.2s ease;
+                -moz-transition: all 0.2s ease;
+                -ms-transition: all 0.2s ease;
+                -o-transition: all 0.2s ease;
+            }
+            
+            /*Home*/
+            #news-reel .carousel-inner{
+                height: 430px;
+                width: 100%;
+            }
+            #news-reel img {
+                overflow: hidden;
+            }
+            
+            .reel-manga-item {
+                padding: 10px 15px;
+                padding-top: 0px;
+                padding-right: 25px;
+                padding-bottom: 0px;
+                padding-left: 0px;
+            }
+    	</style>
     </head>
     <body>
-        <!-- Overlay -->
-        <div id="overlay" class="transparent"></div>
         
-        <div id="wrapper" class="preload">
-<!--=========================== Main Container ==============================-->
-            <%-body%>
+        <div id="wrapper">
+            <% include partials/navigation.html %>
             
-<!--============================== Footer ===============================-->
-    		<footer class="dark" style="margin-left: 0%;">
-    			<div class="row">
-    				<div class="col-sm-12 col-md-4 padding-md">
-    					<p class="block">About Our Company</p>
-    					<p><small>Debonair Manga is owned and copyrighted under DevDebonair. Our goal at Debonair Manga is to provide a professional platform to turn scanlations into something positive and support the manga community as a whole.</small></p>
-    				</div><!-- /.col -->
-    				
-    				<div class="col-xs-6 col-md-4 padding-md">
-    					<p class="block">Stay Connected</p>
-    					<a href="http://www.facebook.com/DebonairManga" target="_blank" class="social-connect tooltip-test facebook-hover pull-left m-right-xs" data-toggle="tooltip" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-    					<a href="http://www.twitter.com/debonairmanga" target="_blank" class="social-connect tooltip-test twitter-hover pull-left m-right-xs" data-toggle="tooltip" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
-    					<a href="http://debonairmanga.tumblr.com" target="_blank" class="social-connect tooltip-test tumblr-hover pull-left m-right-xs" data-toggle="tooltip" data-original-title="Tumblr"><i class="fa fa-tumblr"></i></a>
-    					<a href="http://www.pinterest.com/debonairmanga" target="_blank" class="social-connect tooltip-test pinterest-hover pull-left" data-toggle="tooltip" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a>
-    				</div><!-- /.col -->
-    				
-    				<div class="col-xs-6 col-md-4 padding-md">
-    					<p class="block">Contact Us</p>
-    					<a class="btn btn-sm btn-info"><i class="fa fa-envelope"></i> Contact support</a>
-    				</div><!-- /.col -->
-    			</div><!-- /.row -->
-    		</footer>
-            
+            <div style="margin-left: 3%; margin-right: 3%; margin-bottom: 165px; padding-top: 65px">
+                <%- body %>
+            </div>
+        
+            <% include partials/footer.html %>
         </div>
-        
-        <a href="" id="scroll-to-top" class="hidden-print bg-danger"><i class="fa fa-chevron-up"></i></a>
-<!--============================ Javascript =================================-->
-        <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+    
+        <script src="/lib/jquery/dist/jquery.min.js"></script>
         <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src='/lib/modernizr/modernizr.js'></script>
-        <script src='/lib/endless/js/pace.min.js'></script>
-        <script src="/lib/endless/js/jquery.popupoverlay.min.js"></script>
-        <script src="/lib/endless/js/endless/endless.js"></script>
-
-        <%-script%>
+        <script src="/lib/endless/js/uncompressed/holder.js"></script>
+        
+        <%- script %>
     </body>
 </html>

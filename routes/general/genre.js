@@ -71,7 +71,7 @@ module.exports = function(router, passport, manga, user)
                     return;
                 }
                 
-                res.render('temp/partials/genre', {
+                res.render('partials/genre', {
                     layout: false,
                     genreName: selectedGenre.genreName.replace(/_/g, ' '),
                     genreDescription: selectedGenre.description,

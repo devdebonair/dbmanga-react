@@ -1,12 +1,18 @@
+var Recommendation = require("../../scripts/recommendation");
+
 module.exports = function(router, passport, manga, user)
 {
     router.route('/')
     
         .get(function(req, res){
-
-            res.render('temp/partials/home', {
+            
+            if(req.user)
+            {
+                
+            }
+            res.render('partials/home', {
                 user: req.user,
-                layout: 'temp/layout', 
+                layout: 'layout', 
                 meta:{ 
                     title: 'Debonair Manga - Responsive Online Manga Reader', 
                     description: 'Read Naruto, One Piece, Attack on Titan and many more manga on the best manga reading platform for free.',

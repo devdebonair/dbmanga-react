@@ -6,8 +6,8 @@ module.exports = function(router, passport)
             
             var library = req.user.library;
             
-            res.render('temp/partials/library', {
-                layout: 'temp/layout',
+            res.render('partials/library', {
+                layout: 'layout',
                 user: req.user,
                 library: library,
                 meta:{ 

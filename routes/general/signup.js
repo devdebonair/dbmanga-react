@@ -8,7 +8,7 @@ module.exports = function(router, passport, Manga, User)
                 res.redirect(301, '/');
                 return;
             }
-            res.render('temp/partials/signup', { 
+            res.render('partials/signup', { 
                 layout: false,
                 meta:{ 
                     title: 'Debonair Manga - Read Naruto, One Piece, and Attack on Titan Online for Free', 
