@@ -23,6 +23,12 @@ var User = new Schema({
             page: { type: Number, default: 1 }
         }
     }],
+    history: [{
+        manga_id: { type: String, required: true },
+        title: { type: String, required: true },
+        date: { type: Date, required: true, default: Date.now() },
+        coverUrl: { type: String, required: true }
+    }],
     recommendations: [{
         title: String,
         manga_id: String
