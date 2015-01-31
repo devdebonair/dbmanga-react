@@ -6,7 +6,6 @@ var Manga = new Schema({
     coverUrl: { type: String, required: true },
     author: { type: String, required: true },
     likes: { type: Number, required: true, default: 0 },
-    dislikes: { type: Number, required: true, default: 0 },
     artist: String,
     genres: [String],
     subgenres: [String],

@@ -39,7 +39,6 @@ module.exports = function(router)
     router.route('/manga/:manga_id')
         
         .get(function(req, res){
-            console.log(req.query.select);
             Manga.findById( req.params.manga_id, req.query.select, function(err, manga){
                 if(err)
                 {
@@ -97,31 +96,6 @@ module.exports = function(router)
                 res.json(data.likes);
             })
         });
-        
-    router.route('/manga/:manga_id/dislikes')
-    
-        .put(function(req, res){
-            Manga.findByIdAndUpdate(req.params.manga_id, { $inc: { dislikes: 1 }}, function(err, data){
-                if(err)
-                {
-                    res.send(err);
-                    return;
-                }
-                res.json(data.likes);
-            });
-        })
-        
-        .delete(function(req, res){
-            Manga.findByIdAndUpdate(req.params.manga_id, { $inc: { dislikes: -1 }}, function(err, data){
-                if(err)
-                {
-                    res.send(err);
-                    return;
-                }
-                res.json(data.likes);
-            });
-        });
-        
         
     router.route('/manga/:manga_id/chapters')
         
