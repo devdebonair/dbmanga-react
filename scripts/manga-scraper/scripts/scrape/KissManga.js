@@ -109,6 +109,11 @@ function fetchMangaInfo( args, callback ){
 
     sendRequest( { mangaName: mangaName, url: url }, function( err, DOM ){
         
+        if(!DOM)
+        {
+            return callback(buildError('Location Error', 'DOM not returned'), null);
+        }
+        
         if ( !err )
         {
             var $ = DOM;
@@ -335,8 +340,14 @@ function helper_fetchChapterUrl( args, callback ){
         
         if ( !err )
         {
+            if(!DOM)
+            {
+                callback( buildError('Location Error', 'DOM not returned'), null);
+                return;
+            }
             var $ = DOM;
             var chapterUrl;
+            
             var title = $('#leftside a.bigChar').text();
             
             $('table.listing a').each( function(){
@@ -382,7 +393,7 @@ function helper_fetchChapterUrl( args, callback ){
 function helper_fetchChapterPages( args, callback ){
     
     var mangaName = args.mangaName;
-    var url = args.url + '?confirm=yes';
+    var url = args.url;
     
     sendRequest( { url: url, mangaName: mangaName },
         function( err, DOM ){
@@ -390,7 +401,7 @@ function helper_fetchChapterPages( args, callback ){
             {
                 var $ = DOM;
                 
-                var regex = /http:\/\/.+\..+\..+(\.jpg|\.jpeg|\.png).*"/gi; 
+                var regex = /"http:\/\/.+\..+\..+(\.jpg|\.jpeg|\.png).*"/gi; 
                 var html = $('html').html();
                 
                 if ( !regex.test( html ) )
@@ -416,7 +427,7 @@ function helper_fetchChapterPages( args, callback ){
                     
                     pages.push( tempPage );
                 });
-                
+
                 callback( null, pages );
             }
             else
