@@ -12,7 +12,7 @@ module.exports = function(router, passport, manga, user)
     router.route('/genres/:genre_name')
     
         .get(function(req, res){
-            manga.find({ genres: { $in: [req.params.genre_name.replace(/_/g, ' ')] } }, '-sources', function(err, data){
+            manga.find({ genres: { $in: [req.params.genre_name.replace(/_/g, ' ').toLowerCase()] } }, '-chapters', function(err, data){
                 if(err)
                 {
                     res.send(err);
