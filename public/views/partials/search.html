@@ -1,0 +1,42 @@
+<div>
+    <div class="row">
+        <div class="col-xs-12" style="margin-bottom: 3%">
+            <h1>Found <%= results.length %> results ...</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <% for(var i = 0; i < results.length; i++){ %>
+                    <div style="margin-bottom: 2%" class="col-xs-12 col-sm-3 col-md-2">
+                        <a class="popup" href="/manga/<%= results[i].title.replace('/\s/g','_') %>" data-toggle="popover" data-title="<%= results[i].title.replace(/\s/g,' ').toUpperCase() %>" data-content="<%= results[i].description %>" data-trigger="hover">
+                            <span style="width: 190px" class="pos-front full-height overlay"><i style="margin-top: 50%" class="fa fa-book fa-5x"></i></span>
+                            <img style="border: solid thin black" class="shadow" height="250px" width="190px" src="<%= results[i].coverUrl %>"></img>
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="template">
+    <div class="popover">
+        <div class="arrow"></div>
+        <h3 class="popover-title text-danger bg-white"></h3>
+        <div class="popover-content"></div>
+            
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('.popup').popover({
+        placement: 'right',
+        container: 'body',
+        html: true,
+        template: $('.template').html()
+    });
+</script>

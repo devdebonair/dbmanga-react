@@ -1,0 +1,444 @@
+<div class="hidden-xs fixed pos-front" style="bottom: 0; right: 0; padding-right: 10px; width: 200px">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <img src="http://www.anime-planet.com/images/characters/koro_sensei_50224.jpg" class="circular" style="padding-right: 5px"></img>
+            <span id="comment"></span>
+        </div>
+    </div>
+</div>
+
+<nav id="chapterMenu">
+    <ul id="chapterPanel">
+        
+    </ul>
+</nav>
+
+<a id="menu-control" href="#chapterMenu" class="pos-front fixed fake-link"><i class="fa fa-bars fa-2x"></i></a>
+
+<div id="reader-with-controls" class="row">
+    <div id="reader-controls" class="hidden-xs fixed pos-front" style="margin-top: 10%;">
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="view-toggle-control" class="fa fa-file fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="comment-control" class="fa fa-wechat fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i  id="zoom-in-control" class="fa fa-search-plus fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="zoom-out-control" class="fa fa-search-minus fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="full-screen-control" class="fa fa-expand fa-2x"></i></span>
+        </div>
+        <div style="padding-bottom: 20px">
+            <span class="fake-link"><i id="direction-control" class="fa fa-angle-double-right fa-2x"></i></span>
+        </div>
+    </div>
+    
+    <div class="row padding-md">
+        <div class="col-xs-12 col-sm-6">
+            <a href="/manga/<%= title.replace(/\s/g,'_') %>"><h1><%= title.toUpperCase() %></h1></a>
+            <h4><i><%= author.toUpperCase() %></i></h4>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div style="position: relative; margin: 10%">
+                <% if(user){ %>
+                
+                    <% if(user.library.length === 0){ %>
+                        <span id="add-library" class="fake-link"><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                    <% } %>
+                    
+                    <% if(user.recommendations.length === 0){ %>
+                        <span id="recommend" class="fake-link"><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                    <% } %>    
+                    
+                    <% for(var i = 0; i < user.library.length; i++){ %>
+                        <% if(user.library[i].book_id === id.toString()){ %>
+                            <span><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                            <% break %>
+                        <% } else if(i === user.library.length-1){ %>
+                            <span id="add-library" class="fake-link"><i class="fa fa-plus fa-3x text-danger pull-right"></i></span>
+                        <% } %>
+                    <% } %>
+                    
+                    <% for(var i = 0; i < user.recommendations.length; i++){ %>
+                        <% if(user.recommendations[i].manga_id === id.toString()){ %>
+                            <span><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                            <% break %>
+                        <% } else if(i === user.recommendations.length-1) { %>
+                            <span id="recommend" class="fake-link"><i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i></span>
+                        <% } %>
+                    <% } %>
+                    
+                <% } else { %>
+                    <a href="/signup"><button id="sign-up" class="btn btn-danger pull-right">Sign Up</button></a>
+                    <a href="/login"><button id="log-in" class="btn btn-danger pull-right">Log In</button></a>
+                <% } %>
+                
+            </div>
+        </div>
+    </div><!-- ./title -->
+    <hr>
+    <div id="reader" class="full">
+        
+    </div>
+</div>
+
+
+<div id="modal-comment-form" class="modal fade" tabindex="-1" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <%= title.toUpperCase() %>
+                <img src="http://www.anime-planet.com/images/characters/koro_sensei_50224.jpg" class="circular pull-right"></img>
+            </div>
+            <div class="modal-body">
+                <form id="form-comment" action="/" method="POST">
+                    <div>
+                        Page: 
+                        <select id="select-page"></select>
+                        <span class="pull-right">140</span>
+                    </div>
+                    <div class="seperator"></div>
+                    <textarea class="form-control" rows="4" columns="6" maxlength="140" placeholder="Comment" form="#form-comment" required></textarea>
+                    <div class="seperator"></div>
+            </div>
+            <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger pull-right" value="Submit"/>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/lib/hammer/hammer.min.js"></script>
+<script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
+<script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
+<script>
+    $('#top-nav').removeClass('fixed');
+    $('#navigation').addClass('navbar-static-top');
+    
+    var $isDual = false;
+    var $isRtl = false;
+    var isZoom = false;
+    var pages = [];
+    var comments = ['WOW!!!', 'This is Crazy.', 'WOAH!', 'Meh.', ':)', 'turn up'];
+    
+    <% if(user) { %>
+        $('#add-library').click(function(){
+            $('#add-library').empty();
+            $('#add-library').append('<i class="fa fa-circle-o-notch fa-spin fa-3x text-danger"></i>');
+            $.ajax({
+                type: 'GET',
+                url: '/api/manga/<%= id %>/chapters/1',
+                success: function(data)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/users/<%= user._id %>/library',
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            book_id: "<%= id %>",
+                            title: "<%= title %>",
+                            coverUrl: "<%= coverUrl %>",
+                            bookmark: {
+                                chapter: {
+                                    number: 1,
+                                    pages: data
+                                },
+                                page: 1
+                            }
+                        }),
+                        success: function()
+                        {
+                            $('#add-library').empty();
+                            $('#add-library').removeClass('fake-link');
+                            $('#add-library').append('<i class="fa fa-plus fa-3x text-danger pull-right"></i>');
+                        },
+                        error: function()
+                        {
+                            $('#add-library').empty();
+                            $('#add-library').append('<i class="fa fa-spin fa-refresh fa-3x pull-right"></i>');
+                        }
+                    });
+                },
+                error: function()
+                {
+                    $('#add-library').append('<i class="fa fa-spin fa-refresh fa-3x pull-right"></i>');
+                }
+            })
+        });
+        
+        $('#recommend').click(function(){
+            $('#recommend').empty();
+            $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+            
+            $.ajax({
+                type: 'POST',
+                url:'/api/users/<%= user._id %>/recommendations',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    manga_id: "<%= id %>",
+                    title: "<%= title %>"
+                }),
+                success: function()
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/manga/<%= id %>/likes',
+                        success: function()
+                        {
+                            $('#recommend').empty();
+                            $('#recommend').append('<i class="fa fa-thumbs-up fa-3x text-danger pull-right"></i>');
+                            $('#recommend').removeClass('fake-link');
+                            $('#recommend').removeAttr('id');
+                        },
+                        error: function()
+                        {
+                            $('#recommend').empty();
+                            $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+                        }
+                    });
+                }, 
+                error: function()
+                {
+                    $('#recommend').empty();
+                    $('#recommend').append('<i class="fa fa-spin fa-refresh fa-3x text-danger pull-right"></i>');
+                }
+            });        
+        });
+        
+    <% } %>
+        
+    $.ajax({
+        type: 'GET',
+        url: '/api/manga/<%= id %>/chapters?select=title+number',
+        success: function(data)
+        {
+            
+            for(var i = 0; i < data.length; i++)
+            {
+                var list = '<li><a href="/manga/<%= title %>/'+ data[i].number +'">'+ data[i].title +'</a></li>';
+                $('#chapterPanel').append(list);
+            }
+            $("#chapterMenu").mmenu({
+                searchfield: true,
+                dragOpen: true,
+                classes: "mm-white",
+                header: {
+                    title: "Chapter List",
+                    add: true,
+                    update: true
+                }
+            });
+            
+            $('#menu-control').addClass('animated bounce');
+        },
+        error: function(err)
+        {
+            console.log(err);
+        }
+    });
+        
+    $.ajax({
+        type: 'GET',
+        url: '/api/manga/<%= id %>/chapters/<%= chapterNumber %>',
+        success: function(data)
+        {
+            for(var i = 0; i < data.length; i++)
+            {
+                pages.push(data[i].image);
+                $('#reader').append('<div class="text-center"><img style="display: inline-block" src="'+ data[i].image +'"></img></div>');    
+            }
+            var nextChapter = parseInt(<%= chapterNumber %>)+1;
+            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');
+    
+            $('#reader img').height($(window).height());
+    
+            $('#reader').slick({
+                infinite: false
+            });
+            
+        },
+        error: function(err)
+        {
+            console.log(err);
+        }
+    });
+    
+    setComment();
+    
+    function setComment()
+    {
+        $('#comment').text(comments[Math.floor( Math.random() * (comments.length + 0) )]);
+        setTimeout(setComment, 8000);
+    }
+    
+    function buildReader(imageHeight, isDual, slideNumber, pageList)
+    {
+        var nextChapter = parseInt(<%= chapterNumber %>)+1;
+        var currentSlide = $('#reader').slickCurrentSlide();
+        var htmlToAppend = '';
+        var images = pageList || pages;
+        $('#reader').empty();
+        $('#reader').unslick();
+        
+        if($isRtl)
+        {
+            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');    
+        }
+        
+        for(var i = 0; i < images.length; i++)
+        {
+            htmlToAppend += '<div class="text-center"><img style="display: inline-block" src="'+ images[i] +'"></img>';
+            
+            if(isDual)
+            {
+                var image1 = new Image();
+                var image2 = new Image();
+                image1.src = images[i];
+                image2.src = images[i+1];
+                
+                if(((image1.width/image1.height) < 0.8) && ((image2.width/image2.height) < 0.8) && (i+1 < images.length))
+                {
+                    htmlToAppend += '<img style="display: inline-block" src="'+ images[i+1] +'"></img>';
+                    i++;
+                }
+            }
+            htmlToAppend += '</div>';
+        }
+        
+        if(slideNumber)
+        {
+            currentSlide = slideNumber;
+        }
+        else if(isDual)
+        {
+            currentSlide /= 2;
+        }
+        else
+        {
+            currentSlide *= 2;
+        }
+        
+        $('#reader').append(htmlToAppend);
+        if(!$isRtl)
+        {
+            $('#reader').append('<div><a href="/manga/<%= title %>/'+ nextChapter +'"><button class="btn btn-danger center-block">Next Chapter</button></a></div>');    
+        }
+        
+        
+        $('#reader img').height(imageHeight);
+        $('#reader').slick({
+            infinite: false
+        });
+        $('#reader').slickGoTo(Math.ceil(currentSlide));
+    }
+    
+    $('#view-toggle-control').click(function(){
+        if($isDual)
+        {
+            $(this).removeClass('fa-files-o');
+            $(this).addClass('fa-file');
+        }
+        else
+        {
+            $(this).removeClass('fa-file');
+            $(this).addClass('fa-files-o');   
+        }
+        $isDual = !$isDual;
+        buildReader($(window).height(), $isDual);
+    });
+    
+    $('#zoom-in-control').click(function(){
+        if(!isZoom)
+        {
+            $('#reader img').addClass('full');
+        }
+        isZoom = true;
+    });
+    
+    $('#zoom-out-control').click(function(){
+        if(isZoom)
+        {
+            $('#reader img').removeClass('full');
+            $('#reader img').height($(window).height());
+        }
+        isZoom = false;
+    });
+    
+    $('#full-screen-control').click(function(){
+        var slide = document.getElementById('reader');
+        
+        if(document.fullscreen)
+        {
+            document.exitFullScreen();
+            return;
+        }
+        
+        if(slide.mozRequestFullScreen)
+        {
+            slide.mozRequestFullScreen(); 
+        }
+        else if(slide.webkitRequestFullScreen)
+        {
+            slide.webkitRequestFullScreen();
+        }
+        
+        $('#reader img').height(screen.availHeight);
+    });
+    
+    $('#comment-control').click(function(){
+        $('#select-page').empty();
+        var currentSlide = $('#reader').slickCurrentSlide()+1;
+        if($isDual)
+        {
+            currentSlide *= 2;
+        }
+        for(var i = 1; i <= pages.length; i++)
+        {
+            if(i === currentSlide)
+            {
+                $('#select-page').append('<option value="'+ i +'" selected>'+ i +'</option>');
+                console.log();
+                continue;
+            }
+            $('#select-page').append('<option value="'+ i +'">'+ i +'</option>');
+        }
+        $('#modal-comment-form').modal();
+    });
+    
+    $('#direction-control').click(function(){
+        if($(this).hasClass('fa-angle-double-right'))
+        {
+            $(this).removeClass('fa-angle-double-right');
+            $(this).addClass('fa-angle-double-left');
+        }
+        else
+        {
+            $(this).removeClass('fa-angle-double-left');
+            $(this).addClass('fa-angle-double-right');
+        }
+        $isRtl = !$isRtl;
+        pages.reverse();
+        var slideNumber = $('#reader').slickCurrentSlide();
+        var numOfSlides = $('#reader .slick-track div').length+1;
+        console.log("NumOfSlides:\t" + numOfSlides);
+        console.log("SlideNum Before:\t" + slideNumber);
+        if($isDual)
+        {
+            slideNumber = (numOfSlides-2) - slideNumber;
+        }
+        else
+        {
+            slideNumber = pages.length-1 - slideNumber;
+        }
+        console.log("SlideNum After:\t" + slideNumber);
+        buildReader($(window).height(), $isDual, slideNumber);
+    });
+</script>
