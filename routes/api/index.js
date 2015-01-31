@@ -14,5 +14,5 @@ module.exports = function(app)
         require("./" + file)(router);
     });
     
-    app.use('/api', router);
+    app.use('/v1/api', router);
 };
