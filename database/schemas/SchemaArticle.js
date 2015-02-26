@@ -2,11 +2,11 @@ var Schema = require("mongoose").Schema;
 
 var Article = new Schema({
     title: { type: String, lowercase: true, trim: true },
-    coverUrl: String,
+    coverUrl: { type: String, required: true },
     keywords: [String],
     author: { type: String, lowercase: true, trim: true },
-    summary: String,
-    markup: String,
+    summary: { type: String, required: true },
+    markup: { type: String, required: true },
     published: { type: Date, default: Date.now() },
     views: { type: Number, default: 0 },
     media: {

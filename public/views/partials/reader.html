@@ -1,0 +1,294 @@
+<style type="text/css">
+    html, body, #main {
+        max-height: 1024px;
+        max-width: 1980px;
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    #pages img {
+        display: inline-block;
+        margin: 0 auto;
+    }
+    
+    #reader-controls {
+        position: fixed;
+        z-index: 99;
+        margin-top: 10%;
+    }
+    
+    #reader-controls i {
+        display: block;
+        opacity: 0.2;
+        padding: 15px;
+        cursor: pointer;
+        
+        -webkit-transition-duration: 0.3s;
+        -o-transition-duration: 0.3s;
+        -moz-transition-duration: 0.3s;
+        -ms-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+    }
+    
+    #reader-controls i:hover {
+        opacity: 1.0;
+    }
+</style>
+
+<div id="reader-controls" class="hide-on-small-only">
+    <i id="control-light-toggle" class="tooltipped fa fa-lightbulb-o fa-2x" data-position="right" data-delay="50" data-tooltip="Night/Day Light"></i>
+    <i id="control-page-toggle" class="tooltipped fa fa-files-o fa-2x" data-position="right" data-delay="50" data-tooltip="Single/Dual Page"></i>
+    <i id="control-zoom-toggle" class="tooltipped fa fa-search-plus fa-2x" data-position="right" data-delay="50" data-tooltip="In/Out Zoom"></i>
+    <i id="control-slide-toggle" class="tooltipped fa fa-arrows-v fa-2x" data-position="right" data-delay="50" data-tooltip="Horizontal/Vertical View"></i>
+    <i id="control-expand" class="tooltipped fa fa-expand fa-2x" data-position="right" data-delay="50" data-tooltip="Fullscreen"></i>
+</div>
+
+<div id="pages" class="full">
+    
+</div>
+
+<script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
+<script type="text/javascript">
+    var chapter = [
+            {
+                number: 1,
+                image: 'http://2.bp.blogspot.com/-1ZKakzKlcBw/VFwv43fBsfI/AAAAAAAAT3I/3Pu_UuorxcM/004.jpg?imgmax=3000'
+            },
+            {
+                number: 2,
+                image: 'http://2.bp.blogspot.com/-hcgOWGiwiRo/VFwwAnPAXaI/AAAAAAAAT3Q/AMspWpcc99k/005.jpg?imgmax=3000',
+            },
+            {
+                number: 3,
+                image: 'http://2.bp.blogspot.com/-DRLKqJY3TG8/VFwwI0raLBI/AAAAAAAAT3Y/qMVQ8xzKjbk/006.jpg?imgmax=3000',
+            },
+            {
+                number: 4,
+                image: 'http://2.bp.blogspot.com/-PO6S3KMuGKs/VFwwR6afM0I/AAAAAAAAT3g/-qyTxt4EVAY/007.jpg?imgmax=3000',
+            },
+            {
+                number: 5,
+                image: 'http://2.bp.blogspot.com/-T4tTbcJTx1A/VFwwbIkmaEI/AAAAAAAAT3o/-GBcjQHlMOI/008.jpg?imgmax=3000',
+            },
+            {
+                number: 6,
+                image: 'http://2.bp.blogspot.com/-6-dvvo1trDY/VFwwjNfoHgI/AAAAAAAAT3w/MpM8NBrcc1A/009.jpg?imgmax=3000',
+            },
+            {
+                number: 7,
+                image: 'http://2.bp.blogspot.com/-dTYpeHMZrZ8/VFwwrfxZFSI/AAAAAAAAT34/Ny1u_VZmun8/010.jpg?imgmax=3000',
+            },
+            {
+                number: 8,
+                image: 'http://2.bp.blogspot.com/-u8t93FD570E/VFwwzchcVCI/AAAAAAAAT4A/1Y2FMwT9Sl4/011.jpg?imgmax=3000',
+            },
+            {
+                number: 9,
+                image: 'http://2.bp.blogspot.com/-uFtf0OgP3eE/VFww6yOPedI/AAAAAAAAT4I/5aCoV6S_sKo/012.jpg?imgmax=3000',
+            },
+            {
+                number: 10,
+                image: 'http://2.bp.blogspot.com/-LIVQyXfcTqE/VFwxEeAiumI/AAAAAAAAT4Q/ZnPJAU80Fds/013.jpg?imgmax=3000',
+            },
+            {
+                number: 11,
+                image: 'http://2.bp.blogspot.com/--PKbGwpQcMg/VFwxO8Dm3RI/AAAAAAAAT4Y/FXie_GBvpMU/014.jpg?imgmax=3000',
+            },
+            {
+                number: 12,
+                image: 'http://2.bp.blogspot.com/-h0x7izftOQY/VFwxWfepGfI/AAAAAAAAT4g/l0GXgYHAie8/015.jpg?imgmax=3000',
+            },
+            {
+                number: 13,
+                image: 'http://2.bp.blogspot.com/-j2p8gls6UL8/VFwxgeXdRjI/AAAAAAAAT4o/PxElsBxGzRs/016.jpg?imgmax=3000',
+            },
+            {
+                number: 14,
+                image: 'http://2.bp.blogspot.com/-UA3578px_Bc/VFuAElvdBCI/AAAAAAAATl0/0ZnPsL3jQhs/004.jpg?imgmax=3000'
+            },
+            {
+                number: 15,
+                image: 'http://2.bp.blogspot.com/-iJ79HaobEPA/VFwxppSqX9I/AAAAAAAAT4w/a-VXKl4XlH8/017.jpg?imgmax=3000'
+            },
+        ];
+    
+    var isDual = false;
+    var isLighted = true;
+    var isSlide = true;
+    var isScreenHeight = true;
+    
+    buildSingleBook();
+    
+    function buildSingleBook(height)
+    {
+        this.height = height || $(window).height();
+        
+        for(var i = 0; i < chapter.length; i++)
+        {
+            $('#pages').append('<div class="center-align"><img src="'+ chapter[i].image +'"></img></div>');
+        }
+        
+        $('#pages img').height(this.height);
+        
+        if(isSlide)
+        {
+            $('#pages').slick({
+                infinite: false,
+                speed: 200,
+                arrows: false
+            });
+        }
+    }
+    
+    function buildDualBook(height)
+    {
+        this.height = height || $(window).height();
+        for(var i = 0; i < chapter.length; i++)
+        {
+            var toAppend = '<div class="center-align"><img src="'+ chapter[i].image +'"></img>';
+            
+            //If another page exists
+            if(i+1 < chapter.length)
+            {
+                var image1 = new Image();
+                image1.src = chapter[i].image;
+                
+                var image2 = new Image();
+                image2.src = chapter[i+1].image;
+                
+                if( (image1.naturalWidth/image1.naturalHeight) < 0.8 && (image2.naturalWidth/image2.naturalHeight) < 0.8)
+                {
+                    toAppend += '<img src="'+ chapter[i+1].image +'"></img>';
+                    i++;
+                }
+            }
+            
+            toAppend += '</div>'
+            $('#pages').append(toAppend);
+        }
+        
+        $('#pages img').height(this.height);
+        
+        if(isSlide)
+        {
+            $('#pages').slick({
+                infinite: false,
+                speed: 200,
+                arrows: false
+            });
+        }
+    }
+    
+    //Button Events
+    $('#pages').click(function(event){
+        if(isSlide)
+        {
+            if(event.shiftKey)
+            {
+                $(this).slick('slickPrev');
+                return;
+            }
+            $(this).slick('slickNext');
+        }
+    });
+    
+    $('#control-page-toggle').click(function(){
+        isDual = !isDual;
+        
+        $('#pages').slick('unslick');
+        $('#pages').empty();
+
+        if(isDual)
+        {
+            buildDualBook();
+            $(this).removeClass('fa-files-o');
+            $(this).addClass('fa-file-o');
+            return;
+        }
+        buildSingleBook();
+        $(this).removeClass('fa-file-o');
+        $(this).addClass('fa-files-o');
+    });
+    
+    $('#control-light-toggle').click(function(){
+        isLighted = !isLighted;
+        
+        if(isLighted)
+        {
+            $('html').css('background-color', 'white');
+            $('#pages').css('background-color', 'white');
+            $('#reader-controls').css('color', 'black');
+            return;
+        }
+        $('html').css('background-color', 'black');
+        $('#pages').css('background-color', 'black');
+        $('#reader-controls').css('color', 'white');
+    });
+    
+    $('#control-slide-toggle').click(function(){
+        isSlide = !isSlide;
+    
+        if(isSlide)
+        {
+            $('#pages').slick('unslick');
+            $('#pages').empty();
+            if(isDual)
+            {
+                buildDualBook();
+            }
+            else
+            {
+                buildSingleBook();
+            }
+            $(this).removeClass('fa-arrows-h');
+            $(this).addClass('fa-arrows-v');
+            return;
+        }
+        $('#pages').slick('unslick');
+        $(this).removeClass('fa-arrows-v');
+        $(this).addClass('fa-arrows-h');
+    });
+    
+    $('#control-expand').click(function(){
+        var elem = document.getElementById('pages');
+        
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        }
+        
+        $('#pages img').height(screen.availHeight);
+    });
+    
+    $('#control-zoom-toggle').click(function(){
+        isScreenHeight = !isScreenHeight;
+        
+        $('#pages img').each(function(){
+            if(isScreenHeight)
+            {
+                $(this).height($(window).height());
+            }
+            else
+            {
+                var image = new Image();
+                image.src = $(this).attr('src');
+                $(this).height(image.naturalHeight);
+            }
+        });
+        
+        if(isScreenHeight)
+        {
+            $(this).removeClass('fa-search-minus');
+            $(this).addClass('fa-search-plus');
+            return
+        }
+        $(this).removeClass('fa-search-plus');
+        $(this).addClass('fa-search-minus');
+    });
+</script>

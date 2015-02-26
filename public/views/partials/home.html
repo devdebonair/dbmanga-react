@@ -1,462 +1,475 @@
 <style type="text/css">
-    .nav-wrapper {
-        padding: 0 5%;
+    #featured {
+        padding: 0px 25px;
     }
     
-    .nav-wrapper a:hover {
-        border-bottom: solid red thin;
-        background-color: #fafafa;
-    }
-    .nav-wrapper a {
-        max-height: 64px;
-        background-color: #fafafa;
-    }
-    
-    .brand-logo {
-        font-size: 10pt;
-        letter-spacing: 3px;
-    }
-    
-    .fake-link {
-        cursor: pointer;
-        opacity: 0.4;
+    #article .card-title {
+        opacity: 0;
+        -webkit-transition-duration: 0.4s;
+        -moz-transition-duration: 0.4s;
+        -o-transition-duration: 0.4s;
+        -ms-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        
+        -webkit-transition-delay: 0.2s;
+        -moz-transition-delay: 0.2s;
+        -o-transition-delay: 0.2s;
+        -ms-transition-delay: 0.2s;
+        transition-delay: 0.2s;
     }
     
-    .fake-link:hover {
+    #article img {
+        -webkit-transition-duration: 0.5s;
+        -moz-transition-duration: 0.5s;
+        -o-transition-duration: 0.5s;
+        -ms-transition-duration: 0.5s;
+        transition-duration: 0.5s;    
+    }
+    
+    #article .card:hover img {
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+    }
+    
+    #article .card:hover .card-title {
         opacity: 1.0;
     }
 </style>
 
-<div class="navbar-fixed">
-    <nav>
-        <div class="nav-wrapper grey lighten-5">
-            <a class="brand-logo red-text text-lighten-1" href="#">DEBONAIR MANGA</a>
-            <ul id="nav-mobile" class="right side-nav">
-                <li><a href="sass.html"><i class="mdi-action-search red-text text-lighten-1"></i></a></li>
-                <li><a href="components.html"><i class="mdi-action-view-module red-text text-lighten-1"></i></a></li>
-                <li><a href="javascript.html"><i class="mdi-navigation-refresh red-text text-lighten-1"></i></a></li>
-                <li><a href="mobile.html"><i class="mdi-navigation-more-vert red-text text-lighten-1"></i></a></li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu red-text text-lighten-1"></i></a>
-        </div>    
-    </nav>
+<div class="slider hide-on-small-only">
+    <ul class="slides">
+        <li>
+            <img src="/images/dragon-ball.jpg"></img>
+            <div class="caption center-align full">
+                <h5 class="grey lighten-5 red-text text-lighten-2">Dragon Ball Debuts New Chapters for Dragon Ball Minus!</h5>
+            </div>
+        </li>
+        <li>
+            <img src="/images/esdeath-ecchi.jpg"></img>
+            <div class="caption center-align full">
+                <h5 class="grey lighten-5 red-text text-lighten-2">Akame ga Kill Fans Rage From Spoilers of Ending.</h5>
+            </div>
+        </li>
+        <li>
+            <img src="/images/the-world-god-only-knows.jpg"></img>
+            <div class="caption center-align full">
+                <h5 class="grey lighten-5 red-text text-lighten-2">The World God Only Knows Gets A Visual Novel Adaption.</h5>
+            </div>
+        </li>
+        <li>
+            <img src="/images/nagi-no-asukara.png"></img>
+            <div class="caption center-align full">
+                <h5 class="grey lighten-5 red-text text-lighten-2">Nagi no Asukara Manga Rated #1 Manga of All Time.</h5>
+            </div>
+        </li>
+    </ul>
 </div>
 
-<div class="row" style="margin: 4% 0% 0% 0%;">
-        <div class="col s12 hide-on-small-only">
-            <div class="slider">
-                <ul class="slides">
-                    
-                </ul>
-            </div>  
-        </div>
-        
+<div class="row">
+    <div class="col s12 z-depth-1">
+        <ul class="tabs">
+            <li class="tab col s12 m3"><a class="active letter-space" href="#slidePopular">Popular</a></li>
+            <li class="tab col s12 m3"><a class="letter-space" href="#slideTrending">Trending</a></li>
+            <li class="tab col s12 m3"><a class="letter-space" href="#slideUpdated">Updated</a></li>
+            <li class="tab col s12 m3"><a class="letter-space" href="#slideBookmark">Bookmark</a></li>
+        </ul>
     </div>
+    <div id="mangaSlides">
+        <div id="slidePopular" class="col s12">
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://img.mangayes.com/files/img/logo/201408/201408141145589905.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://img.mangayes.com/files/img/logo/201408/201408141145589905.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://img.mangayes.com/files/img/logo/201408/201408141145589905.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://img.mangayes.com/files/img/logo/201408/201408141145589905.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="slideTrending" class="col s12">
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://vignette3.wikia.nocookie.net/magi/images/1/1b/Volume_11.png/revision/latest?cb=20120721161710"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://vignette3.wikia.nocookie.net/magi/images/1/1b/Volume_11.png/revision/latest?cb=20120721161710"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://vignette3.wikia.nocookie.net/magi/images/1/1b/Volume_11.png/revision/latest?cb=20120721161710"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://vignette3.wikia.nocookie.net/magi/images/1/1b/Volume_11.png/revision/latest?cb=20120721161710"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="slideUpdated" class="col s12">
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://i16.mangareader.net/kuroko-no-basket/178/kuroko-no-basket-3549965.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://i16.mangareader.net/kuroko-no-basket/178/kuroko-no-basket-3549965.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://i16.mangareader.net/kuroko-no-basket/178/kuroko-no-basket-3549965.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="http://i16.mangareader.net/kuroko-no-basket/178/kuroko-no-basket-3549965.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="slideBookmark" class="col s12">
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" width="232" src="http://i16.mangareader.net/kuroko-no-basket/178/kuroko-no-basket-3549965.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Kuroko no Basket</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" width="232" src="http://vignette3.wikia.nocookie.net/magi/images/1/1b/Volume_11.png/revision/latest?cb=20120721161710"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Magi</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" width="232" src="http://img.mangayes.com/files/img/logo/201408/201408141145589905.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Boku No Hero</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col m3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" width="232" src="http://img4.wikia.nocookie.net/__cb20110813093750/naruto/pl/images/e/ee/Tom_56_Ok%C5%82adka.jpg"></img>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-5">Naruto</span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-5">Boku No Hero</span>
+                        <p>People are not born equal, a realization that 4-year-old Midoriya Izuku faced when bullied by his classmates who had unique special powers. Izuku was one of the rare cases where he was born with absolutely no unique powers. This did not stop Izuku from pursuing his dream, a dream of becoming a great hero like the legendary All-Might. To become the great hero he hopelessly wants to become, he now will join the ranks of one of the highest rated "Hero Academies" in the country: Yueiko. With the help of his idol All-Might, will he be able to claim the ranks and become a true hero?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- slides -->
+</div>
 
-<div style="margin: 0% 3%;">
-    
-    <div class="row">
-        
-        <div class="col m12 l9">
-            <div>
-                <h5 class="left-align red-text text-lighten-1" stlye="letter-spacing: 3px;">POPULAR <span class="right"><i id="popularArrowLeft" class="mdi-navigation-chevron-left small fake-link"></i><i id="popularArrowRight" class="mdi-navigation-chevron-right small fake-link"></i></span></h5>
+<div id="featured" class="row">
+    <div class="col s12 m12 l9">
+        <div class="card">
+            <div class="card-content">
+                <h5 class="center-align red-text text-lighten-2 letter-space">FEATURED</h5>
                 <hr>
+                <div class="row">
+                    <div class="col m4">
+                        <img class="responsive-img" src="http://img4.wikia.nocookie.net/__cb20110813093750/naruto/pl/images/e/ee/Tom_56_Ok%C5%82adka.jpg"></img>
+                    </div>
+                    <div class="col m8 hide-on-small-only">
+                        <h5 class="letter-space">NARUTO</h5>
+                        <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
+                        <h5 class="red-text text-lighten-2 center-align letter-space">PREVIEW</h5>
+                        <hr>
+                        <div class="col m3">
+                            <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-1ZKakzKlcBw/VFwv43fBsfI/AAAAAAAAT3I/3Pu_UuorxcM/004.jpg?imgmax=3000"></img>
+                        </div>
+                        <div class="col m3">
+                            <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-hcgOWGiwiRo/VFwwAnPAXaI/AAAAAAAAT3Q/AMspWpcc99k/005.jpg?imgmax=3000"></img>
+                        </div>
+                        <div class="col m3">
+                            <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-DRLKqJY3TG8/VFwwI0raLBI/AAAAAAAAT3Y/qMVQ8xzKjbk/006.jpg?imgmax=3000"></img>
+                        </div>
+                        <div class="col m3">
+                            <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-PO6S3KMuGKs/VFwwR6afM0I/AAAAAAAAT3g/-qyTxt4EVAY/007.jpg?imgmax=3000"></img>
+                        </div>
+                    </div>
+                </div>    
             </div>
-            <div id="slide-popular">
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal hide-on-large-only">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col s12 m3">
-                    <div class="card" style="max-width: 300px">
-                        
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="250" src="http://narutoimagesgallery.com/art/Nartuo-Images-Manga-Volume-41.jpg"></img>
-                        </div>
-                        
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Naruto <i class="mdi-navigation-more-vert right"></i></span>
-                        </div>
-                        
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Naruto <i class="mdi-content-clear right"></i></span>
-                            <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col l3">
-            <img src="http://placehold.it/300x150"></img>
-            <img src="http://placehold.it/300x150"></img>
         </div>
     </div>
     
-    <div class="row">
-        <div class="col s12 m6">
-            <div>
-                <hr class="center-align">
-                <h5 class="center-align">Trending</h5>
-                <hr class="center-align">
+    <div class="col m12 l3 hide-on-small-only">
+        <div class="card blue-grey col m3 l12">
+            <div class="card-content white-text">
+                <p class="center-align">Do you recommend "Naruto" to other readers?</p>
             </div>
-            <div class="col s12 m6">
-                <div class="card small">
-                    
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" height="400" src="http://i16.mangareader.net/kuroko-no-basket/178/kuroko-no-basket-3549965.jpg"></img>
-                    </div>
-                    
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Kuroko no Ba... <i class="mdi-navigation-more-vert right"></i></span>
-                    </div>
-                    
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Kuroko no Basket <i class="mdi-content-clear right"></i></span>
-                        <p>Teikou Middle School basketball club: an incredibly strong team with over one hundred members and three consecutive championship wins. Amongst their brilliant record, was a generation of five prodigies known as the "Generation of Miracles." However, there was a strange rumor concerning the Generation of Miracles about one more player recognized by the five prodigies... a phantom sixth man.</p>
-                    </div>
-                    
-                    <div class="card-action">
-                        <a href="#"><i class="small mdi-content-add-circle-outline"></i></a>
-                        <a class="right" href="#"><i class="small mdi-action-thumb-up"></i></a>
-                    </div>
-                    
-                </div>
+            <div class="card-action center-align">
+                <a href="#" class="letter-space">Yes</a>
+                <a href="#" class="letter-space">No</a>
             </div>
+        </div>
         
-            <div class="col s12 m6">
-                <div class="card small">
-                    
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" height="400" src="http://static.comicvine.com/uploads/scale_large/6/67663/3773785-07.jpg"></img>
+        <div class="card red lighten-2 col m3 l12">
+            <div class="card-content white-text">
+                <p class="center-align">Would you like to share Naruto with others?</p>
+            </div>
+            <div class="card-action white-text">
+                <div style="padding-bottom: 15px">
+                    <div class="col m3">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
                     </div>
-                    
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Nanatsu no T... <i class="mdi-navigation-more-vert right"></i></span>
+                    <div class="col m3">
+                        <a href="#"><i class="fa fa-twitter"></i></a>
                     </div>
-                    
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Nanatsu no T... <i class="mdi-content-clear right"></i></span>
-                        <p>The "Seven Deadly Sins," a group of evil knights who conspired to overthrow the kingdom of Britannia, were said to have been eradicated by the Holy Knights, although some claim that they still live. Ten years later, the Holy Knights have staged a Coup d'état and captured the king, becoming the new, tyrannical rulers of the kingdom. Elizabeth, the king's third daughter, sets out on a journey to find the "Seven Deadly Sins," and to enlist their help in taking back the kingdom.</p>
+                    <div class="col m3">
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
                     </div>
-                    
-                    <div class="card-action">
-                        <a href="#"><i class="small mdi-content-add-circle-outline"></i></a>
-                        <a class="right" href="#"><i class="small mdi-action-thumb-up"></i></a>
+                    <div class="col m3">
+                        <a href="#"><i class="fa fa-tumblr"></i></a>
                     </div>
-                    
                 </div>
             </div>
         </div>
         
-        <div class="col s12 m6">
-            <div>
-                <hr class="center-align">
-                <h5 class="center-align">Advertisements</h5>
-                <hr class="center-align">
+        <div class="card blue-grey col m3 l12">
+            <div class="card-content white-text">
+                <p class="center-align">Do you recommend "Naruto" to other readers?</p>
             </div>
-            <div class="col s12 m6">
-                <div class="card small">
-                    
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" height="400" src="http://i16.mangareader.net/kuroko-no-basket/178/kuroko-no-basket-3549965.jpg"></img>
-                    </div>
-                    
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Kuroko no Ba... <i class="mdi-navigation-more-vert right"></i></span>
-                    </div>
-                    
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Kuroko no Basket <i class="mdi-content-clear right"></i></span>
-                        <p>Teikou Middle School basketball club: an incredibly strong team with over one hundred members and three consecutive championship wins. Amongst their brilliant record, was a generation of five prodigies known as the "Generation of Miracles." However, there was a strange rumor concerning the Generation of Miracles about one more player recognized by the five prodigies... a phantom sixth man.</p>
-                    </div>
-                    
-                    <div class="card-action">
-                        <a href="#"><i class="small mdi-content-add-circle-outline"></i></a>
-                        <a class="right" href="#"><i class="small mdi-action-thumb-up"></i></a>
-                    </div>
-                    
-                </div>
-            </div>
-        
-            <div class="col s12 m6">
-                <div class="card small">
-                    
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" height="400" src="http://static.comicvine.com/uploads/scale_large/6/67663/3773785-07.jpg"></img>
-                    </div>
-                    
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Nanatsu no T... <i class="mdi-navigation-more-vert right"></i></span>
-                    </div>
-                    
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Nanatsu no T... <i class="mdi-content-clear right"></i></span>
-                        <p>The "Seven Deadly Sins," a group of evil knights who conspired to overthrow the kingdom of Britannia, were said to have been eradicated by the Holy Knights, although some claim that they still live. Ten years later, the Holy Knights have staged a Coup d'état and captured the king, becoming the new, tyrannical rulers of the kingdom. Elizabeth, the king's third daughter, sets out on a journey to find the "Seven Deadly Sins," and to enlist their help in taking back the kingdom.</p>
-                    </div>
-                    
-                    <div class="card-action">
-                        <a href="#"><i class="small mdi-content-add-circle-outline"></i></a>
-                        <a class="right" href="#"><i class="small mdi-action-thumb-up"></i></a>
-                    </div>
-                    
-                </div>
+            <div class="card-action center-align">
+                <a href="#" class="letter-space">Yes</a>
+                <a href="#" class="letter-space">No</a>
             </div>
         </div>
-        
-        
     </div>
-    
 </div>
 
-<script type="text/javascript" src="/lib/slick.js/slick/slick.min.js"></script>
-<script type="text/javascript">
-    
+<div id="article">
+    <div>
+        <h5 class="red-text text-lighten-2 letter-space center-align">ARTICLES</h5>
+        <hr>
+    </div>
+    <div class="col l4">
+        <div class="card small">
+            <div class="card-image">
+                <img src="http://images.saiyanisland.com/data/623/Naruto-Storm-4-035.jpg"></img>
+                <span class="card-title">Naruto Storm 4: Wall Fighting and Running Returns to Ninja Battles</span>
+            </div>
+            <div class="card-content">
+                <p>Bandai Namco Games has today announced wall fighting, or officially known as wall running, is making a return in ninja battles through Naruto Shippuden: Ultimate Ninja Storm 4!</p>
+            </div>
+        </div>    
+    </div>
+    <div class="col l4">
+        <div class="card small">
+            <div class="card-image">
+                <img src="http://s3.zerochan.net/Cross-Over.240.1232716.jpg"></img>
+                <span class="card-title">Hunter x Hunter & Yu Yu Hakusho Crossover</span>
+            </div>
+            <div class="card-content">
+                <p>Shonen Jump Weekly has reported and confirmed Togashi's return to the weekly magazine. Togashi's critically acclaimed work, Hunter x Hunter has been on hiatus for the past couple of months.</p>
+            </div>
+        </div>    
+    </div>
+    <div class="col l4">
+        <div class="card small">
+            <div class="card-image">
+                <img src="http://www.musaanimers.com/wp-content/uploads/2014/12/the_last_naruto_the_movie.jpg"></img>
+                <span class="card-title">The Last: Naruto the Movie Poised to Top 2 Billion Yen</span>
+            </div>
+            <div class="card-content">
+                <p>Japanese film distributor TOHO reported that The Last is outpacing the July 2012 film Road to Ninja: Naruto the Movie by 175% at the box office, as of 3:00 p.m. on its first day.</p>
+            </div>
+        </div>    
+    </div>
+    <div class="col l4">
+        <div class="card small">
+            <div class="card-image">
+                <img src="http://www.musaanimers.com/wp-content/uploads/2014/12/the_last_naruto_the_movie.jpg"></img>
+                <span class="card-title">The Last: Naruto the Movie Poised to Top 2 Billion Yen</span>
+            </div>
+            <div class="card-content">
+                <p>Japanese film distributor TOHO reported that The Last is outpacing the July 2012 film Road to Ninja: Naruto the Movie by 175% at the box office, as of 3:00 p.m. on its first day.</p>
+            </div>
+        </div>    
+    </div>
+    <div class="col l4">
+        <div class="card small">
+            <div class="card-image">
+                <img src="http://images.saiyanisland.com/data/623/Naruto-Storm-4-035.jpg"></img>
+                <span class="card-title">Naruto Storm 4: Wall Fighting and Running Returns to Ninja Battles</span>
+            </div>
+            <div class="card-content">
+                <p>Bandai Namco Games has today announced wall fighting, or officially known as wall running, is making a return in ninja battles through Naruto Shippuden: Ultimate Ninja Storm 4!</p>
+            </div>
+        </div>    
+    </div>
+    <div class="col l4">
+        <div class="card small">
+            <div class="card-image">
+                <img src="http://s3.zerochan.net/Cross-Over.240.1232716.jpg"></img>
+                <span class="card-title">Hunter x Hunter & Yu Yu Hakusho Crossover</span>
+            </div>
+            <div class="card-content">
+                <p>Shonen Jump Weekly has reported and confirmed Togashi's return to the weekly magazine. Togashi's critically acclaimed work, Hunter x Hunter has been on hiatus for the past couple of months.</p>
+            </div>
+        </div>    
+    </div>
+</div><!-- article -->
+
+<script>
     $(function(){
-        $('#slide-popular').slick({
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            autoplay: true,
-            autoplaySpeed: 6000,
-            prevArrow: $('#popularArrowLeft'),
-            nextArrow: $('#popularArrowRight'),
-            responsive: [
-                {
-                    breakpoint: 992,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                },    
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        autoplay: false
-                    }
-                }    
-            ]
+        $('.slider').slider({
+            full_width: true,
+            indicators: false,
+            interval: 4000
         });
-        $('.button-collapse').sideNav({menuWidth: 240, activationWidth: 70});
     });
-    
-    $.get('/api/v1/news/5', function(data){
-        for(var i = 0; i < data.length; i++)
-        {
-            $('.slides').append('<li><img src="'+ data[i].coverUrl +'"></img></li>');
-        }
-        $('.slider').slider({ indicators: false });
-    });
-    
 </script>

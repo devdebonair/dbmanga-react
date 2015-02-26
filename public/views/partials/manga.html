@@ -1,0 +1,194 @@
+<style type="text/css">
+    #manga-info {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    #manga-title h1, h5{
+        font-family: helvetica;
+        text-align: center;
+    }
+    
+    #manga {
+        padding-top: 35px;
+    }
+    
+    #manga-chapter-list li {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    #manga-chapter-list a {
+        text-align: center;
+    }
+    
+    #manga-genres li {
+        display: inline;
+        font-style: italic;
+    }
+    
+    #manga-nav {
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        border-bottom: solid white thin;
+        padding-top: 5px;
+        display: none;
+    }
+</style>
+
+<link rel="stylesheet" href="/lib/jQuery.mmenu/src/css/jquery.mmenu.all.css" type="text/css" />
+
+<nav id="manga-chapter-list">
+    <ul>
+        <li><a href="#">Chapter 1</a></li>
+        <li><a href="#">Chapter 2</a></li>
+        <li><a href="#">Chapter 3</a></li>
+        <li><a href="#">Chapter 4</a></li>
+        <li><a href="#">Chapter 5</a></li>
+        <li><a href="#">Chapter 6</a></li>
+        <li><a href="#">Chapter 7</a></li>
+        <li><a href="#">Chapter 8</a></li>
+        <li><a href="#">Chapter 9</a></li>
+        <li><a href="#">Chapter 10</a></li>
+        <li><a href="#">Chapter 11</a></li>
+        <li><a href="#">Chapter 12</a></li>
+        <li><a href="#">Chapter 13</a></li>
+        <li><a href="#">Chapter 14</a></li>
+        <li><a href="#">Chapter 15</a></li>
+        <li><a href="#">Chapter 16</a></li>
+        <li><a href="#">Chapter 17</a></li>
+        <li><a href="#">Chapter 18</a></li>
+        <li><a href="#">Chapter 19</a></li>
+        <li><a href="#">Chapter 20</a></li>
+    </ul>
+</nav>
+
+<div class="row">
+    <section id="manga-title">
+        <h1>MAGI</h1>
+        <h5>OHTAKA SHINOBU</h5>
+        <ul id="manga-genres" class="center-align">
+            <li>
+                <span>SHOUNEN</span>
+            </li>
+            <li>
+                <span>ADVENTURE</span>
+            </li>
+        </ul>
+        <div class="center-align">
+            <a href="#manga-chapter-list"><i class="mdi-action-list small red-text text-lighten-2 fake-link"></i></a>
+        </div>
+        <hr>
+    </section>
+    
+    <section id="manga">
+        <div class="row">
+            <div class="col m4">
+                <div class="card">
+                    <div class="card-content">
+                        <i class="fa fa-bar-chart fa-2x"></i>
+                        <span>1,000,000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col m4">
+                <div class="card">
+                    <div class="card-content">
+                        <i class="fa fa-book fa-2x"></i>
+                        <span>523</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col m4">
+                <div class="card">
+                    <div class="card-content">
+                        <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
+                        <span>ONGOING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="manga-cover" class="col s12 m6 l4">
+            <img class="responsive-img" src="http://vignette3.wikia.nocookie.net/magi/images/1/1b/Volume_11.png/revision/latest?cb=20120721161710"></img>
+        </div>
+        
+        <div class="col s12 m6 l8">
+            <ul class="tabs z-depth-1">
+                <li class="tab col s6 m6 l6"><a class="active" href="#manga-description">DESCRIPTION</a></li>
+                <li class="tab col s6 m6 l6"><a href="#manga-preview">PREVIEW</a></li>
+            </ul>
+            <div id="manga-description">
+                <p class="flow-text">This is a story about the flow of fate and the battle to keep the world on the right path. Aladdin is a boy who has set out to explore the world after being trapped in a room for most of his life. His best friend is a flute with a djinn in it named Ugo. Soon enough, Aladdin discovers he is a Magi, a magician who chooses kings, and he was born to choose kings who will follow the righteous path, battling against those who want to destroy fate. Follow his adventures as he meets others from "One Thousand and One Nights," like Ali Baba and Sinbad, and fights to keep the balance of world in check!</p>
+            </div>
+            <div id="manga-preview" style="padding-top: 35px">
+                <div class="row">
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-s3XuVkBhk-o/ToBhZEJflXI/AAAAAAAABCA/U1r0kUm4gXY/000.jpg?imgmax=3000"></img>
+                    </div>
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-o8PKLcjEQoA/ToBhc-JHgvI/AAAAAAAABCY/XWUTsfRRPcI/001.jpg?imgmax=3000"></img>
+                    </div>
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-N2puZEOa_s8/ToBho9ZIaAI/AAAAAAAABD8/23IIrSmlbWk/002.jpg?imgmax=3000"></img>
+                    </div>
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-UoQON3ETbUg/ToBhr6QSFoI/AAAAAAAABEk/UVR8tz2pqRQ/003.png?imgmax=3000"></img>
+                    </div>
+                </div>
+                
+                <div class="row hide-on-med-and-down">
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-s3XuVkBhk-o/ToBhZEJflXI/AAAAAAAABCA/U1r0kUm4gXY/000.jpg?imgmax=3000"></img>
+                    </div>
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-o8PKLcjEQoA/ToBhc-JHgvI/AAAAAAAABCY/XWUTsfRRPcI/001.jpg?imgmax=3000"></img>
+                    </div>
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-N2puZEOa_s8/ToBho9ZIaAI/AAAAAAAABD8/23IIrSmlbWk/002.jpg?imgmax=3000"></img>
+                    </div>
+                    <div class="col s6 m6 l3">
+                        <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-UoQON3ETbUg/ToBhr6QSFoI/AAAAAAAABEk/UVR8tz2pqRQ/003.png?imgmax=3000"></img>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<section id="manga-nav" class="full-width grey lighten-5 z-depth-1">
+    <div class="row container">
+        <div class="col s12 m6 l4">
+            <h5>Magi - The Kingdom of Magic</h5>
+        </div>
+        <div class="col m6 l8">
+            <div class="right-align">
+                <a href="#manga-chapter-list"><i class="mdi-action-list small red-text text-lighten-2 fake-link"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="/lib/hammer.js/hammer.min.js"></script>
+<script type="text/javascript" src="/lib/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
+<script type="text/javascript">
+    $('#manga-chapter-list').mmenu({
+       "header": {
+          "title": "Magi - The Kingdom of Magic",
+          "add": true,
+          "update": true
+       },
+       "searchfield": {
+          "placeholder": "Find Chapter",
+          "noResults": "No chapter found.",
+          "add": true,
+          "search": true
+       },
+       "offCanvas": {
+           "position": "right",
+           "zposition": "front"
+       },
+       "dragOpen": true,
+       "classes": "mm-white"
+    });
+</script>
