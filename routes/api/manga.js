@@ -157,12 +157,12 @@ module.exports = function(router)
                 
                 if(!chapterToReturn)
                 {
-                    res.send({ error: "Chapter " + req.params.chapter_number +
+                    res.status(404).json({ error: "Chapter " + req.params.chapter_number +
                                         ' is not available.'});
                     return;
                 }
 
-                res.json(chapterToReturn.pages);
+                res.json(chapterToReturn);
             });    
         })
         
