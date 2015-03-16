@@ -4,22 +4,13 @@ module.exports = function(router, passport, manga)
     
         .get(function(req, res){
             
-            manga.find({ title: { $regex: new RegExp(req.query.q, 'i') } }, 'title coverUrl artist description genres', { sort: { 'views.currentWeek': -1 } }, function(err, data){
+            manga.find({ title: { $regex: new RegExp('^' + req.query.q, 'i') } }, 'title coverUrl artist description genres', { sort: { 'views.currentWeek': -1 } }, function(err, data){
                 if(err)
                 {
-                    res.send(err);
+                    res.status(404).json(err);
                     return;
                 }
-                res.render('partials/search.html', { 
-                    layout: 'layout',
-                    user: req.user,
-                    results: data,
-                    meta:{ 
-                        title: 'Debonair Manga - Read Manga Online for Free', 
-                        description: 'Read Naruto, One Piece, Attack on Titan and many more manga on the best manga reading platform for free.',
-                        keywords: 'manga, reader, free, naruto, debonair, one, piece, bleach, titan, responsive, online'
-                    } 
-                });
+                res.json(data);
             });
         });
 };
