@@ -65,6 +65,10 @@ require("./database/db")(mongoose, function(err){
     //Initialize Routes
     console.log('Establishing Routes....');
     require("./routes")(app, passport);
+    
+    app.get('*', function(req, res){
+        res.status(404).json({"error": "route does not exist"});
+    });
 });
 
 console.log('Starting Server....');
