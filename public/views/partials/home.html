@@ -18,33 +18,44 @@
         transition-delay: 0.2s;
     }
     
-    #article img {
-        -webkit-transition-duration: 0.5s;
-        -moz-transition-duration: 0.5s;
-        -o-transition-duration: 0.5s;
-        -ms-transition-duration: 0.5s;
-        transition-duration: 0.5s;    
-    }
-    
-    #article .card:hover img {
-        -webkit-filter: blur(5px);
-        -moz-filter: blur(5px);
-        -o-filter: blur(5px);
-        -ms-filter: blur(5px);
-        filter: blur(5px);
-    }
-    
     #article .card:hover .card-title {
         opacity: 1.0;
+    }
+    
+    #news-slide {
+        padding-bottom: 45px;    
+    }
+    
+    .slick-dots {
+        padding-bottom: 20px;
+    }
+    
+    #news-slide div {
+        height: 500px;
+        overflow-y: hidden;
+    }
+    
+    #news-slide .slide-caption {
+        background-color: black;
+        position: absolute;
+        left: 0%;
+        bottom: 0%;
+        width: 100%;
+        min-height: 80px;
+        height: 15%;
+        z-index: 2;
+    }
+    
+    #news-slide .slide-caption > h4 {
+        color: white;
+        text-align: center;
     }
 </style>
 <link rel="stylesheet" type="text/css" href="/lib/slick.js/slick/slick.css"/>
 
 
-<div class="slider hide-on-small-only">
-    <ul id="news-slide" class="slides">
-        
-    </ul>
+<div id="news-slide" class="full-width hide-on-small-only">
+    
 </div>
 
 <section class="z-depth-1">
@@ -57,7 +68,6 @@
 </section>
 
 <div class="row">
-    
     <div id="mangaSlides">
         <div id="slidePopular" class="col s12">
 
@@ -79,16 +89,16 @@
         <div class="card">
             <div class="card-content">
                 <h5 class="center-align red-text text-lighten-2 letter-space">FEATURED</h5>
-                <hr>
+                <hr color="#f2f2f2">
                 <div class="row">
                     <div class="col m4">
-                        <img class="responsive-img" src="http://img4.wikia.nocookie.net/__cb20110813093750/naruto/pl/images/e/ee/Tom_56_Ok%C5%82adka.jpg"></img>
+                        <img class="full-width" style="padding-top: 20px" src="http://img4.wikia.nocookie.net/__cb20110813093750/naruto/pl/images/e/ee/Tom_56_Ok%C5%82adka.jpg"></img>
                     </div>
                     <div class="col m8 hide-on-small-only">
                         <h5 class="letter-space">NARUTO</h5>
                         <p>Before Naruto's birth, a great demon fox had attacked the Hidden Leaf Village. A man known as the 4th Hokage sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.</p>
                         <h5 class="red-text text-lighten-2 center-align letter-space">PREVIEW</h5>
-                        <hr>
+                        <hr color="#f2f2f2">
                         <div class="col m3">
                             <img class="responsive-img materialboxed" src="http://2.bp.blogspot.com/-1ZKakzKlcBw/VFwv43fBsfI/AAAAAAAAT3I/3Pu_UuorxcM/004.jpg?imgmax=3000"></img>
                         </div>
@@ -108,45 +118,45 @@
     </div>
     
     <div class="col m12 l3 hide-on-small-only">
-        <div class="card blue-grey col m3 l12">
-            <div class="card-content white-text">
-                <p class="center-align">Do you recommend "Naruto" to other readers?</p>
+        <div class="row">
+            <div class="card blue-grey col m3 l12">
+                <div class="card-content white-text">
+                    <p class="center-align">Do you recommend "Naruto" to other readers?</p>
+                </div>
+                <div class="card-action center-align">
+                    <a href="#" class="letter-space">Yes</a>
+                    <a href="#" class="letter-space">No</a>
+                </div>
             </div>
-            <div class="card-action center-align">
-                <a href="#" class="letter-space">Yes</a>
-                <a href="#" class="letter-space">No</a>
-            </div>
-        </div>
-        
-        <div class="card red lighten-2 col m3 l12">
-            <div class="card-content white-text">
-                <p class="center-align">Would you like to share Naruto with others?</p>
-            </div>
-            <div class="card-action white-text">
-                <div style="padding-bottom: 15px">
-                    <div class="col m3">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                    </div>
-                    <div class="col m3">
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                    </div>
-                    <div class="col m3">
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </div>
-                    <div class="col m3">
-                        <a href="#"><i class="fa fa-tumblr"></i></a>
+            <div class="card red lighten-2 col m3 l12">
+                <div class="card-content white-text">
+                    <p class="center-align">Would you like to share Naruto with others?</p>
+                </div>
+                <div class="card-action white-text">
+                    <div style="padding-bottom: 15px">
+                        <div class="col m3">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                        <div class="col m3">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </div>
+                        <div class="col m3">
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                        <div class="col m3">
+                            <a href="#"><i class="fa fa-tumblr"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="card blue-grey col m3 l12">
-            <div class="card-content white-text">
-                <p class="center-align">Do you recommend "Naruto" to other readers?</p>
-            </div>
-            <div class="card-action center-align">
-                <a href="#" class="letter-space">Yes</a>
-                <a href="#" class="letter-space">No</a>
+            <div class="card blue-grey col m3 l12">
+                <div class="card-content white-text">
+                    <p class="center-align">Do you recommend "Naruto" to other readers?</p>
+                </div>
+                <div class="card-action center-align">
+                    <a href="#" class="letter-space">Yes</a>
+                    <a href="#" class="letter-space">No</a>
+                </div>
             </div>
         </div>
     </div>
@@ -156,72 +166,6 @@
     <div>
         <h5 class="red-text text-lighten-2 letter-space center-align">ARTICLES</h5>
         <hr>
-    </div>
-    <div class="col l4">
-        <div class="card small">
-            <div class="card-image">
-                <img src="http://images.saiyanisland.com/data/623/Naruto-Storm-4-035.jpg"></img>
-                <span class="card-title">Naruto Storm 4: Wall Fighting and Running Returns to Ninja Battles</span>
-            </div>
-            <div class="card-content">
-                <p>Bandai Namco Games has today announced wall fighting, or officially known as wall running, is making a return in ninja battles through Naruto Shippuden: Ultimate Ninja Storm 4!</p>
-            </div>
-        </div>    
-    </div>
-    <div class="col l4">
-        <div class="card small">
-            <div class="card-image">
-                <img src="http://i.ytimg.com/vi/8OBxp1ZhAV8/maxresdefault.jpg"></img>
-                <span class="card-title">Hunter x Hunter & Yu Yu Hakusho Crossover</span>
-            </div>
-            <div class="card-content">
-                <p>Shonen Jump Weekly has reported and confirmed Togashi's return to the weekly magazine. Togashi's critically acclaimed work, Hunter x Hunter has been on hiatus for the past couple of months.</p>
-            </div>
-        </div>    
-    </div>
-    <div class="col l4">
-        <div class="card small">
-            <div class="card-image">
-                <img src="http://www.musaanimers.com/wp-content/uploads/2014/12/the_last_naruto_the_movie.jpg"></img>
-                <span class="card-title">The Last: Naruto the Movie Poised to Top 2 Billion Yen</span>
-            </div>
-            <div class="card-content">
-                <p>Japanese film distributor TOHO reported that The Last is outpacing the July 2012 film Road to Ninja: Naruto the Movie by 175% at the box office, as of 3:00 p.m. on its first day.</p>
-            </div>
-        </div>    
-    </div>
-    <div class="col l4">
-        <div class="card small">
-            <div class="card-image">
-                <img src="http://www.musaanimers.com/wp-content/uploads/2014/12/the_last_naruto_the_movie.jpg"></img>
-                <span class="card-title">The Last: Naruto the Movie Poised to Top 2 Billion Yen</span>
-            </div>
-            <div class="card-content">
-                <p>Japanese film distributor TOHO reported that The Last is outpacing the July 2012 film Road to Ninja: Naruto the Movie by 175% at the box office, as of 3:00 p.m. on its first day.</p>
-            </div>
-        </div>    
-    </div>
-    <div class="col l4">
-        <div class="card small">
-            <div class="card-image">
-                <img src="http://images.saiyanisland.com/data/623/Naruto-Storm-4-035.jpg"></img>
-                <span class="card-title">Naruto Storm 4: Wall Fighting and Running Returns to Ninja Battles</span>
-            </div>
-            <div class="card-content">
-                <p>Bandai Namco Games has today announced wall fighting, or officially known as wall running, is making a return in ninja battles through Naruto Shippuden: Ultimate Ninja Storm 4!</p>
-            </div>
-        </div>    
-    </div>
-    <div class="col l4">
-        <div class="card small">
-            <div class="card-image">
-                <img src="http://i.ytimg.com/vi/8OBxp1ZhAV8/maxresdefault.jpg"></img>
-                <span class="card-title">Hunter x Hunter & Yu Yu Hakusho Crossover</span>
-            </div>
-            <div class="card-content">
-                <p>Shonen Jump Weekly has reported and confirmed Togashi's return to the weekly magazine. Togashi's critically acclaimed work, Hunter x Hunter has been on hiatus for the past couple of months.</p>
-            </div>
-        </div>    
     </div>
 </div><!-- article -->
 
@@ -319,20 +263,45 @@
             for(var i = 0; i < data.length; i++)
             {
                 $('#news-slide').append(
-                    '<li>' +
-                        '<img src="'+ data[i].coverUrl +'"></img>' +
-                        '<div class="caption center-align full">' +
-                            '<h5 class="grey lighten-5 red-text text-lighten-2">'+ data[i].title +'</h5>' +
+                    '<div>' +
+                        '<div class="full-height">' +
+                            '<img src="'+ data[i].coverUrl +'" class="full-width responsive-img"></img>' +
                         '</div>' +
-                    '</li>'
+                        '<div class="slide-caption">' +
+                            '<h4 class="flow-text">'+ data[i].title.toUpperCase() +'</h4>' +
+                        '</div>' +
+                    '</div>'
                 );
             }
             
-            $('.slider').slider({
-                full_width: false,
-                indicators: false,
-                interval: 4000
+            $('#news-slide').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                fade: true,
+                cssEase: 'linear',
+                dots: true
             });
+        });
+        $.get('/api/v1/news/12', function(data){
+            for(var i = 0; i < data.length; i++)
+            {
+                $('#article').append(
+                    '<div class="col s12 l4">' +
+                        '<div class="card">' +
+                            '<div class="card-image">' +
+                                '<img src="'+ data[i].coverUrl +'"></img>' +
+                            '</div>' +
+                            '<div class="card-content">' +
+                                '<h5 class="black-text">'+ data[i].title.toUpperCase() +'</h5>' +
+                                '<hr color="#f2f2f2">' +
+                                '<p>'+ data[i].summary +'</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>'
+                );    
+            }
         });
         
         $('#tabPopular').click(function(){
