@@ -36,6 +36,37 @@ module.exports = function(router)
             });
         });
         
+            
+    router.route('/manga/search')
+    
+        .get(function(req, res){
+            var title = req.query.title || new RegExp('.*','gi');
+            var genres = req.query.genres || [/.*/];
+            var status = req.query.status || [/.*/];
+            var min = parseInt(req.query.min) || -1;
+            var max = parseInt(req.query.max) || Number.POSITIVE_INFINITY;
+            
+            if(typeof genres === 'string')
+            {
+                genres = genres.split(" ");
+            }
+            
+            if(typeof status === 'string')
+            {
+                status = status.split(" ");
+            }
+            
+            Manga.find({ title: { $regex: title }, genres: { $all: genres }, status: { $in: status }, numOfChapters: { $gt: min, $lt: max } }, 'title coverUrl artist description genres numOfChapters, status', { sort: { 'views.currentWeek': -1 } }, function(err, data){
+                if(err)
+                {
+                    res.status(404).json(err);
+                    return;
+                }
+                res.json(data);
+            });
+        });
+
+        
     router.route('/manga/:manga_id')
         
         .get(function(req, res){
