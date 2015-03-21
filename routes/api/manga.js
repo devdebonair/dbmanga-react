@@ -44,7 +44,7 @@ module.exports = function(router)
             var genres = req.query.genres || [/.*/];
             var status = req.query.status || [/.*/];
             var min = parseInt(req.query.min) || -1;
-            var max = parseInt(req.query.max) || Number.POSITIVE_INFINITY;
+            var max = parseInt(req.query.max) || Number.MAX_VALUE;
             
             if(typeof genres === 'string')
             {
