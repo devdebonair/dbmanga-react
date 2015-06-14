@@ -1,7 +1,7 @@
 module.exports = {
     
     env: {
-        port: process.env.PORT
+        port: process.env.PORT || 3000
     },
     
     database: {
