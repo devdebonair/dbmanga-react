@@ -1,6 +1,6 @@
 var Reflux = require('reflux');
 
-var DirectoryActions = reflux.createActions([
+var DirectoryActions = Reflux.createActions([
 	'getDirectoryTitles',
 	'getBook',
 	'getFeaturedBooks',
