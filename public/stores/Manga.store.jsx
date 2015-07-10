@@ -7,7 +7,7 @@ var MangaStore = Reflux.createStore({
     {
         console.log(res.body);
     },
-    onSearchBookCompleted: function(err, res)
+    onSearchBooksCompleted: function(err, res)
     {
     	console.log(res.body);
     },
