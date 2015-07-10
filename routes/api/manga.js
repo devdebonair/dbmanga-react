@@ -19,7 +19,7 @@ module.exports = function(router)
     router.route('/manga/directory')
     
         .get(function(req, res) {
-            Manga.find(null, 'title id', function(err, data){
+            Manga.find(null, 'title id', function(err, manga){
                 if(err)
                 {
                     return res.status(404).json({message: err});
@@ -32,12 +32,13 @@ module.exports = function(router)
     router.route('/manga/search')
     
         .get(function(req, res){
-            var title = req.query.title || new RegExp('.*','gi');
+
+            var title = req.query.title.toLowerCase() || new RegExp('.*','gi');
             var genres = req.query.genres || [/.*/];
             var status = req.query.status || [/.*/];
             var min = parseInt(req.query.min) || -1;
             var max = parseInt(req.query.max) || Number.MAX_VALUE;
-            
+
             if(typeof genres === 'string')
             {
                 genres = genres.split(" ");
@@ -57,6 +58,44 @@ module.exports = function(router)
             });
         });
 
+    router.route('/manga/popular/:limit')
+    
+        .get(function(req, res) {
+
+            Manga.findPopular(req.params.limit, function(err, data){
+                if(err)
+                {
+                    return res.status(404).json({message: err});
+                }
+                return res.status(200).json(data);
+            });
+        });
+        
+    router.route('/manga/trending/:limit')
+    
+        .get(function(req, res) {
+            
+            Manga.findTrending(req.params.limit, function(err, data){
+                if(err)
+                {
+                    return res.status(404).json({message: err});
+                }
+                return res.status(200).json(data);
+            });
+        });
+        
+    router.route('/manga/updated/:limit')
+    
+        .get(function(req, res) {
+            
+            Manga.findUpdated(req.params.limit, function(err, data){
+                if(err)
+                {
+                    return res.status(404).json({message: err});
+                }
+                return res.status(200).json(data);
+            });
+        });
         
     router.route('/manga/:manga_id')
         
@@ -192,43 +231,5 @@ module.exports = function(router)
                 });
         });
     
-    router.route('/manga/popular/:limit')
-    
-        .get(function(req, res) {
-            
-            Manga.findPopular(req.params.limit, function(err, data){
-                if(err)
-                {
-                    return res.status(404).json({message: err});
-                }
-                return res.status(200).json(data);
-            });
-        });
-        
-    router.route('/manga/trending/:limit')
-    
-        .get(function(req, res) {
-            
-            Manga.findTrending(req.params.limit, function(err, data){
-                if(err)
-                {
-                    return res.status(404).json({message: err});
-                }
-                return res.status(200).json(data);
-            });
-        });
-        
-    router.route('/manga/updated/:limit')
-    
-        .get(function(req, res) {
-            
-            Manga.findUpdated(req.params.limit, function(err, data){
-                if(err)
-                {
-                    return res.status(404).json({message: err});
-                }
-                return res.status(200).json(data);
-            });
-        });
         
 };
