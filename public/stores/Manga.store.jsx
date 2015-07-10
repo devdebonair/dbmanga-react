@@ -6,6 +6,26 @@ var MangaStore = Reflux.createStore({
     onGetDirectoryTitlesCompleted: function(err, res)
     {
         console.log(res.body);
+    },
+    onSearchBookCompleted: function(err, res)
+    {
+    	console.log(res.body);
+    },
+    onGetPopularBooksCompleted: function(err, res)
+    {
+    	console.log(res.body);
+    },
+    onGetTrendingBooksCompleted: function(err, res)
+    {
+    	console.log(res.body);
+    },
+    onGetUpdatedBooksCompleted: function(err, res)
+    {
+    	console.log(res.body);
+    },
+    onGetPopularBooksCompleted: function(err, res)
+    {
+    	console.log(res.body);
     }
 });
 
