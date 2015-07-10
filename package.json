@@ -23,6 +23,7 @@
     "passport-local": "1.0.0",
     "react": "^0.13.3",
     "reflux": "^0.2.8",
+    "superagent": "^1.2.0",
     "webpack": "^1.10.1"
   },
   "devDependencies": {
