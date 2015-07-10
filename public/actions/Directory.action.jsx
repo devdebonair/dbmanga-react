@@ -51,19 +51,19 @@ DirectoryActions.getUpdatedBooks.listen(function(){
 		.end(responseHandler.bind(this));
 });
 
-DirectoryActions.getTrendingBooks.listen(function(book_id){
+DirectoryActions.getTrendingBooks.listen(function(){
 	request
 		.get('/api/v1/manga/trending')
 		.end(responseHandler.bind(this));
 });
 
-DirectoryActions.getDirectoryTitles.listen(function(book_id){
+DirectoryActions.getDirectoryTitles.listen(function(){
 	request
 		.get('/api/v1/manga/directory')
 		.end(responseHandler.bind(this));
 });
 
-DirectoryActions.getFeaturedBooks.listen(function(book_id){
+DirectoryActions.getFeaturedBooks.listen(function(){
 	console.log('not implemented yet.');
 });
 
