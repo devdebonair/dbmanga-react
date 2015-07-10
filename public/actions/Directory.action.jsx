@@ -32,7 +32,7 @@ DirectoryActions.searchBooks.listen(function(data){
     data.genres = data.genres || [];
     data.min = data.min || null;
     data.max = data.max || null;
-    
+
 	request
 		.get('/api/v1/manga/search')
 		.query(data)
