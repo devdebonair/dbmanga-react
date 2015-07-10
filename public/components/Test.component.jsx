@@ -3,7 +3,7 @@ var Reflux = require("reflux");
 var DirectoryActions = require('../actions/Directory.action.jsx');
 var MangaStore = require('../stores/Manga.store.jsx');
 
-React.createClass({
+var Test = React.createClass({
 	mixins: [Reflux.connect(MangaStore)],
 	clickHandler: function()
 	{
@@ -12,7 +12,9 @@ React.createClass({
     render: function()
     {
         return(
-            <div><button onClick={clickHandler}>Directory Titles</button></div>    
+            <div><button onClick={this.clickHandler}>Directory Titles</button></div>    
         );
     }
 });
+
+module.exports = Test;
