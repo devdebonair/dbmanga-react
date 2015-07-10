@@ -32,7 +32,7 @@ DirectoryActions.searchBooks.listen(function(data){
     data.genres = data.genres || [];
     data.min = data.min || null;
     data.max = data.max || null;
-
+    
 	request
 		.get('/api/v1/manga/search')
 		.query(data)
@@ -41,19 +41,19 @@ DirectoryActions.searchBooks.listen(function(data){
 
 DirectoryActions.getPopularBooks.listen(function(){
 	request
-		.get('/api/v1/manga/poular')
+		.get('/api/v1/manga/popular/10')
 		.end(responseHandler.bind(this));
 });
 
 DirectoryActions.getUpdatedBooks.listen(function(){
 	request
-		.get('/api/v1/manga/updated')
+		.get('/api/v1/manga/updated/10')
 		.end(responseHandler.bind(this));
 });
 
 DirectoryActions.getTrendingBooks.listen(function(){
 	request
-		.get('/api/v1/manga/trending')
+		.get('/api/v1/manga/trending/10')
 		.end(responseHandler.bind(this));
 });
 
