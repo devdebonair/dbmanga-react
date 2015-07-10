@@ -3,7 +3,7 @@ var request = require('superagent');
 
 var DirectoryActions = Reflux.createActions({
 	'getBook':				{asyncResult: true},
-	'searchBooks': 			{asyncResult: true}
+	'searchBooks': 			{asyncResult: true},
 	'getPopularBooks': 		{asyncResult: true},
 	'getUpdatedBooks': 		{asyncResult: true},
 	'getTrendingBooks': 	{asyncResult: true},
