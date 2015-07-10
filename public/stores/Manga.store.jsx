@@ -23,7 +23,7 @@ var MangaStore = Reflux.createStore({
     {
     	console.log(res.body);
     },
-    onGetPopularBooksCompleted: function(err, res)
+    onGetBookCompleted: function(err, res)
     {
     	console.log(res.body);
     }
