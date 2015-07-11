@@ -3,27 +3,27 @@ var DirectoryActions    = require("../actions/Directory.action.jsx");
 
 var MangaStore = Reflux.createStore({
     listenables: [DirectoryActions],
-    onGetDirectoryTitlesCompleted: function(err, res)
+    onGetDirectoryTitlesCompleted: function(res)
     {
         console.log(res.body);
     },
-    onSearchBooksCompleted: function(err, res)
+    onSearchBooksCompleted: function(res)
     {
     	console.log(res.body);
     },
-    onGetPopularBooksCompleted: function(err, res)
+    onGetPopularBooksCompleted: function(res)
     {
     	console.log(res.body);
     },
-    onGetTrendingBooksCompleted: function(err, res)
+    onGetTrendingBooksCompleted: function(res)
     {
     	console.log(res.body);
     },
-    onGetUpdatedBooksCompleted: function(err, res)
+    onGetUpdatedBooksCompleted: function(res)
     {
     	console.log(res.body);
     },
-    onGetBookCompleted: function(err, res)
+    onGetBookCompleted: function(res)
     {
     	console.log(res.body);
     }

@@ -17,7 +17,7 @@ function responseHandler(err, res)
 	{
 		return this.failed(err, res);
 	}
-	return this.completed(err, res);
+	return this.completed(res);
 }
 
 DirectoryActions.getBook.listen(function(book_id){
