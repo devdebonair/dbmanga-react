@@ -1,4 +1,12 @@
 var React = require('react');
-var Test = require('./components/Test.component.jsx');
+var Select = require('./components/select/Select.component.jsx');
 
-React.render(<Test />, document.getElementById('app'));
+React.render(
+	<Select>
+		<a onClick={function(){console.log('swagger')}} className="dropdown-trigger">Toggle</a>
+		<ul className="dropdown-menu">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
+	</Select>, document.getElementById('app'));
