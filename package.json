@@ -19,7 +19,6 @@
     "passport": "0.2.1",
     "passport-local": "1.0.0",
     "react": "^0.13.3",
-    "react-query": "0.0.10",
     "reflux": "^0.2.8",
     "superagent": "^1.2.0"
   },
