@@ -1,45 +1,53 @@
 var React = require('react');
-var Stylesheets = require('./select.css');
-var $ = require('react-query');
+var Stylesheet = require('./select.css');
 
 var Select = React.createClass({
+	propTypes: {
+		items: React.PropTypes.array,
+		selected: React.PropTypes.object
+	},
+	getDefaultProps: function()
+	{
+		return {
+			items: [{label: 'option 1', value: 1},{label: 'option 2	', value: 2	},{label: 'option 3', value: 3}]
+		};
+	},
 	getInitialState: function()
 	{
 		return {
 			isOpen: false
-		}
-	},
-	componentWillMount: function()
-	{
-		var self = this;
-		this.remappedChildren = React.Children.map(this.props.children, function(child){
-			if(child.props.className === 'dropdown-trigger')
-			{
-				return React.cloneElement(child, {onClick: self.toggle});	
-			}
-			if(child.props.className === 'dropdown-menu')
-			{
-				return React.cloneElement(child, {className: (self.state.isOpen ? 'dropdown-menu' : 'no-display')});
-			}
-			return child;
-		});
+		};
 	},
 	open: function()
 	{
-		this.setState({ isOpen: true });
+		this.setState({isOpen: true});
 	},
 	close: function()
 	{
-		this.setState({ isOpen: false });
+		this.setState({isOpen: false});
 	},
 	toggle: function()
 	{
-		this.setState({ isOpen: !this.state.isOpen });
-		console.log(!this.state.isOpen);
+		this.setState({isOpen: !this.state.isOpen});
+	},
+	select: function(item)
+	{
+
 	},
 	render: function()
 	{
-		return(<div className="wrapper">{this.remappedChildren}</div>);
+		return(
+			<div>
+				<div className="dropdown-trigger" onClick={this.toggle}>Open</div>
+				<div className={this.state.isOpen ? 'dropdown-menu' : 'no-display'}>
+					<ul className="dropdown-list">
+						{this.props.items.map(function(item, index){
+							return <li key={index} value={item.value} onClick={clickSelectHandler}>{item.label}</li>;
+						})}
+					</ul>
+				</div>
+			</div>
+		);
 	}
 });
 
