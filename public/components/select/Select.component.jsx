@@ -60,7 +60,6 @@ var Select = React.createClass({
 						}.bind(this))}
 					</ul>
 				</div>
-				<div>Selected: {this.state.selected.value}</div>
 			</div>
 		);
 	}
