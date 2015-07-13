@@ -6,14 +6,16 @@ var Select = React.createClass({
 		title: React.PropTypes.string,
 		items: React.PropTypes.array,
 		selected: React.PropTypes.object,
-		closeOnSelect: React.PropTypes.bool
+		closeOnSelect: React.PropTypes.bool,
+		onSelectChange: React.PropTypes.func
 	},
 	getDefaultProps: function()
 	{
 		return {
 			items: [],
 			title: 'Dropdown',
-			closeOnSelect: true
+			closeOnSelect: true,
+			onSelectChange: function(){}
 		};
 	},
 	getInitialState: function()
@@ -49,6 +51,7 @@ var Select = React.createClass({
 	clickSelectHandler: function(item, event)
 	{
 		this.select(item);
+		this.props.onSelectChange(item, event);
 		if(this.props.closeOnSelect)
 		{
 			this.close();
