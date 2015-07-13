@@ -1,0 +1,13 @@
+div {
+	outline: none;
+}
+
+.no-display {
+	display: none;
+}
+
+.dropdown-list {
+	list-style: none;
+	min-width: 0px;
+	position: absolute;
+}
