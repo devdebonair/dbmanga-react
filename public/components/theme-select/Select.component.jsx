@@ -14,10 +14,14 @@ module.exports = React.createClass({
 			items: []
 		};
 	},
+	selectChanged: function(item)
+	{
+		console.log(item);
+	},
 	render: function()
 	{
 		return(
-			<Select items={this.props.items} title={this.props.title} />
+			<Select items={this.props.items} title={this.props.title} onSelectChange={this.selectChanged} />
 		);
 	}
 });
