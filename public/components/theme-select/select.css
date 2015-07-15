@@ -21,3 +21,7 @@
 .dropdown-menu li:hover {
 	color: #E1B1E1;
 }
+
+.dropdown-menu li.selected {
+	color: #E1B1E1;
+}
