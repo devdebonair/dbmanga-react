@@ -61,6 +61,15 @@ var Select = React.createClass({
 	{
 		this.close();
 	},
+	_isSelected: function(item)
+	{
+		var selectedItem = this.state.selected;
+		if(item.value === selectedItem.value && item.label === selectedItem.label)
+		{
+			return true;
+		}
+		return false;
+	},
 	render: function()
 	{
 		return(
@@ -69,7 +78,7 @@ var Select = React.createClass({
 				<div className={this.state.isOpen ? 'dropdown-menu' : 'no-display'}>
 					<ul className="dropdown-list">
 						{this.props.items.map(function(item, index){
-							return <li key={index} onClick={this.clickSelectHandler.bind(null, {label: item.label, value: item.value})}>{item.label}</li>;
+							return <li key={index} className={this._isSelected(item) ? 'selected' : ''} onClick={this.clickSelectHandler.bind(null, {label: item.label, value: item.value})}>{item.label}</li>;
 						}.bind(this))}
 					</ul>
 				</div>
