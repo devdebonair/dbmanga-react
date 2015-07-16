@@ -1,0 +1,13 @@
+.search-debounced {
+	border-width: 1px;
+	border-color: #9A8194;
+	font-size: 12px;
+	padding: 10px;
+	border-radius: 50px;
+	width: 100%;
+	text-transform: uppercase;
+}
+
+.search-debounced {
+	outline: none;
+}

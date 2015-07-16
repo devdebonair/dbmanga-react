@@ -1,5 +1,7 @@
 var React = require('react');
 var SearchDebounced = require('../core-search-debounced/Search-Debounced.component.jsx');
+var Stylesheet = require('./search-debounced.css');
+
 module.exports = React.createClass({
 	propTypes: {
 		placeholder: 	React.PropTypes.string,
