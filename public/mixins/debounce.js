@@ -1,30 +1,27 @@
-module.exports = {
-
-	debounce: function(func, delay, immediate)
+module.exports = function debounce(func, wait, immediate)
+{
+	var timeout;
+	return function()
 	{
-		var timeoutID;
+		var self = this; 
+		var args = arguments;
 
-		return function() {
-			
-			var args = arguments;
-			
-			var debounced = function() {
-				timeoutID = null;
-				if(!immediate)
-				{
-					func.apply(this, args);
-				}
-			}.bind(this);
-
-			var callNow = immediate && !timeoutID;
-			
-			clearTimeout(timeoutID);
-			timeoutID = setTimeout(debounced, (delay || 100));
-			
-			if(callNow)
+		var later = function() 
+		{
+			timeout = null;
+			if(!immediate)
 			{
-				func.apply(this, args);
+				func.apply(self, args);
 			}
 		};
-	}
+
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		
+		if(callNow)
+		{
+			func.apply(self, args);
+		}
+	};
 };

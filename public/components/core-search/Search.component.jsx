@@ -1,8 +1,7 @@
 var React = require('react');
-var DebounceMixin = require('../../mixins/debounce.js');
+var debounce = require('../../mixins/debounce');
 
 module.exports = React.createClass({
-	mixins: [DebounceMixin],
 	propTypes: {
 		placeholder: 	React.PropTypes.string,
 		value: 			React.PropTypes.string,
@@ -17,29 +16,38 @@ module.exports = React.createClass({
 			placeholder: '',
 			value: '',
 			onChange: function(){},
-			onDebounce: function(){}
-		}
+			onDebounce: function(){},
+			delay: 250,
+			immediate: false
+		};
 	},
 	getInitialState: function()
 	{
 		return {
 			text: ''
-		}
+		};
 	},
 	componentWillMount: function()
 	{
 		this.setState({text:this.props.value});
+		this.debounceHandler = debounce(this.props.onDebounce, this.props.delay, this.props.immediate);
 	},
-	changeHandler: function()
+	changeHandler: function(e)
 	{
-		this.props.onChange();
-		this.debounce(this.props.onDebounce, this.props.delay, this.props.immediate);
+		var value = e.target.value
+		this.setText(value);
+		this.props.onChange(value);
+		this.debounceHandler(value);
+	},
+	setText: function(data)
+	{
+		this.setState({text:data});
 	},
 	render: function()
 	{
 		return(
 			<div>
-				<input type="search" placeholder={this.props.placeholder} onChange:{this.changeHandler} value={this.props.value} />
+				<input type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.state.text}  />
 			</div>
 		);
 	}
