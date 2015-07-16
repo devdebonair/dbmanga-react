@@ -1,6 +1,6 @@
 var React = require('react');
 var Select = require('./components/theme-select/Select.component.jsx');
-var Search = require('./components/core-search/Search.component.jsx');
+var Search = require('./components/theme-search-debounced/Search-Debounced.component.jsx');
 
 var genres = [
 	{label: 'Shounen', value: 'SHOUNEN'},
