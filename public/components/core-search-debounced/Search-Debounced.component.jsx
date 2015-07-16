@@ -47,7 +47,7 @@ module.exports = React.createClass({
 	{
 		return(
 			<div>
-				<input type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.state.text}  />
+				<input className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.state.text}  />
 			</div>
 		);
 	}
