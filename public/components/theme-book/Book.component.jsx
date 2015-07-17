@@ -16,7 +16,7 @@ module.exports = React.createClass({
 	render: function()
 	{
 		return(
-			<div style={{width: this.props.width}}>
+			<div className="book" style={{width: this.props.width}}>
 				<img src={this.props.url} />
 			</div>
 		);
