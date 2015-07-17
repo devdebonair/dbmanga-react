@@ -6,6 +6,7 @@ button {
 	background-color: #fff;
 	padding: 15px 35px;
 	cursor: pointer;
+	outline: none;
 }
 
 button > span {
