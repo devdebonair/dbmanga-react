@@ -21,7 +21,9 @@ module.exports = React.createClass({
 	render: function()
 	{
 		return(
-			<Select items={this.props.items} title={this.props.title} onSelectChange={this.selectChanged} />
+			<div className="select-wrapper">
+				<Select items={this.props.items} title={this.props.title} onSelectChange={this.selectChanged} />
+			</div>
 		);
 	}
 });
