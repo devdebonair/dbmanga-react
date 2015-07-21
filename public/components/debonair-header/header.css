@@ -1,0 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
+
+#home-header {
+   font-family: 'Roboto', helvetica;
+   background-color: #59488B;
+   height: 350px;
+   padding-left: 15px;
+   width: 100%;
+}
+
+#home-title > span {
+   color: #FFF;
+   font-weight: 200;
+   font-size: 40px;
+   letter-spacing: 5px;
+   text-transform: uppercase;
+}
+
+#home-title {
+   text-align: center;
+   padding-bottom: 50px;
+}
+
+#home-actions {
+   padding-top: 150px;
+   position: relative;
+}
+
+#home-search {
+   text-align: center;
+}
+
+.search-debounced {
+	border-radius: 0px;
+	outline: none;
+	border: none;
+	text-transform: uppercase;
+	width: 500px;
+	height: 50px;
+	font-size: 14px;
+	display: inline;
+	color: #59488B;
+	text-indent: 15px;
+}
+
+.search-debounced::-webkit-input-placeholder {
+   color: #59488B;
+   opacity: 0.3;
+   padding-left: 10px;
+}
+
+.search-debounced:-moz-placeholder { /* Firefox 18- */
+   color: #59488B;
+   opacity: 0.3;
+   padding-left: 10px;
+}
+
+.search-debounced::-moz-placeholder {  /* Firefox 19+ */
+   color: #59488B;
+   opacity: 0.3;
+   padding-left: 10px;
+}
+
+.search-debounced:-ms-input-placeholder {  
+   color: #59488B;
+   opacity: 0.3;
+   padding-left: 10px;
+}
