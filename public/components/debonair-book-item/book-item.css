@@ -1,0 +1,8 @@
+.book-cover {
+	box-shadow: 2px 2px 3px 1px #59488B;
+	width: 210px;
+}
+
+.book-cover:hover {
+	cursor: pointer;
+}
