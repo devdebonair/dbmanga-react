@@ -1,17 +1,12 @@
-#home-book-list {
+#book-list {
 	text-align: center;
 }
 
-.home-book-cover-wrapper {
+.book-cover-wrapper {
 	display: inline;
 	line-height: 100px;
 	padding-right: 20px;
 	padding-left: 20px;
-}
-
-.home-book-cover {
-	box-shadow: 2px 2px 3px 1px #59488B;
-	width: 210px;
 }
 
 .container {
