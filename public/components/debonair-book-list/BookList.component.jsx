@@ -4,7 +4,8 @@ var BookItem = require('../debonair-book-item/BookItem.component.jsx');
 
 module.exports = React.createClass({
 	propTypes: {
-		images: React.PropTypes.arrayOf(React.PropTypes.string)
+		books: React.PropTypes.arrayOf(React.PropTypes.object),
+		onSelect: React.PropTypes.func
 	},
 	getDefaultProps: function()
 	{
@@ -14,7 +15,7 @@ module.exports = React.createClass({
 	},
 	clickHandler: function(data)
 	{
-		console.log(data);
+		this.props.onSelect(data);
 	},
 	render: function()
 	{
