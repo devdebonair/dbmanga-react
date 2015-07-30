@@ -49,7 +49,7 @@ module.exports = function(router)
                 status = status.split(" ");
             }
             
-            Manga.find({ title: { $regex: title }, genres: { $all: genres }, status: { $in: status }, numOfChapters: { $gt: min, $lt: max } }, 'title coverUrl author description genres numOfChapters status', { sort: { 'views.currentWeek': -1 } }, function(err, data){
+            Manga.find({ title: { $regex: title }, genres: { $all: genres }, status: { $in: status }, numOfChapters: { $gt: min, $lt: max } }, 'id views title coverUrl author description genres numOfChapters status', { sort: { 'views.currentWeek': -1 } }, function(err, data){
                 if(err)
                 {
                     return res.status(404).json(err);
@@ -192,7 +192,7 @@ module.exports = function(router)
         
         .get(function(req, res) {
             
-            Manga.findById( req.params.manga_id, function(err, manga) {
+            Manga.findById( req.params.manga_id, 'id chapters', function(err, manga) {
                 if(err)
                 {
                     return res.status(404).json({message: err});
