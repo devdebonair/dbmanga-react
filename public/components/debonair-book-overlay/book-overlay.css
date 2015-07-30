@@ -1,0 +1,134 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
+
+.book-overlay-wrapper {
+	max-height: 100vh;
+	max-width: 100vw;
+	min-height: 100vh;
+	min-width: 100vw;
+	height: 100%;
+	width: 100%;
+	display: table;
+	font-family: 'Roboto', helvetica;
+}
+
+.book-overlay-wrapper > div {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.book-overlay-image > img {
+	height: 100vh;
+	width: auto;
+}
+
+.book-overlay-details {
+	padding: 100px;
+	min-width: 100%;
+}
+
+.book-overlay-title {
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-size: 33px;
+	font-weight: 100;
+	padding-bottom: 25px;
+}
+
+.book-overlay-genres {
+	padding-bottom: 25px;
+}
+
+.book-overlay-genres > span {
+	padding-right: 10px;
+	text-transform: uppercase;
+	font-style: italic;
+	font-weight: 300;
+}
+
+.book-overlay-content {}
+
+.book-overlay-summary {
+	line-height: 1.7em;
+	font-size: 32px;
+	font-weight: 200;
+	height: 500px;
+	overflow-y: scroll;
+}
+
+.book-overlay-close {
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 25px 50px;
+}
+
+.book-overlay-close > span {
+	font-size: 50px;
+	font-weight: 100;
+	cursor: pointer;
+}
+
+.book-overlay-summary-icons {
+	display: table;
+	margin: 0 auto;
+}
+
+.book-overlay-summary-icons > div {
+	display: table-cell;
+	line-height: 25px;
+	padding: 15px 50px 40px 50px;
+}
+
+.home-overlay-separator {
+	border: none;
+}
+
+.book-overlay-button-wrapper {
+	width: 600px;
+	margin: 25px auto;
+}
+
+.book-overlay-button {
+	border-radius: 50px;
+	border: solid #3F0532 thin;
+	background-color: #fff;
+	padding: 15px 35px;
+	cursor: pointer;
+	outline: none;
+	font-family: 'Roboto';
+	font-size: 24px;
+	text-align: center;
+	text-transform: uppercase;
+	color: #8E2C76;
+	letter-spacing: 5px;
+	font-weight: 100;
+	margin-right: 25px;
+}
+
+.book-overlay .no-display {
+	display: none;
+}
+
+.book-overlay-chapter-preview {
+	width: 900px;
+	margin: 0 auto;
+}
+
+.book-overlay-chapter-preview-image-wrapper {
+	margin-top: 150px;
+	margin-bottom: 250px;
+}
+
+.book-overlay-chapter-preview-image {
+	text-align: center;
+	max-width: 180px;
+	padding-right: 15px;
+}
+
+.book-overlay-chapter-preview-title {
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-size: 33px;
+	font-weight: 100;
+	padding-bottom: 25px;
+}
