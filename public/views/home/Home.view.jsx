@@ -1,75 +1,154 @@
-var React = require('react');
-var Stylesheet = require('./home.css');
-var Reflux = require('reflux');
+var React 			= require('react');
+var Reflux 			= require('reflux');
+var MangaStore 		= require('../../stores/Manga.store.jsx');
+var MangaActions 	= require('../../actions/Directory.action.jsx');
+var ClientActions 	= require('../../actions/Client.action.jsx');
 
-var FeaturedBook = require('../../components/theme-featured-book/FeaturedBook.component.jsx');
-var ReadingList = require('../../components/theme-reading-list/ReadingList.component.jsx');
-var Dropdown = require('../../components/theme-select/Select.component.jsx');
-var Search = require('../../components/theme-search-debounced/Search-Debounced.component.jsx');
-var Button = require('../../components/theme-radial-button/Button.component.jsx');
+var Stylesheet 		= require('./home.css');
+var Header 			= require('../../components/debonair-header/Header.component.jsx');
+var BookList 		= require('../../components/debonair-book-list/BookList.component.jsx');
+var BookOverlay 	= require('../../components/debonair-book-overlay/BookOverlay.component.jsx');
+var Reader 			= require('../../components/core-reader/Reader.component.jsx');
 
-var feature = {
-	title: 'Naruto - The Seventh Hokage',
-	description: 'Twelve years before the events at the focus of the series, the nine-tailed demon fox attacked Konohagakure. It was a powerful demon fox; a single swing of one of its nine tails would raise tsunamis and flatten mountains. It raised chaos and slaughtered many people, until the leader of the Leaf Village - the Fourth Hokage - defeated it by sacrificing his own life to seal the demon inside a newly-born child. That child\'s name was Naruto Uzumaki.',
-	url: 'http://mangadoom.co/wp-content/manga/12804/2/50.jpg'
-}
-
-var bookmark = {
-	title: 'BOOKMARK',
-	items: [
-		{ label:'ATTACK ON TITAN', value:'' },
-		{ label:'DRAGON BALL', value:'' },
-		{ label:'NARUTO - THE SEV...', value:'' }
-	]
-};
-
-
-var trending = {
-	title: 'TRENDING',
-	items: [
-		{ label:'ONE PIECE', value:'' },
-		{ label:'BOKU NO HERO ACA...', value:'' },
-		{ label:'NARUTO - THE SEV...', value:'' }
-	]
-};
-
-var continue_reading = {
-	title: 'CONTINUE READING',
-	urlList: [
-		'http://mcd.iosphe.re/n/47446/11/front/a/',
-		'http://mcd.iosphe.re/t/3106/13/front/a/',
-		'http://mangadoom.co/wp-content/manga/12804/2/50.jpg',
-		'http://mcd.iosphe.re/n/16/1/front/a/',
-		'http://mcd.iosphe.re/n/94802/1/front/a/'
-	]
-};
-
-module.exports = React.createClass({
+module.exports = HomeView = React.createClass({
+	mixins: [Reflux.connect(MangaStore, 'data')],
+	getInitialState: function()
+	{
+		return {
+			showOverlay: false,
+			showReader: false
+		};
+	},
+	componentDidMount: function()
+	{
+		this.searchForBook('');
+	},
+	searchForBook: function(title)
+	{
+		MangaActions.searchBooks({title: title});
+	},
+	getChapter: function(id, chapterNumber)
+	{
+		MangaActions.getChapter(id, chapterNumber);
+	},
+	closeOverlay: function()
+	{
+		this.setState({showOverlay: false});
+		ClientActions.clearSelectedBook();
+	},
+	closeReader: function()
+	{
+		this.setState({showReader: false});
+		ClientActions.clearSelectedBook();
+	},
+	getChapterPreview: function(chapters)
+	{
+		return chapters.map(function(element){
+			return element.image;
+		}).splice(0,4);
+	},
+	getChapterPages: function(chapter)
+	{
+		return chapter.map(function(element){
+			return element.image;
+		});
+	},
+	onSearchHandler: function(value)
+	{
+		this.searchForBook(value);
+	},
+	onBookSelectHandler: function(data)
+	{
+		var book = {
+			id: data.id,
+            coverUrl: data.coverUrl,
+            genres: data.genres,
+            author: data.author,
+            description: data.description,
+            views: data.views,
+            numOfChapters: data.length,
+            status: data.status,
+            title: data.title,
+            chapters: []
+        };
+        ClientActions.setSelectedBook(book);
+		this.setState({showOverlay: true});
+	},
+	onChapterSelectHandler: function(value)
+	{
+		this.getChapter(this.state.data.selectedBook.id, value);
+	},
+	onReadClick: function()
+	{
+		this.closeOverlay();
+		this.getChapter(this.state.data.selectedBook.id, 1);
+		this.setState({showReader: true});
+		window.scrollTo(0,0);
+	},
 	render: function()
 	{
+		var defaultStuff = {
+            coverUrl: '',
+            genres: [],
+            author: '',
+            summary: '',
+            views: 0,
+            length: 0,
+            status: '',
+            title: '',
+            chapters: []
+        };
+        var data = this.state.data || {books:[], selectedBook: defaultStuff, selectedChapter: { number: 0, pages: [], title: ''}};
+        var selectedChapter = data.selectedChapter;
+		var selectedBook = data.selectedBook;
+		var books = data.books;
+		var selectedChapterPages = this.getChapterPages(selectedChapter.pages);
+		if(selectedChapterPages.length === 0)
+		{
+			selectedChapterPages = ['http://placehold.it/1000x400/ffffff/59488B/&text=Loading...'];
+		}
+
+		var reader = (
+			<div className="home-reader-wrapper">
+				<Reader pages={selectedChapterPages} />
+				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
+			</div>
+		);
+
+		var overlay = (
+			<div className="home-overlay">
+				<BookOverlay
+					coverUrl={selectedBook.coverUrl}
+					genres={selectedBook.genres}
+					author={selectedBook.author}
+					summary={selectedBook.description}
+					views={selectedBook.views.total}
+					length={selectedBook.numOfChapters}
+					status={selectedBook.status}
+					title={selectedBook.title}
+					min={1}
+					value={selectedChapter.number}
+					max={selectedBook.numOfChapters}
+					onClose={this.closeOverlay}
+					images={this.getChapterPreview(selectedChapter.pages)}
+					onSelect={this.onChapterSelectHandler}
+					onReadClick={this.onReadClick} />
+			</div>
+		);
+		
 		return(
 			<div id="home-wrapper">
-				<div id="home-container">
-					<section id="home-toolbar">
-						<div id="home-continue-button"><Button title="continue reading" size={14} /></div>
-						<div id="home-browse-button"><Button title="browse manga" size={14} /></div>
-						<div id="home-search"><Search placeholder="Search..." /></div>
-					</section>
-					<div id="home-content-wrapper">
-						<section id="home-content">
-							<div id="home-feature">
-								<FeaturedBook title={feature.title} description={feature.description} url={feature.url} />
-							</div>
-							<div id="home-reading-list-continue">
-								<ReadingList title={continue_reading.title} urlList={continue_reading.urlList} width={213} />
-							</div>
-						</section>
-						<section id="home-quick-links">
-							<div><Dropdown title={bookmark.title} items={bookmark.items} /></div>
-							<div><Dropdown title={trending.title} items={trending.items} /></div>
-						</section>
-					</div>
+				
+				{this.state.showOverlay ? overlay : ''}
+				
+				{this.state.showReader ? reader : ''}
+
+				<Header title="debonair manga" onDebounce={this.onSearchHandler} />
+				
+				<div className="container">
+					<BookList books={books} onSelect={this.onBookSelectHandler} />
 				</div>
+
 			</div>
 		);
 	}
