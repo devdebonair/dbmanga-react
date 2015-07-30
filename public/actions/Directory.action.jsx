@@ -8,7 +8,8 @@ var DirectoryActions = Reflux.createActions({
 	'getUpdatedBooks': 		{asyncResult: true},
 	'getTrendingBooks': 	{asyncResult: true},
 	'getFeaturedBooks': 	{asyncResult: true},
-	'getDirectoryTitles': 	{asyncResult: true}
+	'getDirectoryTitles': 	{asyncResult: true},
+	'getChapter': 			{asyncResult: true}
 });
 
 function responseHandler(err, res)
@@ -19,6 +20,12 @@ function responseHandler(err, res)
 	}
 	return this.completed(res);
 }
+
+DirectoryActions.getChapter.listen(function(book_id, chapter_number){
+	request
+		.get(('/api/v1/manga/' + book_id + '/chapters/' + chapter_number))
+		.end(responseHandler.bind(this));
+});
 
 DirectoryActions.getBook.listen(function(book_id){
 	request
