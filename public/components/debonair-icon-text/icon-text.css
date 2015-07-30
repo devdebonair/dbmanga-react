@@ -1,0 +1,25 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
+
+.icon-text-wrapper {
+	display: table;
+	font-family: 'Roboto';
+	width: 50px;
+}
+
+.icon-text-wrapper > div {
+	display: table-cell;
+}
+
+.icon-text-text {
+	font-size: 22px;
+	font-weight: 300;
+	color: #7C2389;
+	padding-left: 15px;
+	vertical-align: middle;
+}
+
+.icon-font {
+	background-color: #7C2389;
+	border-radius: 50%;
+	padding: 15px;
+}
