@@ -2,7 +2,7 @@ var React = require('react');
 var Stylesheet = require('./book-list.css');
 var BookItem = require('../debonair-book-item/BookItem.component.jsx');
 
-module.exports = React.createClass({
+module.exports = BookList = React.createClass({
 	propTypes: {
 		books: React.PropTypes.arrayOf(React.PropTypes.object),
 		onSelect: React.PropTypes.func
@@ -36,6 +36,7 @@ module.exports = React.createClass({
 										genres={element.genres}
 										id={element._id}
 										views={element.views}
+										description={element.description}
 										chapters={element.chapters} />
 								</span>
 							);

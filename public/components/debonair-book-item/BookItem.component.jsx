@@ -1,7 +1,7 @@
 var React = require('react');
 var Stylesheet = require('./book-item.css');
 
-module.exports = React.createClass({
+module.exports = BookItem = React.createClass({
 	propTypes: {
 		title: React.PropTypes.string,
 		coverUrl: React.PropTypes.string,
@@ -10,8 +10,9 @@ module.exports = React.createClass({
 		status: React.PropTypes.string,
 		genres: React.PropTypes.arrayOf(React.PropTypes.string),
 		id: React.PropTypes.string,
-		views: React.PropTypes.number,
+		views: React.PropTypes.object,
 		chapters: React.PropTypes.arrayOf(React.PropTypes.object),
+		description: React.PropTypes.string,
 		onClick: React.PropTypes.func
 	},
 	getDefaultProps: function()
