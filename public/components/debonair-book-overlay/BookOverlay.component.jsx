@@ -1,7 +1,5 @@
 var React = require('react');
 var Stylesheet = require('./book-overlay.css');
-var Tabs = require('../core-tab/Tabs.component.jsx');
-var ImageLoader = require('../debonair-image-loader/ImageLoader.component.jsx');
 var IconText = require('../debonair-icon-text/IconText.component.jsx');
 var Range = require('../debonair-range/Range.component.jsx');
 
