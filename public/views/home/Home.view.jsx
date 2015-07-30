@@ -73,6 +73,7 @@ module.exports = HomeView = React.createClass({
         };
         ClientActions.setSelectedBook(book);
 		this.setState({showOverlay: true});
+		this.getChapter(data.id, 1);	
 	},
 	onChapterSelectHandler: function(value)
 	{
@@ -80,8 +81,7 @@ module.exports = HomeView = React.createClass({
 	},
 	onReadClick: function()
 	{
-		this.closeOverlay();
-		this.getChapter(this.state.data.selectedBook.id, 1);
+		this.setState({showOverlay: false});
 		this.setState({showReader: true});
 		window.scrollTo(0,0);
 	},
@@ -135,7 +135,7 @@ module.exports = HomeView = React.createClass({
 					onReadClick={this.onReadClick} />
 			</div>
 		);
-		
+
 		return(
 			<div id="home-wrapper">
 				
