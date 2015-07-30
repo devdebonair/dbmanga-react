@@ -11,7 +11,7 @@ module.exports = React.createClass({
 	{
 		return {
 			currentPage: 0,
-			pages: ['http://placehold.it/1000x400/ffffff/c0392b/&text=Loading...']
+			pages: ['http://placehold.it/1000x400/ffffff/59488B/&text=Loading...']
 		};
 	},
 	render: function() 
