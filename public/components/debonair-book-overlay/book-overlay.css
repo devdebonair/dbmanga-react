@@ -116,12 +116,12 @@
 
 .book-overlay-chapter-preview-image-wrapper {
 	margin-top: 150px;
-	margin-bottom: 250px;
+	margin-bottom: 200px;
 }
 
 .book-overlay-chapter-preview-image {
 	text-align: center;
-	max-width: 180px;
+	width: 200px;
 	padding-right: 15px;
 }
 

@@ -103,12 +103,13 @@ module.exports = BookOverlay = React.createClass({
 					<section className={this.state.isChapter ? "book-overlay-chapter-preview" : 'no-display'}>
 						<span className="book-overlay-chapter-preview-title">Chapter {this.state.chapter}</span>
 						<div className="book-overlay-chapter-preview-image-wrapper">
-							<img className="book-overlay-chapter-preview-image" src="http://mcd.iosphe.re/n/53881/1/front/a/" />
-							<img className="book-overlay-chapter-preview-image" src="http://mcd.iosphe.re/n/53881/1/front/a/" />
-							<img className="book-overlay-chapter-preview-image" src="http://mcd.iosphe.re/n/53881/1/front/a/" />
-							<img className="book-overlay-chapter-preview-image" src="http://mcd.iosphe.re/n/53881/1/front/a/" />
+							{this.props.images.map(function(element, index){
+								return(
+									<img key={index} className="book-overlay-chapter-preview-image" src={element} />
+								);
+							})}
 						</div>
-						<div><Range min={1} max={this.props.length} onChange={this.changeHandler} value={1} /></div>
+						<div><Range min={1} max={this.props.length} onChange={this.changeHandler} onDebounce={this.debounceHandler} value={1} /></div>
 					</section>
 
 					<div className="book-overlay-button-wrapper">
