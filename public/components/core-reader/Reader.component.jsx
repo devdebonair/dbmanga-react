@@ -1,5 +1,5 @@
 var React = require('react');
-var Slider = require('react-slick');
+var Slider = require('nuka-carousel');
 var Stylesheet = require('./reader.css');
 
 module.exports = React.createClass({
@@ -11,13 +11,10 @@ module.exports = React.createClass({
 	{
 		return {
 			currentPage: 0,
-			pages: []
+			pages: ['http://placehold.it/1000x400/ffffff/c0392b/&text=Loading...']
 		};
 	},
-	componentWillMount: function()
-	{
-	},
-	render: function () 
+	render: function() 
 	{
 		var settings = {
 			dots: false,
@@ -35,7 +32,7 @@ module.exports = React.createClass({
 						return(
 							<div key={index} className="reader-image-wrapper"><img src={element} className="reader-image"></img></div>
 						);
-					})}					
+					})}
 				</Slider>
 			</div>
 		);
