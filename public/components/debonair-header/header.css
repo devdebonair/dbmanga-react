@@ -14,6 +14,7 @@
    font-size: 40px;
    letter-spacing: 5px;
    text-transform: uppercase;
+   cursor: pointer;
 }
 
 #home-title {
