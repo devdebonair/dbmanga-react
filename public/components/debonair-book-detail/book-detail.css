@@ -1,0 +1,13 @@
+.book-detail-wrapper {
+	display: table;
+}
+
+.book-detail-wrapper > div {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.book-detail-detail {
+	width: 100%;
+	background-color: #59488B;
+}
