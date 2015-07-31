@@ -74,7 +74,7 @@ module.exports = BookOverlay = React.createClass({
 								);
 							}.bind(this))}
 						</div>
-						<hr className="home-overlay-separator" />
+
 						<div className="book-overlay-content">
 							<div className="book-overlay-summary-icons">
 								<div>
@@ -97,6 +97,9 @@ module.exports = BookOverlay = React.createClass({
 							</div>
 						</div>
 					</section>
+
+
+
 
 					<section className={this.state.isChapter ? "book-overlay-chapter-preview" : 'no-display'}>
 						<span className="book-overlay-chapter-preview-title">Chapter {this.state.chapter}</span>

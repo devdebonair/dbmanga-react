@@ -2,13 +2,12 @@
 
 #home-wrapper {
 	font-family: 'Roboto', helvetica;
-	min-height: 100%;
-	min-width: 100%;
 	width: 100%;
 }
 
 .container {
-	padding: 50px 100px;
+	width: 1500px;
+	margin: 50px auto;
 }
 
 .no-display {
@@ -18,11 +17,17 @@
 .home-overlay {
 	padding: 0;
 	margin: 0;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
+	bottom: 0;
+	right: 0;
 	background-color: #FFF;
 	z-index: 99;
+}
+
+.home-overlay > div {
+	overflow-y: scroll;
 }
 
 .home-reader-close {
@@ -36,4 +41,28 @@
 	font-size: 50px;
 	font-weight: 100;
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 1500px) {
+	.container {
+		width: 1300px;
+	}
+}
+
+@media only screen and (max-width: 1250px) {
+	.container {
+		width: 1000px;
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+	.container {
+		width: 800px;
+	}
+}
+
+@media only screen and (max-width: 750px) {
+	.container {
+		width: 500px;
+	}
 }

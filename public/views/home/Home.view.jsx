@@ -117,22 +117,24 @@ module.exports = HomeView = React.createClass({
 
 		var overlay = (
 			<div className="home-overlay">
-				<BookOverlay
-					coverUrl={selectedBook.coverUrl}
-					genres={selectedBook.genres}
-					author={selectedBook.author}
-					summary={selectedBook.description}
-					views={selectedBook.views.total}
-					length={selectedBook.numOfChapters}
-					status={selectedBook.status}
-					title={selectedBook.title}
-					min={1}
-					value={selectedChapter.number}
-					max={selectedBook.numOfChapters}
-					onClose={this.closeOverlay}
-					images={this.getChapterPreview(selectedChapter.pages)}
-					onSelect={this.onChapterSelectHandler}
-					onReadClick={this.onReadClick} />
+				<div>
+					<BookOverlay
+						coverUrl={selectedBook.coverUrl}
+						genres={selectedBook.genres}
+						author={selectedBook.author}
+						summary={selectedBook.description}
+						views={selectedBook.views.total}
+						length={selectedBook.numOfChapters}
+						status={selectedBook.status}
+						title={selectedBook.title}
+						min={1}
+						value={selectedChapter.number}
+						max={selectedBook.numOfChapters}
+						onClose={this.closeOverlay}
+						images={this.getChapterPreview(selectedChapter.pages)}
+						onSelect={this.onChapterSelectHandler}
+						onReadClick={this.onReadClick} />
+				</div>
 			</div>
 		);
 
