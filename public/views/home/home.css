@@ -2,12 +2,7 @@
 
 #home-wrapper {
 	font-family: 'Roboto', helvetica;
-	width: 100%;
-}
-
-.container {
-	width: 1500px;
-	margin: 50px auto;
+	width: 100vw;
 }
 
 .no-display {
@@ -15,26 +10,24 @@
 }
 
 .home-overlay {
-	padding: 0;
-	margin: 0;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
-	bottom: 0;
 	right: 0;
-	background-color: #FFF;
+	bottom: 0;
+	margin: 0;
+	padding: 0;
 	z-index: 99;
-}
-
-.home-overlay > div {
-	overflow-y: scroll;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-color: #FFF;
 }
 
 .home-reader-close {
 	position: absolute;
+	padding: 25px 50px;
 	top: 0;
 	right: 0;
-	padding: 25px 50px;
 }
 
 .home-reader-close > span {
@@ -43,26 +36,11 @@
 	cursor: pointer;
 }
 
-@media only screen and (max-width: 1500px) {
-	.container {
-		width: 1300px;
-	}
+.container {
+	padding-top: 25px;
+	text-align: center;
 }
 
-@media only screen and (max-width: 1250px) {
-	.container {
-		width: 1000px;
-	}
-}
-
-@media only screen and (max-width: 1000px) {
-	.container {
-		width: 800px;
-	}
-}
-
-@media only screen and (max-width: 750px) {
-	.container {
-		width: 500px;
-	}
+#home-wrapper .slider-decorator-2 {
+	display: none;
 }

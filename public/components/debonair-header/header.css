@@ -4,8 +4,6 @@
    font-family: 'Roboto', helvetica;
    background-color: #59488B;
    height: 350px;
-   padding-left: 15px;
-   width: 100%;
 }
 
 #home-title > span {
@@ -66,4 +64,25 @@
    color: #59488B;
    opacity: 0.3;
    padding-left: 10px;
+}
+
+@media only screen and (max-width: 500px) {
+   #home-title > span {
+      font-size: 24px;
+   }
+
+   .search-debounced {
+      width: 300px;
+   }
+}
+
+@media only screen and (max-width: 320px) {
+   #home-title > span {
+      font-size: 20px;
+   }
+
+   .search-debounced {
+      width: 280px;
+      height: 40px;
+   }
 }

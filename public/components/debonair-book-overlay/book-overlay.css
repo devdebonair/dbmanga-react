@@ -36,7 +36,6 @@
 
 .book-overlay-details {
 	padding: 100px;
-	width: 100%;
 }
 
 .book-overlay-title {
@@ -152,5 +151,9 @@
 
 	.book-overlay-wrapper > div {
 		display: block;
+	}
+
+	.book-overlay-content {
+		max-width: 80vw;
 	}
 }
