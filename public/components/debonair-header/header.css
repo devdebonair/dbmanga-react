@@ -30,34 +30,32 @@
 }
 
 #home-search .search-debounced {
-	border-radius: 0px;
-	outline: none;
-	border: none;
-	text-transform: uppercase;
-	width: 500px;
-	height: 50px;
-	font-size: 14px;
-	display: inline;
+   height: 50px;
+   width: 500px;
+   border: none;
+   outline: none;
 	color: #59488B;
+   display: inline;
+   font-size: 14px;
 	text-indent: 15px;
+   border-radius: 0px;
+   -webkit-appearance: none;
+   text-transform: uppercase;
 }
 
 #home-search .search-debounced::-webkit-input-placeholder {
    color: #59488B;
    opacity: 0.3;
-   padding-left: 10px;
 }
 
 #home-search .search-debounced:-moz-placeholder { /* Firefox 18- */
    color: #59488B;
    opacity: 0.3;
-   padding-left: 10px;
 }
 
 #home-search .search-debounced::-moz-placeholder {  /* Firefox 19+ */
    color: #59488B;
    opacity: 0.3;
-   padding-left: 10px;
 }
 
 #home-search .search-debounced:-ms-input-placeholder {  
