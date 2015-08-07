@@ -1,14 +1,31 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css");
 
+.reader-wrapper {
+	outline: none;
+}
+
 .reader-image-wrapper {
 	width: 100vw;
 	margin: 0 auto;
 	text-align: center;
 }
 
+.reader-wrapper.night {
+	background-color: black;
+}
+
 .reader-image {
 	max-height: 100vh;
 	max-width: 100vw;
+	min-width: 50%;
 	width: auto;
 	display: inline-block !important;
+}
+
+.slider-decorator-1 {
+	display: none;
+}
+
+.slider-decorator-0 {
+	display: none;
 }

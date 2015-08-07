@@ -9,6 +9,8 @@ var Header 			= require('../../components/debonair-header/Header.component.jsx')
 var BookList 		= require('../../components/debonair-book-list/BookList.component.jsx');
 var BookOverlay 	= require('../../components/debonair-book-overlay/BookOverlay.component.jsx');
 var Reader 			= require('../../components/core-reader/Reader.component.jsx');
+var HeaderSmall		= require('../../components/debonair-header-small/HeaderSmall.component.jsx');
+var Sticky			= require('react-sticky');
 
 module.exports = HomeView = React.createClass({
 	mixins: [Reflux.connect(MangaStore, 'data')],
@@ -16,7 +18,8 @@ module.exports = HomeView = React.createClass({
 	{
 		return {
 			showOverlay: false,
-			showReader: false
+			showReader: false,
+			showSmallHeader: true
 		};
 	},
 	componentDidMount: function()
@@ -85,6 +88,14 @@ module.exports = HomeView = React.createClass({
 		this.setState({showReader: true});
 		window.scrollTo(0,0);
 	},
+	stickyHeaderHandler: function(shouldBeSticky)
+	{
+		if(shouldBeSticky)
+		{
+			return this.setState({showSmallHeader: true});
+		}
+		this.setState({showSmallHeader: false});
+	},
 	render: function()
 	{
 		var defaultStuff = {
@@ -110,7 +121,7 @@ module.exports = HomeView = React.createClass({
 
 		var reader = (
 			<div className="home-reader-wrapper">
-				<Reader pages={selectedChapterPages} />
+				<Reader pages={selectedChapterPages} onChapterSelect={this.onChapterSelectHandler} chapterLength={selectedBook.numOfChapters} />
 				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
 			</div>
 		);
@@ -138,15 +149,15 @@ module.exports = HomeView = React.createClass({
 			</div>
 		);
 
+		var swag = this.state.showSmallHeader;
 		return(
 			<div id="home-wrapper">
-				
 				{this.state.showOverlay ? overlay : ''}
 				
 				{this.state.showReader ? reader : ''}
 
 				<Header title="debonair manga" onDebounce={this.onSearchHandler} />
-				
+
 				<div className="container">
 					<BookList books={books} onSelect={this.onBookSelectHandler} />
 				</div>

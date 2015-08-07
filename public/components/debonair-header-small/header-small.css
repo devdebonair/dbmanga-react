@@ -1,0 +1,61 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
+
+.header-small-wrapper {
+	font-family: 'Roboto';
+	height: 30px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	padding: 1.5% 10%;
+}
+
+.header-small-wrapper > div {
+	display: inline;
+}
+
+.header-small-title {
+	font-size: 28px;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-weight: 300;
+	color: #8E2C76;
+	float: left;
+}
+
+.header-small-search-wrapper {
+	float: right;
+}
+
+.header-small-search-wrapper .search-debounced {
+	padding: 0;
+	margin: 0;
+	height: 40px;
+	outline: none;
+	text-transform: uppercase;
+	width: 300px;
+	border: solid thin #8E2C76;
+	font-size: 12px;
+	display: inline;
+	color: #59488B;
+	text-indent: 15px;
+	border-radius: 0px;
+}
+
+.header-small-search-wrapper .search-debounced::-webkit-input-placeholder {
+   color: #59488B;
+   opacity: 0.3;
+}
+
+.header-small-search-wrapper .search-debounced:-moz-placeholder { /* Firefox 18- */
+   color: #59488B;
+   opacity: 0.3;
+}
+
+.header-small-search-wrapper .search-debounced::-moz-placeholder {  /* Firefox 19+ */
+   color: #59488B;
+   opacity: 0.3;
+}
+
+.header-small-search-wrapper .search-debounced:-ms-input-placeholder {  
+   color: #59488B;
+   opacity: 0.3;
+}
