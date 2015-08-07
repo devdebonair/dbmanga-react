@@ -9,8 +9,6 @@ var Header 			= require('../../components/debonair-header/Header.component.jsx')
 var BookList 		= require('../../components/debonair-book-list/BookList.component.jsx');
 var BookOverlay 	= require('../../components/debonair-book-overlay/BookOverlay.component.jsx');
 var Reader 			= require('../../components/core-reader/Reader.component.jsx');
-var HeaderSmall		= require('../../components/debonair-header-small/HeaderSmall.component.jsx');
-var Sticky			= require('react-sticky');
 
 module.exports = HomeView = React.createClass({
 	mixins: [Reflux.connect(MangaStore, 'data')],
@@ -33,6 +31,11 @@ module.exports = HomeView = React.createClass({
 	getChapter: function(id, chapterNumber)
 	{
 		MangaActions.getChapter(id, chapterNumber);
+	},
+	openOverlay: function()
+	{
+		this.setState({showOverlay: true});
+		document.body.classList.add('no-scroll');
 	},
 	closeOverlay: function()
 	{
@@ -76,8 +79,7 @@ module.exports = HomeView = React.createClass({
             chapters: []
         };
         ClientActions.setSelectedBook(book);
-		this.setState({showOverlay: true});
-		document.body.classList.add('no-scroll');
+		this.openOverlay();
 		this.getChapter(data.id, 1);	
 	},
 	onChapterSelectHandler: function(value)
@@ -86,7 +88,7 @@ module.exports = HomeView = React.createClass({
 	},
 	onReadClick: function()
 	{
-		this.setState({showOverlay: false});
+		this.closeOverlay();
 		this.setState({showReader: true});
 		window.scrollTo(0,0);
 	},
@@ -151,7 +153,6 @@ module.exports = HomeView = React.createClass({
 			</div>
 		);
 
-		var swag = this.state.showSmallHeader;
 		return(
 			<div id="home-wrapper">
 				{this.state.showOverlay ? overlay : ''}

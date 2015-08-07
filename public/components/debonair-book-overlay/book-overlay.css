@@ -38,10 +38,9 @@
 }
 
 .book-overlay-details {
-	position: absolute;
-	height: 80%;
-	padding: 100px 100px 300px 100px;
+	height: 80vh;
 	overflow-y: scroll;
+	padding: 100px;
 }
 
 .book-overlay-title {
@@ -64,7 +63,8 @@
 }
 
 .book-overlay-summary-icons {
-	text-align: center;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 .book-overlay-summary-icons > div {
@@ -142,7 +142,6 @@
 @media only screen and (max-width: 1000px) {
 	.book-overlay-wrapper {
 		display: block;
-		overflow: auto;
 	}
 
 	.book-overlay-image > img {
@@ -159,10 +158,10 @@
 	}
 
 	.book-overlay-details {
+		height: auto;
+		overflow: hidden;
 		text-align: center;
 		padding: 40px;
-		height: auto;
-		overflow: auto;
 	}
 
 	.book-overlay-button {
