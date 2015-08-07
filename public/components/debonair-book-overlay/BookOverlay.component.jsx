@@ -59,14 +59,17 @@ module.exports = BookOverlay = React.createClass({
 	{
 		return(
 			<section className="book-overlay-wrapper">
+				
 				<div className="book-overlay-image">
 					<img src={this.props.coverUrl} />
 				</div>
-				<div className="book-overlay-details">
 
+				<div>
+					<div className="book-overlay-details">
 					<section className={this.state.isChapter ? 'no-display' : ''} >
 
 						<div className="book-overlay-title">{this.props.title}</div>
+
 						<div className="book-overlay-genres">
 							{this.props.genres.map(function(element, index){
 								return(
@@ -90,16 +93,19 @@ module.exports = BookOverlay = React.createClass({
 									<IconText icon="autorenew" iconColor="#FFF" text={this.props.status + ' Status'} iconSize={24} />
 								</div>
 							</div>
+
 							<div className="book-overlay-summary">
 								<div className="book-overlay-summary-description">
 									{this.props.summary}
 								</div>
 							</div>
 						</div>
+
+						<div className="book-overlay-button-wrapper">
+							<button className="book-overlay-button" onClick={this.props.onReadClick}>Read Now</button>
+							<button className="book-overlay-button" onClick={this.showChapterSection}>Chapters</button>
+						</div>
 					</section>
-
-
-
 
 					<section className={this.state.isChapter ? "book-overlay-chapter-preview" : 'no-display'}>
 						<span className="book-overlay-chapter-preview-title">Chapter {this.state.chapter}</span>
@@ -112,11 +118,8 @@ module.exports = BookOverlay = React.createClass({
 						</div>
 						<div><Range min={1} max={this.props.length} onChange={this.changeHandler} onDebounce={this.debounceHandler} value={1} /></div>
 					</section>
+				</div>
 
-					<div className="book-overlay-button-wrapper">
-						<button className="book-overlay-button" onClick={this.props.onReadClick}>Read Now</button>
-						<button className="book-overlay-button" onClick={this.showChapterSection}>Chapters</button>
-					</div>
 				</div>
 				<div className="book-overlay-close"><span onClick={this.closeHandler}>X</span></div>
 			</section>

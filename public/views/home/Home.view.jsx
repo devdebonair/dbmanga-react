@@ -37,6 +37,7 @@ module.exports = HomeView = React.createClass({
 	closeOverlay: function()
 	{
 		this.setState({showOverlay: false});
+		document.body.classList.remove('no-scroll');
 		ClientActions.clearSelectedBook();
 	},
 	closeReader: function()
@@ -76,6 +77,7 @@ module.exports = HomeView = React.createClass({
         };
         ClientActions.setSelectedBook(book);
 		this.setState({showOverlay: true});
+		document.body.classList.add('no-scroll');
 		this.getChapter(data.id, 1);	
 	},
 	onChapterSelectHandler: function(value)

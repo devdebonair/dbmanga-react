@@ -9,6 +9,10 @@
 	display: none;
 }
 
+.no-scroll {
+	overflow: hidden;
+}
+
 .home-overlay {
 	position: fixed;
 	top: 0;
@@ -18,8 +22,6 @@
 	margin: 0;
 	padding: 0;
 	z-index: 99;
-	overflow-y: auto;
-	overflow-x: hidden;
 	background-color: #FFF;
 }
 
@@ -44,4 +46,11 @@
 
 #home-wrapper .slider-decorator-2 {
 	display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+	.home-overlay {
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
 }

@@ -5,7 +5,6 @@
 }
 
 .book-overlay-wrapper {
-	max-width: 100vw;
 	display: table;
 	font-family: 'Roboto', helvetica;
 	background-color: #FFF;
@@ -17,7 +16,7 @@
 }
 
 .book-overlay-close {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 0;
 	padding: 25px 50px;
@@ -30,12 +29,19 @@
 	cursor: pointer;
 }
 
-.book-overlay-image > img {
+.book-overlay-image {
 	height: 100vh;
 }
 
+.book-overlay-image > img {
+	height: 100%;
+}
+
 .book-overlay-details {
-	padding: 100px;
+	position: absolute;
+	height: 80%;
+	padding: 100px 100px 300px 100px;
+	overflow-y: scroll;
 }
 
 .book-overlay-title {
@@ -58,8 +64,7 @@
 }
 
 .book-overlay-summary-icons {
-	max-width: 800px;
-	margin: 0 auto;
+	text-align: center;
 }
 
 .book-overlay-summary-icons > div {
@@ -74,8 +79,6 @@
 	line-height: 1.7em;
 	font-size: 32px;
 	font-weight: 200;
-	max-height: 400px;
-	overflow-y: scroll;
 }
 
 .book-overlay-button-wrapper {
@@ -120,9 +123,6 @@
 		line-height: 1.3em;
 		font-size: 24px;
 	}
-	.book-overlay-summary {
-		max-height: 400px;
-	}
 
 	.book-overlay-button {
 		font-size: 16px;
@@ -142,6 +142,7 @@
 @media only screen and (max-width: 1000px) {
 	.book-overlay-wrapper {
 		display: block;
+		overflow: auto;
 	}
 
 	.book-overlay-image > img {
@@ -155,5 +156,16 @@
 
 	.book-overlay-content {
 		max-width: 80vw;
+	}
+
+	.book-overlay-details {
+		text-align: center;
+		padding: 40px;
+		height: auto;
+		overflow: auto;
+	}
+
+	.book-overlay-button {
+		margin: 0 10px 25px 25px;
 	}
 }
