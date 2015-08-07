@@ -2,6 +2,7 @@ var React = require('react');
 var Slider = require('nuka-carousel');
 var Stylesheet = require('./reader.css');
 var ReaderControls = require('../debonair-reader-controls/ReaderControls.component.jsx');
+var ScreenFull = require('screenfull');
 
 module.exports = React.createClass({
 	mixins: [Slider.ControllerMixin],
@@ -50,10 +51,17 @@ module.exports = React.createClass({
 	{
 		this.props.onChapterSelect(value);
 	},
+	onFullscreenHandler: function()
+	{
+		if(ScreenFull.enabled)
+		{
+			ScreenFull.toggle(this.getDOMNode());
+		}
+	},
 	render: function() 
 	{
 		return (
-			<div className={'reader-wrapper' + (this.state.isNight ? ' night' : '') } tabIndex="0" onKeyUp={this.keyHandler}>
+			<div ref="reader" className={'reader-wrapper' + (this.state.isNight ? ' night' : '') } tabIndex="0" onKeyUp={this.keyHandler}>
 				<Slider speed={100} ref="slider" data={this.setCarouselData.bind(this, 'slider')}>
 					{this.props.pages.map(function(element, index){
 						return(
@@ -69,7 +77,8 @@ module.exports = React.createClass({
 						onNext={this.goToNextPage}
 						onPageSelect={this.goToPage}
 						onDayToggle={this.toggleNight}
-						onChapterSelect={this.onChapterSelectHandler} />
+						onChapterSelect={this.onChapterSelectHandler}
+						onFullscreen={this.onFullscreenHandler} />
 				</div>
 			</div>
 		);
