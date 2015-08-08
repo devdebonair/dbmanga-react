@@ -1,0 +1,40 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
+
+.dropdown {
+   font-family: 'Roboto'
+}
+
+.dropdown span {
+   color: #FFF;
+   text-transform: uppercase;
+   font-weight: 200;
+   letter-spacing: 5px;
+   text-decoration: none;
+   cursor: pointer;
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.dropdown ul {
+   padding: 0;
+   margin: 0;
+   background-color: #FFF;
+   list-style: none;
+   width: 150px;
+   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.dropdown li {
+   padding: 2px;
+   text-align: center;
+   cursor: pointer;
+}
+
+.dropdown li:hover {
+   color: #59488B;
+   font-weight: 500;
+}
