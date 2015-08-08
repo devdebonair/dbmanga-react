@@ -3,7 +3,7 @@
 #home-header {
    font-family: 'Roboto', helvetica;
    background-color: #59488B;
-   height: 350px;
+   height: 300px;
 }
 
 #home-title > span {
@@ -13,6 +13,12 @@
    letter-spacing: 5px;
    text-transform: uppercase;
    cursor: pointer;
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
 
 #home-title {
@@ -21,7 +27,7 @@
 }
 
 #home-actions {
-   padding-top: 150px;
+   padding-top: 100px;
    position: relative;
 }
 
@@ -62,6 +68,12 @@
    color: #59488B;
    opacity: 0.3;
    padding-left: 10px;
+}
+
+.home-browse {
+   position: absolute;
+   top: 0;
+   margin: 15px;
 }
 
 @media only screen and (max-width: 500px) {
