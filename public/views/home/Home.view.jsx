@@ -22,7 +22,14 @@ module.exports = HomeView = React.createClass({
 	},
 	componentDidMount: function()
 	{
-		this.searchForBook('');
+		if(this.props.query)
+		{
+			this.searchForBook(this.props.query.title);
+		}
+		else
+		{
+			this.searchBooks('');
+		}
 	},
 	searchForBook: function(title)
 	{
