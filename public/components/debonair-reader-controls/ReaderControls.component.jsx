@@ -8,7 +8,6 @@ module.exports = ReaderControls = React.createClass({
 	propTypes: {
 		min: 					React.PropTypes.number,
 		max: 					React.PropTypes.number,
-		value: 					React.PropTypes.number,
 		currentChapterNumber: 	React.PropTypes.number,
 		onFullscreen: 			React.PropTypes.func,
 		onDayToggle: 			React.PropTypes.func,
@@ -23,7 +22,6 @@ module.exports = ReaderControls = React.createClass({
 		return {
 			min: 1,
 			max: 100,
-			value: 1,
 			currentChapterNumber: 0,
 			onFullscreen: function(){},
 			onDayToggle: function(){},
@@ -41,7 +39,7 @@ module.exports = ReaderControls = React.createClass({
 			currentChapter: 1
 		};
 	},
-	componentWillMount: function()
+	componentWillMount: function(nextProps)
 	{
 		this.setState({
 			currentChapter: this.props.currentChapterNumber
@@ -79,6 +77,15 @@ module.exports = ReaderControls = React.createClass({
 			currentChapter: nextChapter
 		});
 	},
+
+	// this is bad
+	updateChapterNumber: function(value)
+	{
+		this.setState({
+			currentChapter: this.props.currentChapterNumber
+		});
+	},
+
 	render: function()
 	{
 		return(
@@ -97,7 +104,7 @@ module.exports = ReaderControls = React.createClass({
 						<span>Chapter {this.state.currentChapter}</span>
 					</div>
 					<div>
-						<Range min={this.props.min} max={this.props.max} value={this.props.value} onChange={this.chapterChangeHandler} onDebounce={this.chapterSelectHandler} value={this.props.value} />
+						<Range min={this.props.min} max={this.props.max} value={this.state.currentChapterNumber} onChange={this.chapterChangeHandler} onDebounce={this.chapterSelectHandler} value={this.props.value} />
 					</div>
 					<div onClick={this.chapterClickHandler}><span className="reader-controls-icon"><Icon icon="keyboard_arrow_left" color="#863D91" size={32}/></span></div>
 				</div>
