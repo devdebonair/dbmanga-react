@@ -129,7 +129,7 @@ module.exports = HomeView = React.createClass({
 
 		var reader = (
 			<div className="home-reader-wrapper">
-				<Reader pages={selectedChapterPages} onChapterSelect={this.onChapterSelectHandler} chapterLength={selectedBook.numOfChapters} />
+				<Reader pages={selectedChapterPages} onChapterSelect={this.onChapterSelectHandler} chapterLength={selectedBook.numOfChapters} currentChapterNumber={selectedChapter.number} />
 				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
 			</div>
 		);

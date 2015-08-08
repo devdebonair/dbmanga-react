@@ -1,20 +1,22 @@
-var React = require('react');
-var Stylesheet = require('./reader-controls.css');
-var Range = require('../debonair-range/Range.component.jsx');
-var Icon = require('../core-icon-font/IconFont.component.jsx');
+var React 		= require('react');
+var Stylesheet 	= require('./reader-controls.css');
+var Range 		= require('../debonair-range/Range.component.jsx');
+var Icon 		= require('../core-icon-font/IconFont.component.jsx');
+var debounce 	= require('../../mixins/debounce');
 
 module.exports = ReaderControls = React.createClass({
 	propTypes: {
-		min: 				React.PropTypes.number,
-		max: 				React.PropTypes.number,
-		value: 				React.PropTypes.number,
-		onFullscreen: 		React.PropTypes.func,
-		onDayToggle: 		React.PropTypes.func,
-		onPrevious: 		React.PropTypes.func,
-		onNext: 			React.PropTypes.func,
-		onPlay: 			React.PropTypes.func,
-		onDual: 			React.PropTypes.func,
-		onChapterSelect: 	React.PropTypes.func
+		min: 					React.PropTypes.number,
+		max: 					React.PropTypes.number,
+		value: 					React.PropTypes.number,
+		currentChapterNumber: 	React.PropTypes.number,
+		onFullscreen: 			React.PropTypes.func,
+		onDayToggle: 			React.PropTypes.func,
+		onPrevious: 			React.PropTypes.func,
+		onNext: 				React.PropTypes.func,
+		onPlay: 				React.PropTypes.func,
+		onDual: 				React.PropTypes.func,
+		onChapterSelect: 		React.PropTypes.func
 	},
 	getDefaultProps: function()
 	{
@@ -22,6 +24,7 @@ module.exports = ReaderControls = React.createClass({
 			min: 1,
 			max: 100,
 			value: 1,
+			currentChapterNumber: 0,
 			onFullscreen: function(){},
 			onDayToggle: function(){},
 			onPrevious: function(){},
@@ -37,6 +40,12 @@ module.exports = ReaderControls = React.createClass({
 			isChapterView: false,
 			currentChapter: 1
 		};
+	},
+	componentWillMount: function()
+	{
+		this.setState({
+			currentChapter: this.props.currentChapterNumber
+		});
 	},
 	chapterChangeHandler: function(value)
 	{
@@ -54,18 +63,34 @@ module.exports = ReaderControls = React.createClass({
 			isChapterView: !this.state.isChapterView
 		});
 	},
+	getPreviousChapter: function()
+	{
+		var previousChapter = parseInt(this.state.currentChapter) - 1;
+		this.chapterSelectHandler(previousChapter);
+		this.setState({
+			currentChapter: previousChapter
+		});
+	},
+	getNextChapter: function()
+	{
+		var nextChapter = parseInt(this.state.currentChapter) + 1;
+		this.chapterSelectHandler(nextChapter);
+		this.setState({
+			currentChapter: nextChapter
+		});
+	},
 	render: function()
 	{
 		return(
 			<div className="reader-controls-wrapper">
 				<div className={'reader-controls-general' + (this.state.isChapterView ? ' no-display' : '')} >
 					<div onClick={this.props.onFullscreen}><span className="reader-controls-icon"><Icon icon="fullscreen" color="#863D91" size={32}/></span></div>
-					<div onClick={this.props.onDayToggle}><span className="reader-controls-icon"><Icon icon="brightness_5" color="#863D91" size={32}/></span></div>
+					<div onClick={this.getPreviousChapter}><span className="reader-controls-icon"><Icon icon="skip_previous" color="#863D91" size={32}/></span></div>
 					<div onClick={this.props.onPrevious}><span className="reader-controls-icon"><Icon icon="fast_rewind" color="#863D91" size={32}/></span></div>
 					<div onClick={this.chapterClickHandler}><span className="reader-controls-icon">Chapter {this.state.currentChapter}</span></div>
 					<div onClick={this.props.onNext}><span className="reader-controls-icon"><Icon icon="fast_forward" color="#863D91" size={32}/></span></div>
-					<div onClick={this.props.onPlay}><span className="reader-controls-icon"><Icon icon="play_arrow" color="#863D91" size={32}/></span></div>
-					<div onClick={this.props.onDual}><span className="reader-controls-icon"><Icon icon="chrome_reader_mode" color="#863D91" size={32}/></span></div>
+					<div onClick={this.getNextChapter}><span className="reader-controls-icon"><Icon icon="skip_next" color="#863D91" size={32}/></span></div>
+					<div onClick={this.props.onDayToggle}><span className="reader-controls-icon"><Icon icon="brightness_5" color="#863D91" size={32}/></span></div>
 				</div>
 				<div className={'reader-controls-chapters' + (this.state.isChapterView ? '' : ' no-display')}>
 					<div>

@@ -1,24 +1,24 @@
-var React = require('react');
-var Slider = require('nuka-carousel');
-var Stylesheet = require('./reader.css');
-var ReaderControls = require('../debonair-reader-controls/ReaderControls.component.jsx');
-var ScreenFull = require('screenfull');
+var React 			= require('react');
+var Slider 			= require('nuka-carousel');
+var Stylesheet 		= require('./reader.css');
+var ReaderControls 	= require('../debonair-reader-controls/ReaderControls.component.jsx');
+var ScreenFull 		= require('screenfull');
 
 module.exports = React.createClass({
 	mixins: [Slider.ControllerMixin],
 	propTypes: {
-		currentPage:		React.PropTypes.number,
-		pages: 				React.PropTypes.arrayOf(React.PropTypes.string),
-		chapterLength: 		React.PropTypes.number,
-		onChapterSelect: 	React.PropTypes.func
+		pages: 					React.PropTypes.arrayOf(React.PropTypes.string),
+		chapterLength: 			React.PropTypes.number,
+		onChapterSelect: 		React.PropTypes.func,
+		currentChapterNumber: 	React.PropTypes.number
  	},
 	getDefaultProps: function()
 	{
 		return {
-			currentPage: 0,
-			isNight: false,
-			onChapterSelect: function(){},
-			pages: ['http://placehold.it/1000x400/ffffff/59488B/&text=Loading...']
+			isNight: 				false,
+			onChapterSelect: 		function(){},
+			currentChapterNumber: 	0,
+			pages: 					['http://placehold.it/1000x400/ffffff/59488B/&text=Loading...']
 		};
 	},
 	goToNextPage: function()
@@ -28,6 +28,10 @@ module.exports = React.createClass({
 	goToPreviousPage: function()
 	{
 		this.state.carousels.slider.previousSlide();
+	},
+	goToPage: function(pageNumber)
+	{
+		this.state.carousels.slider.goToSlide(pageNumber);
 	},
 	toggleNight: function()
 	{
@@ -50,6 +54,7 @@ module.exports = React.createClass({
 	onChapterSelectHandler: function(value)
 	{
 		this.props.onChapterSelect(value);
+		this.goToPage(0);
 	},
 	onFullscreenHandler: function()
 	{
@@ -78,7 +83,8 @@ module.exports = React.createClass({
 						onPageSelect={this.goToPage}
 						onDayToggle={this.toggleNight}
 						onChapterSelect={this.onChapterSelectHandler}
-						onFullscreen={this.onFullscreenHandler} />
+						onFullscreen={this.onFullscreenHandler}
+						currentChapterNumber={this.props.currentChapterNumber} />
 				</div>
 			</div>
 		);
