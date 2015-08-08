@@ -41,7 +41,6 @@ module.exports = HomeView = React.createClass({
 	{
 		this.setState({showOverlay: false});
 		document.body.classList.remove('no-scroll');
-		ClientActions.clearSelectedBook();
 	},
 	closeReader: function()
 	{
@@ -100,6 +99,11 @@ module.exports = HomeView = React.createClass({
 		}
 		this.setState({showSmallHeader: false});
 	},
+	onOverlayCloseHandler: function()
+	{
+		this.closeOverlay();
+		ClientActions.clearSelectedBook();
+	},
 	render: function()
 	{
 		var defaultStuff = {
@@ -145,7 +149,7 @@ module.exports = HomeView = React.createClass({
 						min={1}
 						value={selectedChapter.number}
 						max={selectedBook.numOfChapters}
-						onClose={this.closeOverlay}
+						onClose={this.onOverlayCloseHandler}
 						images={this.getChapterPreview(selectedChapter.pages)}
 						onSelect={this.onChapterSelectHandler}
 						onReadClick={this.onReadClick} />

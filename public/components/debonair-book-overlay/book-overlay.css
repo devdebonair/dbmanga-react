@@ -109,12 +109,20 @@
 	font-weight: 100;
 }
 
+.book-overlay-back-icon {
+	font-size: 33px;
+	font-weight: 100;
+	padding-right: 20px;
+	cursor: pointer;	
+}
+
 .book-overlay-chapter-preview-image-wrapper {
 	margin: 15% 0;
 }
 
 .book-overlay-chapter-preview-image {
-	width: 200px;
+	width: 20%;
+	max-width: 200px;
 	padding-right: 15px;
 }
 
@@ -166,5 +174,10 @@
 
 	.book-overlay-button {
 		margin: 0 10px 25px 25px;
+	}
+
+	.book-overlay-chapter-preview-image {
+		width: 200px;
+		padding-right: 15px;
 	}
 }

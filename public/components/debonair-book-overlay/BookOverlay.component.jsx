@@ -2,6 +2,7 @@ var React = require('react');
 var Stylesheet = require('./book-overlay.css');
 var IconText = require('../debonair-icon-text/IconText.component.jsx');
 var Range = require('../debonair-range/Range.component.jsx');
+var IconFont = require('../core-icon-font/IconFont.component.jsx');
 
 function formatNumberWithCommas(number)
 {
@@ -101,14 +102,12 @@ module.exports = BookOverlay = React.createClass({
 							</div>
 						</div>
 
-						<div className="book-overlay-button-wrapper">
-							<button className="book-overlay-button" onClick={this.props.onReadClick}>Read Now</button>
-							<button className="book-overlay-button" onClick={this.showChapterSection}>Chapters</button>
-						</div>
 					</section>
 
 					<section className={this.state.isChapter ? "book-overlay-chapter-preview" : 'no-display'}>
+						<span className="book-overlay-back-icon" onClick={this.closeChapterSection}><IconFont icon="keyboard_arrow_left" /></span>
 						<span className="book-overlay-chapter-preview-title">Chapter {this.state.chapter}</span>
+						<div><Range min={1} max={this.props.length} onChange={this.changeHandler} onDebounce={this.debounceHandler} value={1} /></div>
 						<div className="book-overlay-chapter-preview-image-wrapper">
 							{this.props.images.map(function(element, index){
 								return(
@@ -116,8 +115,11 @@ module.exports = BookOverlay = React.createClass({
 								);
 							})}
 						</div>
-						<div><Range min={1} max={this.props.length} onChange={this.changeHandler} onDebounce={this.debounceHandler} value={1} /></div>
 					</section>
+					<div className="book-overlay-button-wrapper">
+						<button className="book-overlay-button" onClick={this.props.onReadClick}>Read Now</button>
+						<button className="book-overlay-button" onClick={this.showChapterSection}>Chapters</button>
+					</div>
 				</div>
 
 				</div>
