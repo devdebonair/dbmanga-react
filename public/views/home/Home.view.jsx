@@ -143,11 +143,11 @@ module.exports = HomeView = React.createClass({
 
 		var general = (
 			<div className="home-manga-general">
-				<div><span>Popular</span></div>
+				<div className="home-manga-general-category-title"><span>Most Popular Manga</span></div>
 				<BookList books={mangaStore.popularBooks} onSelect={this.handlerBookSelect} />
-				<div><span>Trending</span></div>
+				<div className="home-manga-general-category-title"><span>Hottest Manga This Week</span></div>
 				<BookList books={mangaStore.trendingBooks} onSelect={this.handlerBookSelect} />
-				<div><span>Updated</span></div>
+				<div className="home-manga-general-category-title"><span>Newest Updates</span></div>
 				<BookList books={mangaStore.updatedBooks} onSelect={this.handlerBookSelect} />
 			</div>
 		);

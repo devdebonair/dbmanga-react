@@ -56,6 +56,21 @@
 	display: none;
 }
 
+@media only screen and (max-width: 500px) {
+	.home-manga-general {
+		text-align: center;
+		margin-left: 25px;
+		font-size: 32px;
+		font-weight: 400;
+	}
+
+	.home-manga-general-category-title {
+		width: 50px;
+		margin: 0 auto;
+		text-align: left;
+	}
+}
+
 @media only screen and (max-width: 1000px) {
 	.home-overlay {
 		overflow-y: auto;
