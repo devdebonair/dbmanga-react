@@ -54,6 +54,12 @@ module.exports = HomeView = React.createClass({
 		this.setState({showReader: false});
 		ClientActions.clearSelectedBook();
 	},
+	openReader: function()
+	{
+		this.setState({showReader: true}, function(){
+			React.findDOMNode(this.refs.reader).focus();
+		});
+	},
 	_getChapterPreview: function(chapter)
 	{
 		return chapter.map(function(element){
@@ -98,7 +104,7 @@ module.exports = HomeView = React.createClass({
 	handlerOverlayReadClick: function()
 	{
 		this.closeOverlay();
-		this.setState({showReader: true});
+		this.openReader();
 		window.scrollTo(0,0);
 	},
 	handlerOverlayCloseHandler: function()
@@ -113,7 +119,7 @@ module.exports = HomeView = React.createClass({
 
 		var reader = (
 			<div className="home-reader-wrapper">
-				<Reader pages={selectedChapterPages} onChapterSelect={this.handlerChapterSelect} chapterLength={mangaStore.selectedBook.numOfChapters} currentChapterNumber={mangaStore.selectedChapter.number} />
+				<Reader ref="reader" pages={selectedChapterPages} onChapterSelect={this.handlerChapterSelect} chapterLength={mangaStore.selectedBook.numOfChapters} currentChapterNumber={mangaStore.selectedChapter.number} />
 				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
 			</div>
 		);
