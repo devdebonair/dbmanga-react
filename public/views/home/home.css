@@ -3,6 +3,7 @@
 #home-wrapper {
 	font-family: 'Roboto', helvetica;
 	width: 100vw;
+	background-color: #FFF;
 }
 
 .no-display {
@@ -48,9 +49,7 @@
 	text-align: left;
 	margin-left: 25px;
 	font-size: 32px;
-	font-weight: 200;
-	text-transform: uppercase;
-	letter-spacing: 5px;
+	font-weight: 400;
 }
 
 #home-wrapper .slider-decorator-2 {
