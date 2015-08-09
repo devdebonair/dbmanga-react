@@ -16,14 +16,17 @@ module.exports = HomeView = React.createClass({
 	{
 		return {
 			showOverlay: false,
-			showReader: false
+			showReader: false,
+			searchResultText: ''
 		};
 	},
 	componentDidMount: function()
 	{
 		if(this.props.query.title)
 		{
-			this.searchForBook(this.props.query.title);
+			this.setState({
+				searchResultText: ''
+			});
 		}
 		else
 		{
@@ -65,6 +68,9 @@ module.exports = HomeView = React.createClass({
 	},
 	handlerSearch: function(value)
 	{
+		this.setState({
+			searchResultText: value
+		});
 		this.searchForBook(value);
 	},
 	handlerBookSelect: function(data)
@@ -135,6 +141,22 @@ module.exports = HomeView = React.createClass({
 			</div>
 		);
 
+		var general = (
+			<div className="home-manga-general">
+				<div><span>Popular</span></div>
+				<BookList books={mangaStore.popularBooks} onSelect={this.handlerBookSelect} />
+				<div><span>Trending</span></div>
+				<BookList books={mangaStore.trendingBooks} onSelect={this.handlerBookSelect} />
+				<div><span>Updated</span></div>
+				<BookList books={mangaStore.updatedBooks} onSelect={this.handlerBookSelect} />
+			</div>
+		);
+		
+		var searchResults = (
+			<BookList books={mangaStore.searchResults} onSelect={this.handlerBookSelect} />
+		);
+
+		var hasSearchResults = (this.state.searchResultText.length !== 0 && mangaStore.searchResults.length !== 0);
 		return(
 			<div id="home-wrapper">
 				{this.state.showOverlay ? overlay : ''}
@@ -144,16 +166,8 @@ module.exports = HomeView = React.createClass({
 				<Header title="debonair manga" onDebounce={this.handlerSearch} />
 
 				<div className="container">
-					<div className="home-manga-general">
-						<div><span>Popular</span></div>
-						<BookList books={mangaStore.popularBooks} onSelect={this.handlerBookSelect} />
-						<div><span>Trending</span></div>
-						<BookList books={mangaStore.trendingBooks} onSelect={this.handlerBookSelect} />
-						<div><span>Updated</span></div>
-						<BookList books={mangaStore.updatedBooks} onSelect={this.handlerBookSelect} />
-					</div>
+					{hasSearchResults ? searchResults : general}
 				</div>
-
 			</div>
 		);
 	}

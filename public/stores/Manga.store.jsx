@@ -7,7 +7,7 @@ var MangaStore = Reflux.createStore({
     init: function()
     {
         this.data = {
-            books: [],
+            searchResults: [],
             selectedBook: {
                 id: '',
                 coverUrl: '',
@@ -72,7 +72,7 @@ var MangaStore = Reflux.createStore({
     },
     onSearchBooksCompleted: function(res)
     {
-        this.data.books = res.body;
+        this.data.searchResults = res.body;
     	this.trigger(this.data);
     },
     onGetPopularBooksCompleted: function(res)
