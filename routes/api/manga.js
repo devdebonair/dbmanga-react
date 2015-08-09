@@ -191,31 +191,22 @@ module.exports = function(router)
     router.route('/manga/:manga_id/chapters/:chapter_number')
         
         .get(function(req, res) {
-            
-            Manga.findById( req.params.manga_id, 'id chapters', function(err, manga) {
+
+            Manga.findById(req.params.manga_id).elemMatch("chapters", {number: req.params.chapter_number}).select({"chapters.$": 1}).exec(function(err, manga) {
+
                 if(err)
                 {
                     return res.status(404).json({message: err});
                 }
                 
-                var chapterToReturn = null;
-                
-                for( var i = 0; i < manga.chapters.length; i++ )
-                {
-                    if(manga.chapters[i].number === parseInt(req.params.chapter_number) )
-                    {
-                        chapterToReturn = manga.chapters[i];
-                    }
-                }
-                
-                if(!chapterToReturn)
+                if(!manga)
                 {
                     res.status(404).json({ error: "Chapter " + req.params.chapter_number +
                                         ' is not available.'});
                     return;
                 }
 
-                return res.status(200).json(chapterToReturn);
+                return res.status(200).json(manga.chapters);
             });    
         })
         
