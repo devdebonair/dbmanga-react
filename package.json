@@ -14,7 +14,7 @@
     "express-state": "1.2.0",
     "mailchimp": "1.1.0",
     "method-override": "2.3.0",
-    "mongoose": "^4.0.6",
+    "mongoose": "^4.1.1",
     "node-libs-browser": "^0.5.2",
     "nuka-carousel": "0.0.17",
     "object-assign": "^2.1.1",
