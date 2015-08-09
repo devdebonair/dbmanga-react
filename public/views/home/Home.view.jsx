@@ -81,8 +81,8 @@ module.exports = HomeView = React.createClass({
             title: data.title,
             chapters: []
         };
+		MangaActions.getChapter(data.id, 1);
         ClientActions.setSelectedBook(book);
-		MangaActions.getChapter(data.id, 1);	
 		this.openOverlay();
 	},
 	handlerChapterSelect: function(value)
@@ -144,7 +144,7 @@ module.exports = HomeView = React.createClass({
 				<Header title="debonair manga" onDebounce={this.handlerSearch} />
 
 				<div className="container">
-					<div>
+					<div className="home-manga-general">
 						<div><span>Popular</span></div>
 						<BookList books={mangaStore.popularBooks} onSelect={this.handlerBookSelect} />
 						<div><span>Trending</span></div>

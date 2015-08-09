@@ -44,6 +44,15 @@
 	text-align: center;
 }
 
+.home-manga-general {
+	text-align: left;
+	margin-left: 25px;
+	font-size: 32px;
+	font-weight: 100;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+}
+
 #home-wrapper .slider-decorator-2 {
 	display: none;
 }
