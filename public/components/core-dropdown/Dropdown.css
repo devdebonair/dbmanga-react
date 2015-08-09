@@ -5,6 +5,7 @@
 .dropdown__content {
     display: none;
     position: absolute;
+    padding-top: 10px;
 }
 
 .dropdown--active .dropdown__content {

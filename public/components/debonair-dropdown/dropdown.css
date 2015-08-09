@@ -4,6 +4,10 @@
    font-family: 'Roboto'
 }
 
+.dropdown-icon {
+   padding-left: 8px;
+}
+
 .dropdown span {
    color: #FFF;
    text-transform: uppercase;

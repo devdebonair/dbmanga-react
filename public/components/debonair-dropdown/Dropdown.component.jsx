@@ -3,6 +3,7 @@ var Stylesheet = require('./dropdown.css');
 var Dropdown = require('../core-dropdown/Dropdown');
 var DropdownTrigger = Dropdown.DropdownTrigger;
 var DropdownContent = Dropdown.DropdownContent;
+var Icon = require('../core-icon-font/IconFont.component.jsx');
 
 module.exports = DBDropdown = React.createClass({
 	propTypes: {
@@ -27,7 +28,10 @@ module.exports = DBDropdown = React.createClass({
 		return(
 			<div className="dropdown">
 				<Dropdown ref="dropdown">
-					<DropdownTrigger><span>{this.props.title}</span></DropdownTrigger>
+					<DropdownTrigger>
+						<span>{this.props.title}</span>
+						<span className="dropdown-icon"><Icon icon="keyboard_arrow_down" color="#FFF" size={12} /></span>
+					</DropdownTrigger>
 					<DropdownContent>
 						<ul>
 							{this.props.items.map(function(item, index){
