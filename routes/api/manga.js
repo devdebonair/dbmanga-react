@@ -206,7 +206,7 @@ module.exports = function(router)
                     return;
                 }
 
-                return res.status(200).json(manga.chapters);
+                return res.status(200).json(manga.chapters[0]);
             });    
         })
         
