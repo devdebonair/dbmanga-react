@@ -14,7 +14,7 @@ var MangaStore = Reflux.createStore({
                 genres: [],
                 author: '',
                 summary: '',
-                views: 0,
+                views: { currentWeek: 0, currentMonth: 0, total: 0 },
                 length: 0,
                 status: '',
                 title: '',
@@ -24,8 +24,15 @@ var MangaStore = Reflux.createStore({
                 number: 0,
                 pages: [],
                 title: ''
-            }
+            },
+            popularBooks: [],
+            updatedBooks: [],
+            trendingBooks: []
         };
+    },
+    getInitialState: function()
+    {
+        return this.data;
     },
     onSetSelectedBook: function(data)
     {
@@ -70,15 +77,18 @@ var MangaStore = Reflux.createStore({
     },
     onGetPopularBooksCompleted: function(res)
     {
-    	console.log(res.body);
+    	this.data.popularBooks = res.body;
+        this.trigger(this.data);
     },
     onGetTrendingBooksCompleted: function(res)
     {
-    	console.log(res.body);
+    	this.data.trendingBooks = res.body;
+        this.trigger(this.data);
     },
     onGetUpdatedBooksCompleted: function(res)
     {
-    	console.log(res.body);
+    	this.data.updatedBooks = res.body;
+        this.trigger(this.data);
     },
     onGetBookCompleted: function(res)
     {

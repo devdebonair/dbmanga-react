@@ -22,13 +22,15 @@ module.exports = HomeView = React.createClass({
 	},
 	componentDidMount: function()
 	{
-		if(this.props.query)
+		if(this.props.query.title)
 		{
 			this.searchForBook(this.props.query.title);
 		}
 		else
 		{
-			this.searchBooks('');
+			MangaActions.getPopularBooks(5);
+			MangaActions.getTrendingBooks(5);
+			MangaActions.getUpdatedBooks(5);
 		}
 	},
 	searchForBook: function(title)
@@ -54,9 +56,9 @@ module.exports = HomeView = React.createClass({
 		this.setState({showReader: false});
 		ClientActions.clearSelectedBook();
 	},
-	getChapterPreview: function(chapters)
+	getChapterPreview: function(chapter)
 	{
-		return chapters.map(function(element){
+		return chapter.map(function(element){
 			return element.image;
 		}).splice(0,4);
 	},
@@ -113,22 +115,8 @@ module.exports = HomeView = React.createClass({
 	},
 	render: function()
 	{
-		var defaultStuff = {
-            coverUrl: '',
-            genres: [],
-            author: '',
-            summary: '',
-            views: 0,
-            length: 0,
-            status: '',
-            title: '',
-            chapters: []
-        };
-        var data = this.state.data || {books:[], selectedBook: defaultStuff, selectedChapter: { number: 0, pages: [], title: ''}};
-        var selectedChapter = data.selectedChapter;
-		var selectedBook = data.selectedBook;
-		var books = data.books;
-		var selectedChapterPages = this.getChapterPages(selectedChapter.pages);
+		var mangaStore = this.state.data;
+		var selectedChapterPages = this.getChapterPages(mangaStore.selectedChapter.pages);
 		if(selectedChapterPages.length === 0)
 		{
 			selectedChapterPages = ['http://placehold.it/1000x400/ffffff/59488B/&text=Loading...'];
@@ -136,28 +124,30 @@ module.exports = HomeView = React.createClass({
 
 		var reader = (
 			<div className="home-reader-wrapper">
-				<Reader pages={selectedChapterPages} onChapterSelect={this.onChapterSelectHandler} chapterLength={selectedBook.numOfChapters} currentChapterNumber={selectedChapter.number} />
+				<Reader pages={selectedChapterPages} onChapterSelect={this.onChapterSelectHandler} chapterLength={mangaStore.selectedBook.numOfChapters} currentChapterNumber={mangaStore.selectedChapter.number} />
 				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
 			</div>
 		);
+
+		console.log(mangaStore.selectedBook);
 
 		var overlay = (
 			<div className="home-overlay">
 				<div>
 					<BookOverlay
-						coverUrl={selectedBook.coverUrl}
-						genres={selectedBook.genres}
-						author={selectedBook.author}
-						summary={selectedBook.description}
-						views={selectedBook.views.total}
-						length={selectedBook.numOfChapters}
-						status={selectedBook.status}
-						title={selectedBook.title}
+						coverUrl={mangaStore.selectedBook.coverUrl}
+						genres={mangaStore.selectedBook.genres}
+						author={mangaStore.selectedBook.author}
+						summary={mangaStore.selectedBook.description}
+						views={mangaStore.selectedBook.views.total}
+						length={mangaStore.selectedBook.numOfChapters}
+						status={mangaStore.selectedBook.status}
+						title={mangaStore.selectedBook.title}
 						min={1}
-						value={selectedChapter.number}
-						max={selectedBook.numOfChapters}
+						value={mangaStore.selectedBook.number}
+						max={mangaStore.selectedBook.numOfChapters}
 						onClose={this.onOverlayCloseHandler}
-						images={this.getChapterPreview(selectedChapter.pages)}
+						images={this.getChapterPreview(mangaStore.selectedChapter.pages)}
 						onSelect={this.onChapterSelectHandler}
 						onReadClick={this.onReadClick} />
 				</div>
@@ -173,7 +163,14 @@ module.exports = HomeView = React.createClass({
 				<Header title="debonair manga" onDebounce={this.onSearchHandler} />
 
 				<div className="container">
-					<BookList books={books} onSelect={this.onBookSelectHandler} />
+					<div>
+						<div><span>Popular</span></div>
+						<BookList books={this.state.data.popularBooks} onSelect={this.onBookSelectHandler} />
+						<div><span>Trending</span></div>
+						<BookList books={this.state.data.trendingBooks} onSelect={this.onBookSelectHandler} />
+						<div><span>Updated</span></div>
+						<BookList books={this.state.data.updatedBooks} onSelect={this.onBookSelectHandler} />
+					</div>
 				</div>
 
 			</div>

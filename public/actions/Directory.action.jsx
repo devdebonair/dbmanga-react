@@ -46,32 +46,35 @@ DirectoryActions.searchBooks.listen(function(data){
 		.end(responseHandler.bind(this));
 });
 
-DirectoryActions.getPopularBooks.listen(function(){
+DirectoryActions.getPopularBooks.listen(function(limit){
+	limit = limit || 10;
 	request
-		.get('/api/v1/manga/popular/10')
+		.get('/api/v1/manga/popular/'+limit)
 		.end(responseHandler.bind(this));
 });
 
-DirectoryActions.getUpdatedBooks.listen(function(){
+DirectoryActions.getUpdatedBooks.listen(function(limit){
+	limit = limit || 10;
 	request
-		.get('/api/v1/manga/updated/10')
+		.get('/api/v1/manga/updated/'+limit)
 		.end(responseHandler.bind(this));
 });
 
-DirectoryActions.getTrendingBooks.listen(function(){
+DirectoryActions.getTrendingBooks.listen(function(limit){
+	limit = limit || 10;
 	request
-		.get('/api/v1/manga/trending/10')
+		.get('/api/v1/manga/trending/'+limit)
 		.end(responseHandler.bind(this));
+});
+
+DirectoryActions.getFeaturedBooks.listen(function(limit){
+	console.log('not implemented yet.');
 });
 
 DirectoryActions.getDirectoryTitles.listen(function(){
 	request
 		.get('/api/v1/manga/directory')
 		.end(responseHandler.bind(this));
-});
-
-DirectoryActions.getFeaturedBooks.listen(function(){
-	console.log('not implemented yet.');
 });
 
 module.exports = DirectoryActions;
