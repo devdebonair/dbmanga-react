@@ -45,6 +45,9 @@ module.exports = Header = React.createClass({
 	{
 		return(
 			<section id="home-header">
+				<div className="home-browse">
+					<Dropdown onSelect={this.swagger} title="browse" items={this.items} />
+				</div>
 				<div id="home-actions">
 					<div id="home-title">
 						<span onClick={this.titleClickHandler}>{this.props.title}</span>
@@ -52,9 +55,6 @@ module.exports = Header = React.createClass({
 					<div id="home-search">
 						<Search ref="search" placeholder="Search..." onChange={this.props.onChange} onDebounce={this.props.onDebounce} />
 					</div>
-				</div>
-				<div className="home-browse">
-					<Dropdown onSelect={this.swagger} title="browse" items={this.items} />
 				</div>
 			</section>
 		);

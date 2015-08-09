@@ -71,9 +71,7 @@
 }
 
 .home-browse {
-   position: absolute;
-   top: 0;
-   margin: 15px;
+   padding: 15px;
 }
 
 @media only screen and (max-width: 500px) {
