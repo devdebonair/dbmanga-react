@@ -22,7 +22,7 @@ module.exports = ReaderControls = React.createClass({
 		return {
 			min: 1,
 			max: 100,
-			currentChapterNumber: 0,
+			currentChapterNumber: 1,
 			onFullscreen: function(){},
 			onDayToggle: function(){},
 			onPrevious: function(){},
@@ -36,14 +36,15 @@ module.exports = ReaderControls = React.createClass({
 	{
 		return {
 			isChapterView: false,
-			currentChapter: 1
+			currentChapter: this.props.currentChapterNumber
 		};
 	},
-	componentWillMount: function(nextProps)
+	componentWillReceiveProps: function(nextProps)
 	{
-		this.setState({
-			currentChapter: this.props.currentChapterNumber
-		});
+		if(this.props.currentChapterNumber !== nextProps.currentChapterNumber)
+		{
+			this.setState({currentChapter: nextProps.currentChapterNumber});
+		}
 	},
 	chapterChangeHandler: function(value)
 	{
@@ -78,16 +79,9 @@ module.exports = ReaderControls = React.createClass({
 		});
 	},
 
-	// this is bad
-	updateChapterNumber: function(value)
-	{
-		this.setState({
-			currentChapter: this.props.currentChapterNumber
-		});
-	},
-
 	render: function()
 	{
+		console.log(this.props.currentChapterNumber);
 		return(
 			<div className="reader-controls-wrapper">
 				<div className={'reader-controls-general' + (this.state.isChapterView ? ' no-display' : '')} >
