@@ -16,8 +16,7 @@ module.exports = HomeView = React.createClass({
 	{
 		return {
 			showOverlay: false,
-			showReader: false,
-			showSmallHeader: true
+			showReader: false
 		};
 	},
 	componentDidMount: function()
@@ -37,10 +36,6 @@ module.exports = HomeView = React.createClass({
 	{
 		MangaActions.searchBooks({title: title});
 	},
-	getChapter: function(id, chapterNumber)
-	{
-		MangaActions.getChapter(id, chapterNumber);
-	},
 	openOverlay: function()
 	{
 		this.setState({showOverlay: true});
@@ -56,23 +51,23 @@ module.exports = HomeView = React.createClass({
 		this.setState({showReader: false});
 		ClientActions.clearSelectedBook();
 	},
-	getChapterPreview: function(chapter)
+	_getChapterPreview: function(chapter)
 	{
 		return chapter.map(function(element){
 			return element.image;
 		}).splice(0,4);
 	},
-	getChapterPages: function(chapter)
+	_getChapterPages: function(chapter)
 	{
 		return chapter.map(function(element){
 			return element.image;
 		});
 	},
-	onSearchHandler: function(value)
+	handlerSearch: function(value)
 	{
 		this.searchForBook(value);
 	},
-	onBookSelectHandler: function(data)
+	handlerBookSelect: function(data)
 	{
 		var book = {
 			id: data.id,
@@ -87,28 +82,20 @@ module.exports = HomeView = React.createClass({
             chapters: []
         };
         ClientActions.setSelectedBook(book);
+		MangaActions.getChapter(data.id, 1);	
 		this.openOverlay();
-		this.getChapter(data.id, 1);	
 	},
-	onChapterSelectHandler: function(value)
+	handlerChapterSelect: function(value)
 	{
-		this.getChapter(this.state.data.selectedBook.id, value);
+		MangaActions.getChapter(this.state.data.selectedBook.id, value);
 	},
-	onReadClick: function()
+	handlerOverlayReadClick: function()
 	{
 		this.closeOverlay();
 		this.setState({showReader: true});
 		window.scrollTo(0,0);
 	},
-	stickyHeaderHandler: function(shouldBeSticky)
-	{
-		if(shouldBeSticky)
-		{
-			return this.setState({showSmallHeader: true});
-		}
-		this.setState({showSmallHeader: false});
-	},
-	onOverlayCloseHandler: function()
+	handlerOverlayCloseHandler: function()
 	{
 		this.closeOverlay();
 		ClientActions.clearSelectedBook();
@@ -116,20 +103,14 @@ module.exports = HomeView = React.createClass({
 	render: function()
 	{
 		var mangaStore = this.state.data;
-		var selectedChapterPages = this.getChapterPages(mangaStore.selectedChapter.pages);
-		if(selectedChapterPages.length === 0)
-		{
-			selectedChapterPages = ['http://placehold.it/1000x400/ffffff/59488B/&text=Loading...'];
-		}
+		var selectedChapterPages = this._getChapterPages(mangaStore.selectedChapter.pages);
 
 		var reader = (
 			<div className="home-reader-wrapper">
-				<Reader pages={selectedChapterPages} onChapterSelect={this.onChapterSelectHandler} chapterLength={mangaStore.selectedBook.numOfChapters} currentChapterNumber={mangaStore.selectedChapter.number} />
+				<Reader pages={selectedChapterPages} onChapterSelect={this.handlerChapterSelect} chapterLength={mangaStore.selectedBook.numOfChapters} currentChapterNumber={mangaStore.selectedChapter.number} />
 				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
 			</div>
 		);
-
-		console.log(mangaStore.selectedBook);
 
 		var overlay = (
 			<div className="home-overlay">
@@ -146,10 +127,10 @@ module.exports = HomeView = React.createClass({
 						min={1}
 						value={mangaStore.selectedBook.number}
 						max={mangaStore.selectedBook.numOfChapters}
-						onClose={this.onOverlayCloseHandler}
-						images={this.getChapterPreview(mangaStore.selectedChapter.pages)}
-						onSelect={this.onChapterSelectHandler}
-						onReadClick={this.onReadClick} />
+						onClose={this.handlerOverlayCloseHandler}
+						images={this._getChapterPreview(mangaStore.selectedChapter.pages)}
+						onSelect={this.handlerChapterSelect}
+						onReadClick={this.handlerOverlayReadClick} />
 				</div>
 			</div>
 		);
@@ -160,16 +141,16 @@ module.exports = HomeView = React.createClass({
 				
 				{this.state.showReader ? reader : ''}
 
-				<Header title="debonair manga" onDebounce={this.onSearchHandler} />
+				<Header title="debonair manga" onDebounce={this.handlerSearch} />
 
 				<div className="container">
 					<div>
 						<div><span>Popular</span></div>
-						<BookList books={this.state.data.popularBooks} onSelect={this.onBookSelectHandler} />
+						<BookList books={mangaStore.popularBooks} onSelect={this.handlerBookSelect} />
 						<div><span>Trending</span></div>
-						<BookList books={this.state.data.trendingBooks} onSelect={this.onBookSelectHandler} />
+						<BookList books={mangaStore.trendingBooks} onSelect={this.handlerBookSelect} />
 						<div><span>Updated</span></div>
-						<BookList books={this.state.data.updatedBooks} onSelect={this.onBookSelectHandler} />
+						<BookList books={mangaStore.updatedBooks} onSelect={this.handlerBookSelect} />
 					</div>
 				</div>
 
