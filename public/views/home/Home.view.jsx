@@ -49,7 +49,9 @@ module.exports = HomeView = React.createClass({
 	},
 	openOverlay: function()
 	{
-		this.setState({showOverlay: true});
+		this.setState({showOverlay: true}, function(){
+			React.findDOMNode(this.refs.overlay).focus();
+		});
 		document.body.classList.add('no-scroll');
 	},
 	closeOverlay: function()
@@ -121,6 +123,13 @@ module.exports = HomeView = React.createClass({
 		this.closeOverlay();
 		ClientActions.clearSelectedBook();
 	},
+	handlerOverlayEsc: function(e)
+	{
+		if(e.key === 'Escape')
+		{
+			this.handlerOverlayCloseHandler();
+		}
+	},
 	render: function()
 	{
 		var mangaStore = this.state.data;
@@ -138,7 +147,7 @@ module.exports = HomeView = React.createClass({
 		);
 
 		var overlay = (
-			<div className="home-overlay">
+			<div ref="overlay" className="home-overlay" tabIndex="1" onKeyUp={this.handlerOverlayEsc}>
 				<div>
 					<BookOverlay
 						coverUrl={mangaStore.selectedBook.coverUrl}
