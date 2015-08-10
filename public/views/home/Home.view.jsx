@@ -20,6 +20,11 @@ module.exports = HomeView = React.createClass({
 			searchResultText: ''
 		};
 	},
+	componentWillMount: function()
+	{
+		this.readerBook = this.state.data.selectedBook;
+        this.readerChapter = this.state.data.selectedChapter;
+	},
 	componentDidMount: function()
 	{
 		if(this.props.query.title)
@@ -52,7 +57,6 @@ module.exports = HomeView = React.createClass({
 	closeReader: function()
 	{
 		this.setState({showReader: false});
-		ClientActions.clearSelectedBook();
 	},
 	openReader: function()
 	{
@@ -104,6 +108,8 @@ module.exports = HomeView = React.createClass({
 	handlerOverlayReadClick: function()
 	{
 		this.closeOverlay();
+		this.readerBook = this.state.data.selectedBook;
+		this.readerChapter = this.state.data.selectedChapter;
 		this.openReader();
 		window.scrollTo(0,0);
 	},
@@ -115,15 +121,15 @@ module.exports = HomeView = React.createClass({
 	render: function()
 	{
 		var mangaStore = this.state.data;
-		var selectedChapterPages = this._getChapterPages(mangaStore.selectedChapter.pages);
+		var selectedChapterPages = this._getChapterPages(this.readerChapter.pages);
 
 		var reader = (
 			<div className="home-reader-wrapper">
 				<Reader ref="reader"
 					pages={selectedChapterPages}
 					onChapterSelect={this.handlerChapterSelect}
-					chapterLength={mangaStore.selectedBook.numOfChapters}
-					currentChapterNumber={mangaStore.selectedChapter.number} />
+					chapterLength={this.readerBook.numOfChapters}
+					currentChapterNumber={this.readerChapter.number} />
 				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
 			</div>
 		);
