@@ -14,6 +14,10 @@
 	background-color: black;
 }
 
+.reader-wrapper.light {
+	background-color: #FFF;
+}
+
 .reader-image {
 	max-height: 100vh;
 	max-width: 100vw;
