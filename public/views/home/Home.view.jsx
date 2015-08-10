@@ -199,6 +199,8 @@ module.exports = HomeView = React.createClass({
 					<span>Bleach</span>
 					<span>Magi</span>
 					<span>Boku no Hero</span>
+					<span>Toriko</span>
+					<span>Seven Deadly Sins</span>
 				</div>
 
 				<div className="container">
