@@ -207,7 +207,7 @@ module.exports = HomeView = React.createClass({
 				
 				{this.state.showReader ? reader : ''}
 
-				<Header title="debonair manga" onDebounce={this.handlerSearch} />
+				<Header title="debonair manga" onDebounce={this.handlerSearch} autofocus={true} />
 
 				<div className="home-tab-stuff">
 					<span>Naruto</span>
