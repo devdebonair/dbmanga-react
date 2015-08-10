@@ -82,16 +82,16 @@ module.exports = BookOverlay = React.createClass({
 						<div className="book-overlay-content">
 							<div className="book-overlay-summary-icons">
 								<div>
-									<IconText icon="face" iconColor="#FFF" text={this.props.author} iconSize={24} />
+									<IconText icon="face" iconColor="#FFF" text={this.props.author} iconSize={20} />
 								</div>
 								<div>
-									<IconText icon="remove_red_eye" iconColor="#FFF" text={formatNumberWithCommas(this.props.views) + ' Views'} iconSize={24} />
+									<IconText icon="remove_red_eye" iconColor="#FFF" text={formatNumberWithCommas(this.props.views) + ' Views'} iconSize={20} />
 								</div>
 								<div>
-									<IconText icon="book" iconColor="#FFF" text={this.props.length + ' Chapters'} iconSize={24} />
+									<IconText icon="book" iconColor="#FFF" text={this.props.length + ' Chapters'} iconSize={20} />
 								</div>
 								<div>
-									<IconText icon="autorenew" iconColor="#FFF" text={this.props.status + ' Status'} iconSize={24} />
+									<IconText icon="autorenew" iconColor="#FFF" text={this.props.status + ' Status'} iconSize={20} />
 								</div>
 							</div>
 
