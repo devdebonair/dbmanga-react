@@ -81,6 +81,11 @@ module.exports = HomeView = React.createClass({
 			return element.image;
 		});
 	},
+	_updateReader: function()
+	{
+		this.readerBook = this.state.data.selectedBook;
+		this.readerChapter = this.state.data.selectedChapter;
+	},
 	handlerSearch: function(value)
 	{
 		this.setState({
@@ -109,12 +114,12 @@ module.exports = HomeView = React.createClass({
 	handlerChapterSelect: function(value)
 	{
 		MangaActions.getChapter(this.state.data.selectedBook.id, value);
+		this._updateReader();
 	},
 	handlerOverlayReadClick: function()
 	{
 		this.closeOverlay();
-		this.readerBook = this.state.data.selectedBook;
-		this.readerChapter = this.state.data.selectedChapter;
+		this._updateReader();
 		this.openReader();
 		window.scrollTo(0,0);
 	},
