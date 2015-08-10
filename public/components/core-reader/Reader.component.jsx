@@ -70,7 +70,7 @@ module.exports = React.createClass({
 	render: function() 
 	{
 		return (
-			<div ref="reader" className={'reader-wrapper' + (this.state.isNight ? ' night' : '') } tabIndex="0" onKeyUp={this.keyHandler}>
+			<div ref="reader" className={'reader-wrapper' + (this.state.isNight ? ' night' : '') } tabIndex="0" onKeyDown={this.keyHandler}>
 				<Slider speed={100} ref="slider" data={this.setCarouselData.bind(this, 'slider')}>
 					{this.props.pages.map(function(element, index){
 						return(
