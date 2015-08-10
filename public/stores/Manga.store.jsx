@@ -94,10 +94,6 @@ var MangaStore = Reflux.createStore({
     {
         this.data.selectedBook = res.body;
     	this.trigger(this.data);
-    },
-    getDefaultData: function()
-    {
-        return this.data;
     }
 });
 
