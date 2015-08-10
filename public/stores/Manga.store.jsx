@@ -27,7 +27,8 @@ var MangaStore = Reflux.createStore({
             },
             popularBooks: [],
             updatedBooks: [],
-            trendingBooks: []
+            trendingBooks: [],
+            categories: []
         };
     },
     getInitialState: function()
@@ -94,6 +95,11 @@ var MangaStore = Reflux.createStore({
     {
         this.data.selectedBook = res.body;
     	this.trigger(this.data);
+    },
+    onGetCategoryCompleted: function(res)
+    {
+        this.data.categories = this.data.categories.concat(res);
+        this.trigger(this.data);
     }
 });
 

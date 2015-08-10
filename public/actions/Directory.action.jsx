@@ -9,7 +9,8 @@ var DirectoryActions = Reflux.createActions({
 	'getTrendingBooks': 	{asyncResult: true},
 	'getFeaturedBooks': 	{asyncResult: true},
 	'getDirectoryTitles': 	{asyncResult: true},
-	'getChapter': 			{asyncResult: true}
+	'getChapter': 			{asyncResult: true},
+	'getCategory': 			{asyncResult: true}
 });
 
 function responseHandler(err, res)
@@ -44,6 +45,25 @@ DirectoryActions.searchBooks.listen(function(data){
 		.get('/api/v1/manga/search')
 		.query(data)
 		.end(responseHandler.bind(this));
+});
+
+DirectoryActions.getCategory.listen(function(description, data){
+	data.title = data.title || '';
+    data.status = data.status || '';
+    data.genres = data.genres || [];
+    data.min = data.min || null;
+    data.max = data.max || null;
+
+	request
+		.get('/api/v1/manga/search')
+		.query(data)
+		.end(function(err, res){
+			if(err)
+			{
+				return this.failed(err, res);
+			}
+			return this.completed({ categoryDescription: description, books: res.body });
+		}.bind(this));
 });
 
 DirectoryActions.getPopularBooks.listen(function(limit){

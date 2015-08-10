@@ -38,6 +38,9 @@ module.exports = HomeView = React.createClass({
 			MangaActions.getPopularBooks(5);
 			MangaActions.getTrendingBooks(5);
 			MangaActions.getUpdatedBooks(5);
+			MangaActions.getCategory('Action-Packed Marathon', {genres: 'shounen', min: 150});
+			MangaActions.getCategory('Kick back and fall in love', {genres: 'romance ecchi', max: 100});
+			MangaActions.getCategory('Good luck catching up', {min: 500});
 		}
 	},
 	searchForBook: function(title)
@@ -157,6 +160,7 @@ module.exports = HomeView = React.createClass({
 			</div>
 		);
 
+		console.log(mangaStore.categories);
 		var general = (
 			<div className="home-manga-general">
 				<div className="home-manga-general-category-title"><span>Most Popular Manga</span></div>
@@ -165,6 +169,14 @@ module.exports = HomeView = React.createClass({
 				<BookList books={mangaStore.trendingBooks} onSelect={this.handlerBookSelect} />
 				<div className="home-manga-general-category-title"><span>Newest Updates</span></div>
 				<BookList books={mangaStore.updatedBooks} onSelect={this.handlerBookSelect} />
+				{mangaStore.categories.map(function(element, index){
+					return(
+						<div key={index}>
+							<div className="home-manga-general-category-title"><span>{element.categoryDescription}</span></div>
+							<BookList books={element.books} onSelect={this.handlerBookSelect} />
+						</div>
+					);
+				}.bind(this))}
 			</div>
 		);
 		
