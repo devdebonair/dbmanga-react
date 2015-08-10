@@ -22,6 +22,7 @@ module.exports = HomeView = React.createClass({
 	},
 	componentWillMount: function()
 	{
+		// set reader to defaults
 		this.readerBook = this.state.data.selectedBook;
         this.readerChapter = this.state.data.selectedChapter;
 	},
@@ -95,20 +96,12 @@ module.exports = HomeView = React.createClass({
 	},
 	handlerBookSelect: function(data)
 	{
-		var book = {
-			id: data.id,
-            coverUrl: data.coverUrl,
-            genres: data.genres,
-            author: data.author,
-            description: data.description,
-            views: data.views,
-            numOfChapters: data.length,
-            status: data.status,
-            title: data.title,
-            chapters: []
-        };
+		// missing keys in data
+        data.numOfChapters = data.length;
+        data.chapters = [];
+
 		MangaActions.getChapter(data.id, 1);
-        ClientActions.setSelectedBook(book);
+        ClientActions.setSelectedBook(data);
 		this.openOverlay();
 	},
 	handlerChapterSelect: function(value)
