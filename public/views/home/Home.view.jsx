@@ -202,7 +202,10 @@ module.exports = HomeView = React.createClass({
 		);
 		
 		var searchResults = (
-			<BookList books={mangaStore.searchResults} onSelect={this.handlerBookSelect} />
+			<div className="home-manga-general">
+				<span className="home-manga-general-category-title">{mangaStore.searchResults.length} Search Results</span>
+				<BookList books={mangaStore.searchResults} onSelect={this.handlerBookSelect} />
+			</div>
 		);
 
 		var hasSearchResults = (this.state.searchResultText.length !== 0 && mangaStore.searchResults.length !== 0);
