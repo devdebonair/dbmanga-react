@@ -81,7 +81,6 @@ module.exports = ReaderControls = React.createClass({
 
 	render: function()
 	{
-		console.log(this.props.currentChapterNumber);
 		return(
 			<div className="reader-controls-wrapper">
 				<div className={'reader-controls-general' + (this.state.isChapterView ? ' no-display' : '')} >
