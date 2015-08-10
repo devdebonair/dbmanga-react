@@ -181,7 +181,6 @@ module.exports = HomeView = React.createClass({
 			</div>
 		);
 
-		console.log(mangaStore.categories);
 		var general = (
 			<div className="home-manga-general">
 				<div className="home-manga-general-category-title"><span>Most Popular Manga</span></div>
