@@ -135,13 +135,20 @@ module.exports = HomeView = React.createClass({
 			this.handlerOverlayCloseHandler();
 		}
 	},
+	handlerReaderEsc: function(e)
+	{
+		if(e.key === 'Escape')
+		{
+			this.closeReader();
+		}
+	},
 	render: function()
 	{
 		var mangaStore = this.state.data;
 		var selectedChapterPages = this._getChapterPages(this.readerChapter.pages);
 
 		var reader = (
-			<div className="home-reader-wrapper">
+			<div className="home-reader-wrapper" tabIndex="1" onKeyUp={this.handlerReaderEsc}>
 				<Reader ref="reader"
 					pages={selectedChapterPages}
 					onChapterSelect={this.handlerChapterSelect}
