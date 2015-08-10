@@ -195,12 +195,11 @@ module.exports = HomeView = React.createClass({
 		
 		var searchResults = (
 			<div className="home-manga-general">
-				<span className="home-manga-general-category-title">{mangaStore.searchResults.length} Search Results</span>
+				<span className="home-manga-general-category-title">{mangaStore.searchResults.length !== 0 ? mangaStore.searchResults.length : 'No '} Search Results</span>
 				<BookList books={mangaStore.searchResults} onSelect={this.handlerBookSelect} />
 			</div>
 		);
 
-		var hasSearchResults = (this.state.searchResultText.length !== 0 && mangaStore.searchResults.length !== 0);
 		return(
 			<div id="home-wrapper">
 				{this.state.showOverlay ? overlay : ''}
@@ -220,7 +219,7 @@ module.exports = HomeView = React.createClass({
 				</div>
 
 				<div className="container">
-					{hasSearchResults ? searchResults : general}
+					{this.state.searchResultText.length !== 0 ? searchResults : general}
 				</div>
 			</div>
 		);
