@@ -181,6 +181,11 @@ module.exports = HomeView = React.createClass({
 
 				<Header title="debonair manga" onDebounce={this.handlerSearch} />
 
+				<div className="home-tab-stuff">
+					<span>Manga</span>
+					<span>Articles</span>
+				</div>
+
 				<div className="container">
 					{hasSearchResults ? searchResults : general}
 				</div>

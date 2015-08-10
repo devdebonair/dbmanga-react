@@ -26,6 +26,26 @@
 	background-color: #FFF;
 }
 
+.home-tab-stuff {
+	height: 60px;
+	width: 100%;
+	margin-bottom: 25px;
+	background-color: #FFF;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	text-align: center;
+}
+
+.home-tab-stuff span {
+	padding: 0 25px;
+	height: 60px;
+	line-height: 60px;
+	cursor: pointer;
+}
+
+.home-tab-stuff span:hover {
+	color: #59488B;
+}
+
 .home-reader-close {
 	position: absolute;
 	padding: 25px 50px;
@@ -62,12 +82,15 @@
 		margin-left: 25px;
 		font-size: 32px;
 		font-weight: 400;
+		margin-left: 0;
 	}
 
 	.home-manga-general-category-title {
-		width: 50px;
 		margin: 0 auto;
-		text-align: left;
+	}
+
+	.home-tab-stuff {
+		border-radius: 1px;
 	}
 }
 
