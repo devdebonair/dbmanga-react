@@ -45,11 +45,15 @@ module.exports = React.createClass({
 	{
 		this.setState({text:data});
 	},
+	focus: function()
+	{
+		React.findDOMNode(this.refs.search).focus();
+	},
 	render: function()
 	{
 		return(
 			<div>
-				<input className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.state.text}  autoFocus={this.props.autofocus} />
+				<input ref="search" className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.state.text}  autoFocus={this.props.autofocus} />
 			</div>
 		);
 	}

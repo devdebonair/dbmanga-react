@@ -27,6 +27,7 @@ module.exports = Header = React.createClass({
 	{
 		this.refs.search.changeHandler({target: { value: ''}});
 		this.props.onTitleClick();
+		this.refs.search.focus();
 	},
 	items: [
 		{label: 'Shounen', value: 'shounen'},
