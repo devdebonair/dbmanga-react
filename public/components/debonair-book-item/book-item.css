@@ -1,9 +1,11 @@
 .book-cover {
-	box-shadow: 2px 2px 3px 1px #59488B;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	width: 200px;
 	height: 310px;
+	cursor: pointer;
+	transition-duration: .2s;
 }
 
 .book-cover:hover {
-	cursor: pointer;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
