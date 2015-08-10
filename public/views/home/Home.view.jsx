@@ -194,8 +194,11 @@ module.exports = HomeView = React.createClass({
 				<Header title="debonair manga" onDebounce={this.handlerSearch} />
 
 				<div className="home-tab-stuff">
-					<span>Manga</span>
-					<span>Articles</span>
+					<span>Naruto</span>
+					<span>One Piece</span>
+					<span>Bleach</span>
+					<span>Magi</span>
+					<span>Boku no Hero</span>
 				</div>
 
 				<div className="container">
