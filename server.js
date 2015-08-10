@@ -8,6 +8,7 @@ var MongoStore = require("connect-mongo")(session);
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var methodOverride = require("method-override");
+var favicon = require('serve-favicons');
 
 var config = require("./config");
 var passport = require("passport");
@@ -26,6 +27,9 @@ app.use(function(req, res, next) {
         next();
     }
 }); 
+
+app.use( favicon(config.favicons));
+app.use( express.static(__dirname + ''));
 app.use( express.static(__dirname + '/public') );
 app.use( '/lib', express.static(__dirname + '/dist') );
 app.use( cookieParser() );
