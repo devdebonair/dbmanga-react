@@ -60,15 +60,15 @@ module.exports = HomeView = React.createClass({
 		this.setState({showOverlay: false});
 		document.body.classList.remove('no-scroll');
 	},
-	closeReader: function()
-	{
-		this.setState({showReader: false});
-	},
 	openReader: function()
 	{
 		this.setState({showReader: true}, function(){
 			React.findDOMNode(this.refs.reader).focus();
 		});
+	},
+	closeReader: function()
+	{
+		this.setState({showReader: false});
 	},
 	_getChapterPreview: function(chapter)
 	{
