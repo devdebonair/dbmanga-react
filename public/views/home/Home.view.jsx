@@ -3,6 +3,7 @@ var Reflux 			= require('reflux');
 var MangaStore 		= require('../../stores/Manga.store.jsx');
 var MangaActions 	= require('../../actions/Directory.action.jsx');
 var ClientActions 	= require('../../actions/Client.action.jsx');
+var Router			= require('react-router');
 
 var Stylesheet 		= require('./home.css');
 var Header 			= require('../../components/debonair-header/Header.component.jsx');
@@ -11,13 +12,17 @@ var BookOverlay 	= require('../../components/debonair-book-overlay/BookOverlay.c
 var Reader 			= require('../../components/core-reader/Reader.component.jsx');
 
 module.exports = HomeView = React.createClass({
-	mixins: [Reflux.connect(MangaStore, 'data')],
+	mixins: [
+		Reflux.connect(MangaStore, 'data'), 
+		Router.State, 
+		Router.Navigation
+	],
 	getInitialState: function()
 	{
 		return {
 			showOverlay: false,
 			showReader: false,
-			searchResultText: ''
+			searchTerm: ''
 		};
 	},
 	componentWillMount: function()
@@ -27,27 +32,40 @@ module.exports = HomeView = React.createClass({
 	},
 	componentDidMount: function()
 	{
-		if(this.props.query.title)
+		this.respondToRoutes();
+		MangaActions.getPopularBooks(5);
+		MangaActions.getTrendingBooks(5);
+		MangaActions.getUpdatedBooks(5);
+		MangaActions.getCategory('Action-Packed Marathon', {genres: 'shounen', min: 150});
+		MangaActions.getCategory('Hopeless Romantic', {genres: 'romance ecchi', max: 100});
+		MangaActions.getCategory('Good luck catching up', {min: 500});
+		MangaActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
+		MangaActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
+	},
+	respondToRoutes: function()
+	{
+		if(this.props.params.searchTerm && this.props.params.searchTerm !== '')
 		{
-			this.setState({
-				searchResultText: ''
+			this.setState({searchTerm: this.props.params.searchTerm.replace(/_/g,' ')}, function(){
+				if(this.state.searchTerm !== '')
+				{
+					MangaActions.searchBooks({title: this.state.searchTerm});
+				}
 			});
 		}
-		else
+
+		if(this.props.params.mangaId && !this.props.params.chapterNumber)
 		{
-			MangaActions.getPopularBooks(5);
-			MangaActions.getTrendingBooks(5);
-			MangaActions.getUpdatedBooks(5);
-			MangaActions.getCategory('Action-Packed Marathon', {genres: 'shounen', min: 150});
-			MangaActions.getCategory('Hopeless Romantic', {genres: 'romance ecchi', max: 100});
-			MangaActions.getCategory('Good luck catching up', {min: 500});
-			MangaActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
-			MangaActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
+			MangaActions.getBook(this.props.params.mangaId);
+			this.openOverlay();
 		}
 	},
 	searchForBook: function(title)
 	{
-		MangaActions.searchBooks({title: title});
+		if(this.state.searchTerm !== '')
+		{
+			MangaActions.searchBooks({title: this.state.searchTerm});
+		}
 	},
 	openOverlay: function()
 	{
@@ -90,10 +108,9 @@ module.exports = HomeView = React.createClass({
 	},
 	handlerSearch: function(value)
 	{
-		this.setState({
-			searchResultText: value
+		this.setState({searchTerm: value}, function(){
+			this.searchForBook();
 		});
-		this.searchForBook(value);
 	},
 	handlerBookSelect: function(data)
 	{
@@ -135,6 +152,10 @@ module.exports = HomeView = React.createClass({
 		{
 			this.closeReader();
 		}
+	},
+	handlerHeaderTitleClick: function()
+	{
+		this.setState({searchTerm: ''});
 	},
 	render: function()
 	{
@@ -203,11 +224,11 @@ module.exports = HomeView = React.createClass({
 
 		return(
 			<div id="home-wrapper">
-				{this.state.showOverlay ? overlay : ''}
+				{this.state.showOverlay && mangaStore.selectedBook.id !== '' ? overlay : ''}
 				
 				{this.state.showReader ? reader : ''}
 
-				<Header title="debonair manga" onDebounce={this.handlerSearch} autofocus={true} />
+				<Header title="debonair manga" onDebounce={this.handlerSearch} autofocus={true} onTitleClick={this.handlerHeaderTitleClick} searchTerm={this.state.searchTerm} />
 
 				<div className="home-tab-stuff">
 					<span>Naruto</span>
@@ -220,7 +241,7 @@ module.exports = HomeView = React.createClass({
 				</div>
 
 				<div className="container">
-					{this.state.searchResultText.length !== 0 ? searchResults : general}
+					{mangaStore.searchResults.length !== 0 && this.state.searchTerm !== '' ? searchResults : general}
 				</div>
 			</div>
 		);

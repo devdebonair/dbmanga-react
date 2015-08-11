@@ -23,27 +23,15 @@ module.exports = React.createClass({
 			autofocus: false
 		};
 	},
-	getInitialState: function()
-	{
-		return {
-			text: ''
-		};
-	},
 	componentWillMount: function()
 	{
-		this.setState({text:this.props.value});
 		this.debounceHandler = debounce(this.props.onDebounce, this.props.delay, this.props.immediate);
 	},
 	changeHandler: function(e)
 	{
 		var value = e.target.value
-		this.setText(value);
 		this.props.onChange(value);
 		this.debounceHandler(value);
-	},
-	setText: function(data)
-	{
-		this.setState({text:data});
 	},
 	focus: function()
 	{
@@ -53,7 +41,7 @@ module.exports = React.createClass({
 	{
 		return(
 			<div>
-				<input ref="search" className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.state.text}  autoFocus={this.props.autofocus} />
+				<input ref="search" className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.props.value}  autoFocus={this.props.autofocus} />
 			</div>
 		);
 	}

@@ -10,7 +10,8 @@ module.exports = Header = React.createClass({
 		onTitleClick: 	React.PropTypes.func,
 		onBrowseSelect: React.PropTypes.func,
 		title: 			React.PropTypes.string,
-		autofocus: 		React.PropTypes.bool
+		autofocus: 		React.PropTypes.bool,
+		searchTerm: 	React.PropTypes.string
 	},
 	getDefaultProps: function()
 	{
@@ -20,6 +21,7 @@ module.exports = Header = React.createClass({
 			onTitleClick: 	function(){},
 			onBrowseSelect: function(){},
 			title: 			'TITLE',
+			searchTerm: '',
 			autofocus: false
 		};
 	},
@@ -37,7 +39,7 @@ module.exports = Header = React.createClass({
 						<span onClick={this.titleClickHandler}>{this.props.title}</span>
 					</div>
 					<div id="home-search">
-						<Search ref="search" placeholder="Search..." onChange={this.props.onChange} onDebounce={this.props.onDebounce} autofocus={this.props.autofocus} />
+						<Search ref="search" placeholder="Search..." onChange={this.props.onChange} onDebounce={this.props.onDebounce} autofocus={this.props.autofocus} value={this.props.searchTerm} />
 					</div>
 				</div>
 			</section>
