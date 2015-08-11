@@ -62,6 +62,11 @@ var MangaStore = Reflux.createStore({
 
         this.trigger(this.data);
     },
+    onClearSearchResults: function()
+    {
+        this.data.searchResults = [];
+        this.trigger(this.data);
+    },
     onGetChapterCompleted: function(res)
     {
         this.data.selectedChapter = res.body;
