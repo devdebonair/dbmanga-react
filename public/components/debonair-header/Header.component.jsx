@@ -25,7 +25,6 @@ module.exports = Header = React.createClass({
 	},
 	titleClickHandler: function()
 	{
-		this.refs.search.changeHandler({target: { value: ''}});
 		this.props.onTitleClick();
 		this.refs.search.focus();
 	},
