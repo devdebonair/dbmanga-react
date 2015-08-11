@@ -31,6 +31,7 @@ DirectoryActions.getChapter.listen(function(book_id, chapter_number){
 DirectoryActions.getBook.listen(function(book_id){
 	request
 		.get(('/api/v1/manga/' + book_id))
+		.query({select: '-chapters'})
 		.end(responseHandler.bind(this));
 });
 
