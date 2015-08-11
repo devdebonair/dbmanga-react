@@ -29,10 +29,6 @@ module.exports = HomeView = React.createClass({
 	{
 		// set reader to defaults
 		this._updateReader();
-	},
-	componentDidMount: function()
-	{
-		this.respondToRoutes();
 		MangaActions.getPopularBooks(5);
 		MangaActions.getTrendingBooks(5);
 		MangaActions.getUpdatedBooks(5);
@@ -41,24 +37,6 @@ module.exports = HomeView = React.createClass({
 		MangaActions.getCategory('Good luck catching up', {min: 500});
 		MangaActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
 		MangaActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
-	},
-	respondToRoutes: function()
-	{
-		if(this.props.params.searchTerm && this.props.params.searchTerm !== '')
-		{
-			this.setState({searchTerm: this.props.params.searchTerm.replace(/_/g,' ')}, function(){
-				if(this.state.searchTerm !== '')
-				{
-					MangaActions.searchBooks({title: this.state.searchTerm});
-				}
-			});
-		}
-
-		if(this.props.params.mangaId && !this.props.params.chapterNumber)
-		{
-			MangaActions.getBook(this.props.params.mangaId);
-			this.openOverlay();
-		}
 	},
 	searchForBook: function(title)
 	{
@@ -83,33 +61,28 @@ module.exports = HomeView = React.createClass({
 	{
 		this.setState({showReader: true}, function(){
 			React.findDOMNode(this.refs.reader).focus();
-		});
+		}.bind(this));
 	},
 	closeReader: function()
 	{
 		this.setState({showReader: false});
-	},
-	_getChapterPreview: function(chapter)
-	{
-		return chapter.map(function(element){
-			return element.image;
-		}).splice(0,4);
-	},
-	_getChapterPages: function(chapter)
-	{
-		return chapter.map(function(element){
-			return element.image;
-		});
 	},
 	_updateReader: function()
 	{
 		this.readerBook = this.state.data.selectedBook;
 		this.readerChapter = this.state.data.selectedChapter;
 	},
-	handlerSearch: function(value)
+	handlerSearchDebounce: function(value)
+	{
+		this.searchForBook({title: value});
+	},
+	handlerSearchChange: function(value)
 	{
 		this.setState({searchTerm: value}, function(){
-			this.searchForBook();
+			if(this.state.searchTerm === '')
+			{
+				ClientActions.clearSearchResults();
+			}
 		});
 	},
 	handlerBookSelect: function(data)
@@ -155,17 +128,29 @@ module.exports = HomeView = React.createClass({
 	},
 	handlerHeaderTitleClick: function()
 	{
-		this.setState({searchTerm: ''});
+		this.setState({searchTerm:''}, function(){
+			ClientActions.clearSearchResults();
+		});
 	},
 	render: function()
 	{
 		var mangaStore = this.state.data;
-		var selectedChapterPages = this._getChapterPages(this.readerChapter.pages);
+		var readerPages = this.readerChapter.pages.map(function(element){
+			return element.image;
+		});
+		var selectedPreviewPages = mangaStore.selectedChapter.pages.map(function(element){
+			return element.image;
+		}).slice(0,4);
 
+		/********************
+		 *
+		 *	Components
+		 *
+		 ********************/
 		var reader = (
 			<div className="home-reader-wrapper" tabIndex="1" onKeyUp={this.handlerReaderEsc}>
 				<Reader ref="reader"
-					pages={selectedChapterPages}
+					pages={readerPages}
 					onChapterSelect={this.handlerChapterSelect}
 					chapterLength={this.readerBook.numOfChapters}
 					currentChapterNumber={this.readerChapter.number} />
@@ -189,7 +174,7 @@ module.exports = HomeView = React.createClass({
 						value={mangaStore.selectedBook.number}
 						max={mangaStore.selectedBook.numOfChapters}
 						onClose={this.handlerOverlayCloseHandler}
-						images={this._getChapterPreview(mangaStore.selectedChapter.pages)}
+						images={selectedPreviewPages}
 						onSelect={this.handlerChapterSelect}
 						onReadClick={this.handlerOverlayReadClick} />
 				</div>
@@ -222,13 +207,18 @@ module.exports = HomeView = React.createClass({
 			</div>
 		);
 
+		/********************
+		 *
+		 *	Render
+		 *
+		 ********************/
 		return(
 			<div id="home-wrapper">
-				{this.state.showOverlay && mangaStore.selectedBook.id !== '' ? overlay : ''}
+				{this.state.showOverlay ? overlay : ''}
 				
 				{this.state.showReader ? reader : ''}
 
-				<Header title="debonair manga" onDebounce={this.handlerSearch} autofocus={true} onTitleClick={this.handlerHeaderTitleClick} searchTerm={this.state.searchTerm} />
+				<Header title="debonair manga" onDebounce={this.handlerSearchDebounce} onChange={this.handlerSearchChange} autofocus={true} onTitleClick={this.handlerHeaderTitleClick} searchTerm={this.state.searchTerm} />
 
 				<div className="home-tab-stuff">
 					<span>Naruto</span>
@@ -241,7 +231,7 @@ module.exports = HomeView = React.createClass({
 				</div>
 
 				<div className="container">
-					{mangaStore.searchResults.length !== 0 && this.state.searchTerm !== '' ? searchResults : general}
+					{this.state.searchTerm !== '' ? searchResults : general}
 				</div>
 			</div>
 		);
