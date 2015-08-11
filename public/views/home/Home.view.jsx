@@ -23,8 +23,7 @@ module.exports = HomeView = React.createClass({
 	componentWillMount: function()
 	{
 		// set reader to defaults
-		this.readerBook = this.state.data.selectedBook;
-        this.readerChapter = this.state.data.selectedChapter;
+		this._updateReader();
 	},
 	componentDidMount: function()
 	{
