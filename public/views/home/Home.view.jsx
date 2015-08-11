@@ -38,13 +38,6 @@ module.exports = HomeView = React.createClass({
 		MangaActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
 		MangaActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
 	},
-	searchForBook: function(title)
-	{
-		if(this.state.searchTerm !== '')
-		{
-			MangaActions.searchBooks({title: this.state.searchTerm});
-		}
-	},
 	openOverlay: function()
 	{
 		this.setState({showOverlay: true}, function(){
@@ -74,7 +67,10 @@ module.exports = HomeView = React.createClass({
 	},
 	handlerSearchDebounce: function(value)
 	{
-		this.searchForBook({title: value});
+		if(this.state.searchTerm !== '')
+		{
+			MangaActions.searchBooks({title: value});
+		}
 	},
 	handlerSearchChange: function(value)
 	{
