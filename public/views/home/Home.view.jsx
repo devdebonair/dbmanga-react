@@ -40,8 +40,10 @@ module.exports = HomeView = React.createClass({
 			MangaActions.getTrendingBooks(5);
 			MangaActions.getUpdatedBooks(5);
 			MangaActions.getCategory('Action-Packed Marathon', {genres: 'shounen', min: 150});
-			MangaActions.getCategory('Kick back and fall in love', {genres: 'romance ecchi', max: 100});
+			MangaActions.getCategory('Hopeless Romantic', {genres: 'romance ecchi', max: 100});
 			MangaActions.getCategory('Good luck catching up', {min: 500});
+			MangaActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
+			MangaActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
 		}
 	},
 	searchForBook: function(title)
