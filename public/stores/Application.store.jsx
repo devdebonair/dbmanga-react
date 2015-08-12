@@ -108,7 +108,7 @@ module.exports = Reflux.createStore({
                 author: '',
                 summary: '',
                 views: { currentWeek: 0, currentMonth: 0, total: 0 },
-                length: 0,
+                numOfChapters: 0,
                 status: '',
                 title: ''
             },
@@ -119,7 +119,7 @@ module.exports = Reflux.createStore({
                 author: '',
                 summary: '',
                 views: { currentWeek: 0, currentMonth: 0, total: 0 },
-                length: 0,
+                numOfChapters: 0,
                 status: '',
                 title: ''
             },
@@ -130,7 +130,8 @@ module.exports = Reflux.createStore({
             },
             readerChapter: {
             	number: 0,
-                pages: []
+                pages: [],
+                title: ''
             }
 		};
 	}
