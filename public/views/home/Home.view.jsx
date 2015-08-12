@@ -1,112 +1,71 @@
-var React 			= require('react');
-var Reflux 			= require('reflux');
-var MangaStore 		= require('../../stores/Manga.store.jsx');
-var MangaActions 	= require('../../actions/Directory.action.jsx');
-var ClientActions 	= require('../../actions/Client.action.jsx');
-var Router			= require('react-router');
+var React 				= require('react');
+var Reflux 				= require('reflux');
+var MangaStore 			= require('../../stores/Manga.store.jsx');
+var MangaActions 		= require('../../actions/Directory.action.jsx');
+var ClientActions 		= require('../../actions/Client.action.jsx');
+var ApplicationStore 	= require('../../stores/Application.store.jsx');
+var ApplicationActions 	= require('../../actions/Application.action.jsx');
+var Router				= require('react-router');
 
-var Stylesheet 		= require('./home.css');
-var Header 			= require('../../components/debonair-header/Header.component.jsx');
-var BookList 		= require('../../components/debonair-book-list/BookList.component.jsx');
-var BookOverlay 	= require('../../components/debonair-book-overlay/BookOverlay.component.jsx');
-var Reader 			= require('../../components/core-reader/Reader.component.jsx');
+var Stylesheet 			= require('./home.css');
+var Header 				= require('../../components/debonair-header/Header.component.jsx');
+var BookList 			= require('../../components/debonair-book-list/BookList.component.jsx');
+var BookOverlay 		= require('../../components/debonair-book-overlay/BookOverlay.component.jsx');
+var Reader 				= require('../../components/core-reader/Reader.component.jsx');
 
 module.exports = HomeView = React.createClass({
 	mixins: [
-		Reflux.connect(MangaStore, 'data'), 
+		Reflux.connect(ApplicationStore, 'app'), 
 		Router.State, 
 		Router.Navigation
 	],
-	getInitialState: function()
-	{
-		return {
-			showOverlay: false,
-			showReader: false,
-			searchTerm: ''
-		};
-	},
 	componentWillMount: function()
 	{
 		// set reader to defaults
-		this._updateReader();
-		MangaActions.getPopularBooks(5);
-		MangaActions.getTrendingBooks(5);
-		MangaActions.getUpdatedBooks(5);
-		MangaActions.getCategory('Action-Packed Marathon', {genres: 'shounen', min: 150});
-		MangaActions.getCategory('Hopeless Romantic', {genres: 'romance ecchi', max: 100});
-		MangaActions.getCategory('Good luck catching up', {min: 500});
-		MangaActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
-		MangaActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
-	},
-	openOverlay: function()
-	{
-		this.setState({showOverlay: true}, function(){
-			React.findDOMNode(this.refs.overlay).focus();
-		});
-		document.body.classList.add('no-scroll');
-	},
-	closeOverlay: function()
-	{
-		this.setState({showOverlay: false});
-		document.body.classList.remove('no-scroll');
-	},
-	openReader: function()
-	{
-		this.setState({showReader: true}, function(){
-			React.findDOMNode(this.refs.reader).focus();
-		}.bind(this));
-	},
-	closeReader: function()
-	{
-		this.setState({showReader: false});
-	},
-	_updateReader: function()
-	{
-		this.readerBook = this.state.data.selectedBook;
-		this.readerChapter = this.state.data.selectedChapter;
+		ApplicationActions.getPopularBooks(5);
+		ApplicationActions.getTrendingBooks(5);
+		ApplicationActions.getUpdatedBooks(5);
+		ApplicationActions.getCategory('Action-Packed Marathon', {genres: 'shounen', min: 150});
+		ApplicationActions.getCategory('Hopeless Romantic', {genres: 'romance ecchi', max: 100});
+		ApplicationActions.getCategory('Good luck catching up', {min: 500});
+		ApplicationActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
+		ApplicationActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
 	},
 	handlerSearchDebounce: function(value)
 	{
-		if(this.state.searchTerm !== '')
+		if(this.state.app.searchTerm !== '')
 		{
-			MangaActions.searchBooks({title: value});
+			ApplicationActions.searchBooks({title: value});
 		}
 	},
 	handlerSearchChange: function(value)
 	{
-		this.setState({searchTerm: value}, function(){
-			if(this.state.searchTerm === '')
-			{
-				ClientActions.clearSearchResults();
-			}
-		});
+		ApplicationActions.setSearchTerm(value);
 	},
 	handlerBookSelect: function(data)
 	{
-		// missing keys in data
-        data.numOfChapters = data.length;
-        data.chapters = [];
-
-		MangaActions.getChapter(data.id, 1);
-        ClientActions.setSelectedBook(data);
-		this.openOverlay();
+		data.chapters = [];
+        ApplicationActions.setSelectedBook(data);
+		ApplicationActions.selectChapter(data.id, 1);
 	},
 	handlerChapterSelect: function(value)
 	{
-		MangaActions.getChapter(this.state.data.selectedBook.id, value);
-		this._updateReader();
+		ApplicationActions.selectChapter(this.state.app.selectedBook.id, value);
+	},
+	handlerReaderChapterSelect: function(value)
+	{
+		ApplicationActions.getReaderChapter(this.state.app.readerBook.id, value);
 	},
 	handlerOverlayReadClick: function()
 	{
-		this.closeOverlay();
-		this._updateReader();
-		this.openReader();
+		ApplicationActions.setReaderChapter(this.state.app.selectedChapter);
+		ApplicationActions.setReaderBook(this.state.app.selectedBook);
+		ApplicationActions.clearSelectedBook();
 		window.scrollTo(0,0);
 	},
 	handlerOverlayCloseHandler: function()
 	{
-		this.closeOverlay();
-		ClientActions.clearSelectedBook();
+		ApplicationActions.clearSelectedBook();
 	},
 	handlerOverlayEsc: function(e)
 	{
@@ -119,22 +78,25 @@ module.exports = HomeView = React.createClass({
 	{
 		if(e.key === 'Escape')
 		{
-			this.closeReader();
+			ApplicationActions.clearReaderBook();
 		}
 	},
 	handlerHeaderTitleClick: function()
 	{
-		this.setState({searchTerm:''}, function(){
-			ClientActions.clearSearchResults();
-		});
+		ApplicationActions.setSearchTerm('');
+		ApplicationActions.clearSearchResults();
+	},
+	handlerReaderClose: function()
+	{
+		ApplicationActions.clearReaderBook();
+		ApplicationActions.clearReaderChapter();
 	},
 	render: function()
 	{
-		var mangaStore = this.state.data;
-		var readerPages = this.readerChapter.pages.map(function(element){
+		var readerPages = this.state.app.readerChapter.pages.map(function(element){
 			return element.image;
 		});
-		var selectedPreviewPages = mangaStore.selectedChapter.pages.map(function(element){
+		var selectedPreviewPages = this.state.app.selectedChapter.pages.map(function(element){
 			return element.image;
 		}).slice(0,4);
 
@@ -147,10 +109,10 @@ module.exports = HomeView = React.createClass({
 			<div className="home-reader-wrapper" tabIndex="1" onKeyUp={this.handlerReaderEsc}>
 				<Reader ref="reader"
 					pages={readerPages}
-					onChapterSelect={this.handlerChapterSelect}
-					chapterLength={this.readerBook.numOfChapters}
-					currentChapterNumber={this.readerChapter.number} />
-				<div className="home-reader-close"><span onClick={this.closeReader}>X</span></div>
+					onChapterSelect={this.handlerReaderChapterSelect}
+					chapterLength={this.state.app.readerBook.numOfChapters}
+					currentChapterNumber={this.state.app.readerChapter.number} />
+				<div className="home-reader-close"><span onClick={this.handlerReaderClose}>X</span></div>
 			</div>
 		);
 
@@ -158,17 +120,17 @@ module.exports = HomeView = React.createClass({
 			<div ref="overlay" className="home-overlay" tabIndex="1" onKeyUp={this.handlerOverlayEsc}>
 				<div>
 					<BookOverlay
-						coverUrl={mangaStore.selectedBook.coverUrl}
-						genres={mangaStore.selectedBook.genres}
-						author={mangaStore.selectedBook.author}
-						summary={mangaStore.selectedBook.description}
-						views={mangaStore.selectedBook.views.total}
-						length={mangaStore.selectedBook.numOfChapters}
-						status={mangaStore.selectedBook.status}
-						title={mangaStore.selectedBook.title}
+						coverUrl={this.state.app.selectedBook.coverUrl}
+						genres={this.state.app.selectedBook.genres}
+						author={this.state.app.selectedBook.author}
+						summary={this.state.app.selectedBook.description}
+						views={this.state.app.selectedBook.views.total}
+						length={this.state.app.selectedBook.numOfChapters}
+						status={this.state.app.selectedBook.status}
+						title={this.state.app.selectedBook.title}
 						min={1}
-						value={mangaStore.selectedBook.number}
-						max={mangaStore.selectedBook.numOfChapters}
+						value={this.state.app.selectedBook.number}
+						max={this.state.app.selectedBook.numOfChapters}
 						onClose={this.handlerOverlayCloseHandler}
 						images={selectedPreviewPages}
 						onSelect={this.handlerChapterSelect}
@@ -180,12 +142,12 @@ module.exports = HomeView = React.createClass({
 		var general = (
 			<div className="home-manga-general">
 				<div className="home-manga-general-category-title"><span>Most Popular Manga</span></div>
-				<BookList books={mangaStore.popularBooks} onSelect={this.handlerBookSelect} />
+				<BookList books={this.state.app.popularBooks} onSelect={this.handlerBookSelect} />
 				<div className="home-manga-general-category-title"><span>Hottest Manga This Week</span></div>
-				<BookList books={mangaStore.trendingBooks} onSelect={this.handlerBookSelect} />
+				<BookList books={this.state.app.trendingBooks} onSelect={this.handlerBookSelect} />
 				<div className="home-manga-general-category-title"><span>Newest Updates</span></div>
-				<BookList books={mangaStore.updatedBooks} onSelect={this.handlerBookSelect} />
-				{mangaStore.categories.map(function(element, index){
+				<BookList books={this.state.app.updatedBooks} onSelect={this.handlerBookSelect} />
+				{this.state.app.categories.map(function(element, index){
 					return(
 						<div key={index}>
 							<div className="home-manga-general-category-title"><span>{element.categoryDescription}</span></div>
@@ -198,8 +160,8 @@ module.exports = HomeView = React.createClass({
 		
 		var searchResults = (
 			<div className="home-manga-general">
-				<span className="home-manga-general-category-title">{mangaStore.searchResults.length !== 0 ? mangaStore.searchResults.length : 'No '} Search Results</span>
-				<BookList books={mangaStore.searchResults} onSelect={this.handlerBookSelect} />
+				<span className="home-manga-general-category-title">{this.state.app.searchResults.length !== 0 ? this.state.app.searchResults.length : 'No '} Search Results</span>
+				<BookList books={this.state.app.searchResults} onSelect={this.handlerBookSelect} />
 			</div>
 		);
 
@@ -210,11 +172,11 @@ module.exports = HomeView = React.createClass({
 		 ********************/
 		return(
 			<div id="home-wrapper">
-				{this.state.showOverlay ? overlay : ''}
+				{this.state.app.selectedBook.id !== '' ? overlay : ''}
 				
-				{this.state.showReader ? reader : ''}
+				{this.state.app.readerBook.id !== '' ? reader : ''}
 
-				<Header title="debonair manga" onDebounce={this.handlerSearchDebounce} onChange={this.handlerSearchChange} autofocus={true} onTitleClick={this.handlerHeaderTitleClick} searchTerm={this.state.searchTerm} />
+				<Header title="debonair manga" onDebounce={this.handlerSearchDebounce} onChange={this.handlerSearchChange} autofocus={true} onTitleClick={this.handlerHeaderTitleClick} searchTerm={this.state.app.searchTerm} />
 
 				<div className="home-tab-stuff">
 					<span>Naruto</span>
@@ -227,7 +189,7 @@ module.exports = HomeView = React.createClass({
 				</div>
 
 				<div className="container">
-					{this.state.searchTerm !== '' ? searchResults : general}
+					{this.state.app.searchTerm !== '' ? searchResults : general}
 				</div>
 			</div>
 		);
