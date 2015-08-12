@@ -9,7 +9,8 @@ module.exports = React.createClass({
 		onDebounce: 	React.PropTypes.func,
 		delay: 			React.PropTypes.number,
 		immediate: 		React.PropTypes.bool,
-		autofocus: 		React.PropTypes.bool
+		autofocus: 		React.PropTypes.bool,
+		value: 			React.PropTypes.string 
 	},
 	getDefaultProps: function()
 	{
@@ -20,7 +21,8 @@ module.exports = React.createClass({
 			onDebounce: function(){},
 			delay: 250,
 			immediate: false,
-			autofocus: false
+			autofocus: false,
+			value: ''
 		};
 	},
 	componentWillMount: function()
@@ -41,7 +43,7 @@ module.exports = React.createClass({
 	{
 		return(
 			<div>
-				<input ref="search" className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} autoFocus={this.props.autofocus} />
+				<input ref="search" className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} autoFocus={this.props.autofocus} value={this.props.value} />
 			</div>
 		);
 	}

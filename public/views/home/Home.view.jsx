@@ -180,7 +180,8 @@ module.exports = HomeView = React.createClass({
 					onDebounce={this.handlerSearchDebounce} 
 					onChange={ApplicationActions.setSearchTerm} 
 					autofocus={true} 
-					onTitleClick={this.handlerHeaderTitleClick} />
+					onTitleClick={this.handlerHeaderTitleClick}
+					searchTerm={this.state.app.searchTerm} />
 
 				<div className="home-tab-stuff">
 					<span>Naruto</span>

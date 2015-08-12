@@ -43,7 +43,8 @@ module.exports = Header = React.createClass({
 							placeholder="Search..."
 							onChange={this.props.onChange}
 							onDebounce={this.props.onDebounce}
-							autofocus={this.props.autofocus} />
+							autofocus={this.props.autofocus}
+							value={this.props.searchTerm} />
 					</div>
 				</div>
 			</section>
