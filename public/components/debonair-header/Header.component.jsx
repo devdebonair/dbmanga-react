@@ -39,7 +39,12 @@ module.exports = Header = React.createClass({
 						<span onClick={this.titleClickHandler}>{this.props.title}</span>
 					</div>
 					<div id="home-search">
-						<Search ref="search" placeholder="Search..." onChange={this.props.onChange} onDebounce={this.props.onDebounce} autofocus={this.props.autofocus} value={this.props.searchTerm} />
+						<Search ref="search" 
+							placeholder="Search..." 
+							onChange={this.props.onChange} 
+							onDebounce={this.props.onDebounce} 
+							autofocus={this.props.autofocus} 
+							value={this.props.searchTerm} />
 					</div>
 				</div>
 			</section>
