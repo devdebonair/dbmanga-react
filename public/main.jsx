@@ -7,7 +7,10 @@ var Home = require('./views/home/Home.view.jsx');
 var routes = (
 	<Route>
 		<Route name="home" path="/" handler={Home} />
-		<Route path="search" handler={Home} />
+		<Route name="search" path="search/:searchTerm" handler={Home} />
+		<Route path="search/" handler={Home} />
+		<Route name="manga" path="manga/:mangaId" handler={Home} />
+		<Route name="chapter" path="manga/:mangaId/:chapterNumber" handler={Home} />
 	</Route>
 );
 var App = React.createClass({
@@ -17,6 +20,6 @@ var App = React.createClass({
 	}
 });
 
-ReactRouter.run(routes, function(Root) {
+ReactRouter.run(routes, ReactRouter.HistoryLocation, function(Root) {
     React.render(<Root/>, document.getElementById('app'));
 });
