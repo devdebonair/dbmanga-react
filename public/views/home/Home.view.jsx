@@ -90,11 +90,12 @@ module.exports = HomeView = React.createClass({
 	},
 	render: function()
 	{
-		console.log(this.state.app);
 		var readerPages = this.state.app.readerChapter.pages.map(function(element){
 			return element.image;
 		});
-		var selectedPreviewPages = this.state.app.selectedChapter.pages.map(function(element){
+
+		console.log(this.state.app.selectedChapter);
+		var selectedChapterPreview = this.state.app.selectedChapter.pages.map(function(element){
 			return element.image;
 		}).slice(0,4);
 
@@ -130,7 +131,7 @@ module.exports = HomeView = React.createClass({
 						value={this.state.app.selectedBook.number}
 						max={this.state.app.selectedBook.numOfChapters}
 						onClose={this.handlerOverlayCloseHandler}
-						images={selectedPreviewPages}
+						images={selectedChapterPreview}
 						onSelect={this.handlerChapterSelect}
 						onReadClick={this.handlerOverlayReadClick} />
 				</div>
