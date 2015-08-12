@@ -90,6 +90,7 @@ module.exports = HomeView = React.createClass({
 	},
 	render: function()
 	{
+		console.log(this.state.app);
 		var readerPages = this.state.app.readerChapter.pages.map(function(element){
 			return element.image;
 		});
@@ -122,7 +123,7 @@ module.exports = HomeView = React.createClass({
 						author={this.state.app.selectedBook.author}
 						summary={this.state.app.selectedBook.description}
 						views={this.state.app.selectedBook.views.total}
-						length={this.state.app.selectedBook.numOfChapters}
+						numOfChapters={this.state.app.selectedBook.numOfChapters}
 						status={this.state.app.selectedBook.status}
 						title={this.state.app.selectedBook.title}
 						min={1}
@@ -173,7 +174,12 @@ module.exports = HomeView = React.createClass({
 				
 				{this.state.app.readerBook.id !== '' ? reader : ''}
 
-				<Header title="debonair manga" onDebounce={this.handlerSearchDebounce} onChange={this.handlerSearchChange} autofocus={true} onTitleClick={this.handlerHeaderTitleClick} searchTerm={this.state.app.searchTerm} />
+				<Header 
+					title="debonair manga" 
+					onDebounce={this.handlerSearchDebounce} 
+					onChange={ApplicationActions.setSearchTerm} 
+					autofocus={true} 
+					onTitleClick={this.handlerHeaderTitleClick} />
 
 				<div className="home-tab-stuff">
 					<span>Naruto</span>

@@ -41,7 +41,7 @@ module.exports = React.createClass({
 	{
 		return(
 			<div>
-				<input ref="search" className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} value={this.props.value}  autoFocus={this.props.autofocus} />
+				<input ref="search" className="search-debounced" type="search" placeholder={this.props.placeholder} onChange={this.changeHandler} autoFocus={this.props.autofocus} />
 			</div>
 		);
 	}
