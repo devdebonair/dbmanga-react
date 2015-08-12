@@ -5,7 +5,7 @@ module.exports = BookItem = React.createClass({
 	propTypes: {
 		title: React.PropTypes.string,
 		coverUrl: React.PropTypes.string,
-		length: React.PropTypes.number,
+		numOfChapters: React.PropTypes.number,
 		author: React.PropTypes.string,
 		status: React.PropTypes.string,
 		genres: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -20,7 +20,7 @@ module.exports = BookItem = React.createClass({
 		return {
 			title: '',
 			coverUrl: '',
-			length: 0,
+			numOfChapters: 0,
 			author: '',
 			status: '',
 			genres: [],

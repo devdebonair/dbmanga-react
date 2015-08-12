@@ -30,7 +30,7 @@ module.exports = BookList = React.createClass({
 										onClick={this.clickHandler}
 										title={element.title}
 										coverUrl={element.coverUrl}
-										length={element.numOfChapters}
+										numOfChapters={element.numOfChapters}
 										author={element.author}
 										status={element.status}
 										genres={element.genres}
