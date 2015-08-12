@@ -18,7 +18,7 @@ module.exports = BookOverlay = React.createClass({
 		genres: 		React.PropTypes.arrayOf(React.PropTypes.string),
 		author: 		React.PropTypes.string,
 		views: 			React.PropTypes.number,
-		length: 		React.PropTypes.number,
+		numOfChapters: 	React.PropTypes.number,
 		status: 		React.PropTypes.string,
 		title: 			React.PropTypes.string,
 		summary: 		React.PropTypes.string,
@@ -88,7 +88,7 @@ module.exports = BookOverlay = React.createClass({
 									<IconText icon="remove_red_eye" iconColor="#FFF" text={formatNumberWithCommas(this.props.views) + ' Views'} iconSize={20} />
 								</div>
 								<div>
-									<IconText icon="book" iconColor="#FFF" text={this.props.length + ' Chapters'} iconSize={20} />
+									<IconText icon="book" iconColor="#FFF" text={this.props.numOfChapters + ' Chapters'} iconSize={20} />
 								</div>
 								<div>
 									<IconText icon="autorenew" iconColor="#FFF" text={this.props.status + ' Status'} iconSize={20} />
@@ -107,7 +107,7 @@ module.exports = BookOverlay = React.createClass({
 					<section className={this.state.isChapter ? "book-overlay-chapter-preview" : 'no-display'}>
 						<span className="book-overlay-back-icon" onClick={this.closeChapterSection}><IconFont icon="keyboard_arrow_left" /></span>
 						<span className="book-overlay-chapter-preview-title">Chapter {this.state.chapter}</span>
-						<div><Range min={1} max={this.props.length} onChange={this.changeHandler} onDebounce={this.debounceHandler} value={1} /></div>
+						<div><Range min={1} max={this.props.numOfChapters} onChange={this.changeHandler} onDebounce={this.debounceHandler} value={1} /></div>
 						<div className="book-overlay-chapter-preview-image-wrapper">
 							{this.props.images.map(function(element, index){
 								return(
