@@ -21,8 +21,8 @@ module.exports = Header = React.createClass({
 			onTitleClick: 	function(){},
 			onBrowseSelect: function(){},
 			title: 			'TITLE',
-			searchTerm: '',
-			autofocus: false
+			searchTerm: 	'',
+			autofocus: 		false
 		};
 	},
 	titleClickHandler: function()
@@ -40,10 +40,10 @@ module.exports = Header = React.createClass({
 					</div>
 					<div id="home-search">
 						<Search ref="search" 
-							placeholder="Search..." 
-							onChange={this.props.onChange} 
-							onDebounce={this.props.onDebounce} 
-							autofocus={this.props.autofocus} 
+							placeholder="Search..."
+							onChange={this.props.onChange}
+							onDebounce={this.props.onDebounce}
+							autofocus={this.props.autofocus}
 							value={this.props.searchTerm} />
 					</div>
 				</div>
