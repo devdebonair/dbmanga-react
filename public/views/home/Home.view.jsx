@@ -28,6 +28,10 @@ module.exports = HomeView = React.createClass({
 		ApplicationActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
 		ApplicationActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
 	},
+	componentWillReceiveProps: function(nextProps)
+	{
+		console.log(nextProps);
+	},
 	handlerSearchDebounce: function(value)
 	{
 		if(this.state.app.searchTerm !== '')
@@ -37,6 +41,7 @@ module.exports = HomeView = React.createClass({
 	},
 	handlerSearchChange: function(value)
 	{
+		this.replaceWith('search', {searchTerm: value});
 		ApplicationActions.setSearchTerm(value);
 	},
 	handlerBookSelect: function(data)
@@ -86,7 +91,6 @@ module.exports = HomeView = React.createClass({
 	handlerReaderClose: function()
 	{
 		ApplicationActions.clearReaderBook();
-		ApplicationActions.clearReaderChapter();
 	},
 	render: function()
 	{
@@ -94,7 +98,6 @@ module.exports = HomeView = React.createClass({
 			return element.image;
 		});
 
-		console.log(this.state.app.selectedChapter);
 		var selectedChapterPreview = this.state.app.selectedChapter.pages.map(function(element){
 			return element.image;
 		}).slice(0,4);
@@ -178,7 +181,7 @@ module.exports = HomeView = React.createClass({
 				<Header 
 					title="debonair manga" 
 					onDebounce={this.handlerSearchDebounce} 
-					onChange={ApplicationActions.setSearchTerm} 
+					onChange={this.handlerSearchChange} 
 					autofocus={true} 
 					onTitleClick={this.handlerHeaderTitleClick}
 					searchTerm={this.state.app.searchTerm} />
