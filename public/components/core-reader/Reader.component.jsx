@@ -21,6 +21,10 @@ module.exports = React.createClass({
 			pages: 					['http://placehold.it/1000x400/ffffff/59488B/&text=Loading...']
 		};
 	},
+	componentDidMount: function()
+	{
+		React.findDOMNode(this.refs.reader).focus();
+	},
 	componentWillReceiveProps: function(swag, swagger)
 	{
 		this.goToPage(0);
