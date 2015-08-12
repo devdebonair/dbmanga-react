@@ -74,7 +74,7 @@ module.exports = Reflux.createStore({
     onSetSearchTerm: function(newTerm)
     {
     	this.data.searchTerm = newTerm;
-    	this.trigger(newTerm);
+    	this.trigger(this.data);
     },
     onClearSelectedBook: function()
     {
