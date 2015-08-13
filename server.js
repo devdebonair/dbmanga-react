@@ -63,7 +63,7 @@ require("./database/db")(mongoose, function(err){
     console.log('Establishing Routes....');
     require("./routes")(app, passport);
     app.get('*', function(req, res){
-        res.sendFile(__dirname + '/public/index.html');
+        res.sendFile(__dirname + '/public/general/index.html');
     });
 });
 
