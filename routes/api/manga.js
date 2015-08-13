@@ -38,6 +38,7 @@ module.exports = function(router)
             var status = req.query.status || [/.*/];
             var min = parseInt(req.query.min) || -1;
             var max = parseInt(req.query.max) || Number.MAX_VALUE;
+            var limit = req.query.limit || 25;
 
             if(typeof genres === 'string')
             {
@@ -49,7 +50,7 @@ module.exports = function(router)
                 status = status.split(" ");
             }
             
-            Manga.find({ title: { $regex: title }, genres: { $all: genres }, status: { $in: status }, numOfChapters: { $gt: min, $lt: max } }, 'id views title coverUrl author description genres numOfChapters status', { sort: { 'views.currentWeek': -1 } }, function(err, data){
+            Manga.find({ title: { $regex: title }, genres: { $all: genres }, status: { $in: status }, numOfChapters: { $gt: min, $lt: max } }, 'id views title coverUrl author description genres numOfChapters status', { sort: { 'views.currentWeek': -1 }, limit: limit }, function(err, data){
                 if(err)
                 {
                     return res.status(404).json(err);
@@ -58,11 +59,11 @@ module.exports = function(router)
             });
         });
 
-    router.route('/manga/popular/:limit')
+    router.route('/manga/popular')
     
         .get(function(req, res) {
 
-            Manga.findPopular(req.params.limit, function(err, data){
+            Manga.findPopular(req.query.limit, function(err, data){
                 if(err)
                 {
                     return res.status(404).json({message: err});
@@ -71,11 +72,11 @@ module.exports = function(router)
             });
         });
         
-    router.route('/manga/trending/:limit')
+    router.route('/manga/trending')
     
         .get(function(req, res) {
-            
-            Manga.findTrending(req.params.limit, function(err, data){
+
+            Manga.findTrending(req.query.limit, function(err, data){
                 if(err)
                 {
                     return res.status(404).json({message: err});
@@ -84,11 +85,11 @@ module.exports = function(router)
             });
         });
         
-    router.route('/manga/updated/:limit')
+    router.route('/manga/updated')
     
         .get(function(req, res) {
-            
-            Manga.findUpdated(req.params.limit, function(err, data){
+
+            Manga.findUpdated(req.query.limit, function(err, data){
                 if(err)
                 {
                     return res.status(404).json({message: err});
