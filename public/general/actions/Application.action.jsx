@@ -1,5 +1,5 @@
 var Reflux = require('reflux');
-var Mangaka = require('../js/mangaka');
+var Mangaka = require('../../js/mangaka');
 
 var ApplicationActions = Reflux.createActions({
 	'searchBooks': 			{asyncResult: true},
