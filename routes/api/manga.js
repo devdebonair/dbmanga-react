@@ -163,11 +163,12 @@ module.exports = function(router)
             {
                 if(fields[i].charAt(0) === '-')
                 {
+                    fields[i] = fields[i].substring(1);
                     select += '-';
                 }
                 select += 'chapters.' + fields[i] + ' ';
             }
-            
+            console.log(select);
             Manga.findById(req.params.manga_id, select, function(err, manga){
                 if(err)
                 {
@@ -208,7 +209,7 @@ module.exports = function(router)
                 }
 
                 return res.status(200).json(manga.chapters[0]);
-            });    
+            });
         })
         
         .delete(function(req, res) {
