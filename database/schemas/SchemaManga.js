@@ -3,12 +3,13 @@ var Schema = require("mongoose").Schema;
 var Manga = new Schema({
     title: {type: String, lowercase: true, trim: true},
     description: { type: String, required: true },
+    aliases: [String],
     coverUrl: { type: String, required: true },
     author: { type: String, required: true },
     likes: { type: Number, required: true, default: 0 },
     artist: String,
     genres: [String],
-    subgenres: [String],
+    tags: [String],
     numOfChapters: { type: Number, required: true, default: 0 },
     status: {type: String, lowercase: true, trim: true, required: true },
     chapters: [{
