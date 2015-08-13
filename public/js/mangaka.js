@@ -32,6 +32,7 @@ module.exports.getCategory = function(description, data, callback){
     data.genres = data.genres || [];
     data.min = data.min || null;
     data.max = data.max || null;
+    data.limit = data.limit || null;
 
     // { categoryDescription: description, books: res.body }
 
@@ -44,21 +45,24 @@ module.exports.getCategory = function(description, data, callback){
 module.exports.getPopularBooks = function(limit, callback){
 	limit = limit || 10;
 	request
-		.get('/api/v1/manga/popular/'+limit)
+		.get('/api/v1/manga/popular/')
+		.query({limit: limit})
 		.end(callback);
 },
 
 module.exports.getUpdatedBooks = function(limit, callback){
 	limit = limit || 10;
 	request
-		.get('/api/v1/manga/updated/'+limit)
+		.get('/api/v1/manga/updated/')
+		.query({limit: limit})
 		.end(callback);
 },
 
 module.exports.getTrendingBooks = function(limit, callback){
 	limit = limit || 10;
 	request
-		.get('/api/v1/manga/trending/'+limit)
+		.get('/api/v1/manga/trending/')
+		.query({limit: limit})
 		.end(callback);
 },
 
