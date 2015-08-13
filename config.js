@@ -5,7 +5,7 @@ module.exports = {
     },
     
     database: {
-        connectionString: 'mongodb://catalyst:kiddollars@dbh84.mongolab.com:27847/debonair-manga',
+        connectionString: 'mongodb://catalyst:kiddollars@apollo.modulusmongo.net:27017/e5woTomo',
         user: 'catalyst',
         password: 'kiddollars'
     },
