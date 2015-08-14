@@ -3,7 +3,7 @@ var Manga = require("../database/models/ModelManga");
 var Kissmanga = require("./manga-scraper").KissManga;
 var fs = require("fs");
 
-var directory = fs.readFileSync('./txt/directory', 'utf8').split('\n');
+var directory = fs.readFileSync('./txt/directory', 'utf8').split('\n').slice(parseInt(process.argv[2]),parseInt(process.argv[3]));
 var counter = 0;
 
 require("../database/db")(mongoose, function(err){
