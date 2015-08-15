@@ -18,14 +18,14 @@ require("../database/db")(mongoose, function(err){
         }
 
         // check for incomplete chapters
-        // for(var i = 0; i < data.chapters.length; i++)
-        // {
-        //     console.log(data.chapters[i]);
-        //     if(!data.chapters[i].pages || data.chapters[i].pages.length === 0)
-        //     {
-        //         return console.log('removing chapter %d\n\n', data.chapters[i].number);
-        //     }
-        // }
+        for(var i = 0; i < data.chapters.length; i++)
+        {
+            console.log(data.chapters[i]);
+            if(!data.chapters[i].pages || data.chapters[i].pages.length === 0)
+            {
+                return console.log('removing chapter %d\n\n', data.chapters[i].number);
+            }
+        }
         
 
         // create manga database object
