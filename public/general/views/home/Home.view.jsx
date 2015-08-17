@@ -33,6 +33,7 @@ module.exports = HomeView = React.createClass({
 		if(this.state.app.searchTerm !== '')
 		{
 			ApplicationActions.searchBooks({title: value});
+			ApplicationActions.clearSearchResults();
 		}
 	},
 	handlerSearchChange: function(value)
