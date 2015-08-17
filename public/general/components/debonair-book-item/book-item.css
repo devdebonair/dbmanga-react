@@ -4,6 +4,7 @@
 	height: 310px;
 	cursor: pointer;
 	transition-duration: .2s;
+	border: solid rgba(0,0,0,0.12) thin;
 }
 
 .book-cover:hover {
