@@ -28,10 +28,6 @@ module.exports = HomeView = React.createClass({
 		ApplicationActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
 		ApplicationActions.getCategory('It\'s done so now you can binge read.', {status: 'completed'});
 	},
-	componentWillReceiveProps: function(nextProps)
-	{
-		console.log(nextProps);
-	},
 	handlerSearchDebounce: function(value)
 	{
 		if(this.state.app.searchTerm !== '')
