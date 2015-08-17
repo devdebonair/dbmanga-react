@@ -26,7 +26,7 @@ module.exports = HomeView = React.createClass({
 		ApplicationActions.getCategory('Hopeless Romantic', {genres: 'romance ecchi', max: 100});
 		ApplicationActions.getCategory('Good luck catching up', {min: 500});
 		ApplicationActions.getCategory('Ongoing Harems', {genres: 'harem', status: 'ongoing'});
-		ApplicationActions.getCategory('It\'s done so now you can binge read.', {status: 'complete'});
+		ApplicationActions.getCategory('It\'s done so now you can binge read.', {status: 'completed'});
 	},
 	componentWillReceiveProps: function(nextProps)
 	{
