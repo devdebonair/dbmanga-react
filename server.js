@@ -9,6 +9,7 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var methodOverride = require("method-override");
 var favicon = require('serve-favicons');
+var cors = require('cors');
 
 var config = require("./config");
 var passport = require("passport");
@@ -16,6 +17,8 @@ var passport = require("passport");
 
 //Configure Express
 console.log('Configuring Express....');
+
+app.use(cors());
 app.use(function(req, res, next) { 
     if(req.headers.host === 'dbmanga.com') 
     { 
